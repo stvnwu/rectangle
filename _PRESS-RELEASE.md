@@ -31,49 +31,49 @@ Once the project moves into development, the press release can be used as a touc
 
   Alice will be able to snap a photo of her own business card. Upon doing so, she will be provided a unique QR code that will allow others to access her business card by scanning her QR code within a set time interval (for security reasons). This card/profile will now be stored in a DB. Alice can now edit the field of information that the application prompts her. She will be able to input the name, the company she works at, the position she holds at the company, the email, and the phone number from the card (similar to how Chase Bank allows users to verify the amount from a mobile check desposits after taking a photo). 
 
-  > If time persists, our application would allow for image recognition of text on a business card, which would parse the business card and autopopulate this information to a profile. We,the developers, know is a difficult challenge and are not considering as MVP
+  > If time persists, our application would allow for image recognition of text on a business card, which would parse the business card and autopopulate this information to a profile. We, the developers, know this is a difficult challenge and are not considering as MVP.
 
   Bob meets Alice at a conference at Moscone Center, and he snaps a photo of Alice's QR code. Now, Bob has her business card in his phone with all the populated fields preentered and a pin on his personal map at Moscone Center about when and where he met Alice. 
 
   Months later of using the mobile app with many other people, Bob sets the smartphone to landscape and begins scrolling through a "cover flow" of business cards and reveals information about a person and where he met them. He will also be able to search for a person in vertical list view with an omnibar (similar to iOS's Music App). 
 
   > TL;DR of MVP
-  > ..*  Save business cards to a QR Code
-  > ..*  Snap QR code to store on new user's phone
-  > ..*  Have a list of people's business cards
-  > ..*  Determine where you networked with people on a map
+  > *  Save business cards to a QR Code
+  > *  Snap QR code to store on new user's phone
+  > *  Have a list of people's business cards
+  > *  Determine where you networked with people on a map
 
 ## Problem ##
   > Describe the problem your product solves.
 
-..* Figuring out where you met people. 
-..* Maintaining a stack of other people's business cards you've collected
-..* Distributing a physical card from a stack of your business cards
+* Figuring out where you met people. 
+* Maintaining a stack of other people's business cards you've collected
+* Distributing a physical card from a stack of your business cards
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
 
-..* Paperless business cards
-..* Normalized information from only five input fields
-..* One-way connection (instead of Linkedin's two-way connection where users must send connection requestions and accepts before they are connected)
-..* Records when and where you met a person, based on the location where a QR code was scanned 
+* Paperless business cards
+* Normalized information from only five input fields
+* One-way connection (instead of Linkedin's two-way connection where users must send connection requestions and accepts before they are connected)
+* Records when and where you met a person, based on the location where a QR code was scanned 
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
 
-..* This is the Snapchats of Linkedin.
+* This is the Snapchat of Linkedin.
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
 
-..* Download the app from the App Store and profile creation is easy. Just snap a photo of your business card and scan someone's QR code to add their info into your phone.
+* Download the app from the App Store and profile creation is easy. Just snap a photo of your business card and scan someone's QR code to exchange information on your phone.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
-..* Business cards are the new selfies.
+* Business cards are the new selfies.
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
 
-..* Follow more@cardio.xyz for additional announcements.
+* Follow more@cardio.xyz for additional announcements.
