@@ -33,5 +33,12 @@
   "bugs": {
     "url": "https://github.com/IrreproachableCentaur/workwhere/issues"
   },
-  "homepage": "https://github.com/IrreproachableCentaur/workwhere#readme"
+  "homepage": "https://github.com/IrreproachableCentaur/workwhere#readme",
+  "devDependencies": {
+    "pg": "^4.4.1"
+  },
+  "dependencies": {
+    "bookshelf": "^0.8.2",
+    "knex": "^0.8.6"
+  }
 }
