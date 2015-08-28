@@ -1,0 +1,37 @@
+{
+  "name": "workwhere",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrreproachableCentaur/workwhere.git"
+  },
+  "author": "Irreproachable Centaur",
+  "contributors": [
+    {
+      "name": "Surya Kotamraju",
+      "email": "srtejk@gmail.com"
+    },
+    {
+      "name": "srtejk@gmail.com",
+      "email": "kiristrackgrose@gmail.com"
+    },
+    {
+      "name": "Andrés Viesca",
+      "email": "andres.viescar@gmail.com"
+    },
+    {
+      "name": "Steven Wu",
+      "email": "wucommasteven@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IrreproachableCentaur/workwhere/issues"
+  },
+  "homepage": "https://github.com/IrreproachableCentaur/workwhere#readme"
+}
