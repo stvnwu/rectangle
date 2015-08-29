@@ -1,5 +1,5 @@
 /**
- * @file Test server and database functionality
+ * @file Test database functionality
  *
 */
 
@@ -25,11 +25,7 @@ describe('Array', function() {
 //                  DATABASE TESTING                  //
 ////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
 xdescribe('User Model and Users Collection', function() {
-=======
-describe('User Model and Users Collection', function() {
->>>>>>> 02d6884a87a2bae760ba424da1fd515886272aba
   it('should add a user model', function() {
 
   });
@@ -59,11 +55,7 @@ describe('User Model and Users Collection', function() {
   });
 });
 
-<<<<<<< HEAD
 xdescribe('Card Model and Cards Collection', function() {
-=======
-describe('Card Model and Cards Collection', function() {
->>>>>>> 02d6884a87a2bae760ba424da1fd515886272aba
   it('should add a card model', function() {
 
   });
@@ -87,11 +79,7 @@ describe('Card Model and Cards Collection', function() {
 
 // connections collection sounds like something 101 Dalmations
 // dalmatian sensation-esque
-<<<<<<< HEAD
 xdescribe('Connection Model and Connections Collection', function() {
-=======
-describe('Connection Model and Connections Collection', function() {
->>>>>>> 02d6884a87a2bae760ba424da1fd515886272aba
   it('should add a connection model', function() {
 
   });
@@ -118,9 +106,3 @@ describe('Connection Model and Connections Collection', function() {
 
   });
 });
-
-
-
-////////////////////////////////////////////////////////
-//                   SERVER TESTING                   //
-////////////////////////////////////////////////////////
