@@ -32,23 +32,23 @@ db.knex.schema.hasTable('users').then(function(exists) {
 });
 
 
-// db.knex.schema.hasTable('cards').then(function(exists) {
-//   if (!exists) {
-//     db.knex.schema.createTable('users', function (link) {
-//       link.increments('id').primary();
-//       link.string('firstName', 20),
-//       link.string('lastName', 20),
-//       link.string('email', 25),
-//       link.string('company', 18),
-//       link.string('jobTitle', 25),
-//       link.string('phone', 14),
-//       link.integer('userID').references('users.id'),
-//       link.timestamps();
-//     }).then(function (table) {
-//       console.log('created table', table);
-//     });
-//   }
-// });
+db.knex.schema.hasTable('cards').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('cards', function (link) {
+      link.increments('id').primary();
+      link.string('firstName', 20),
+      link.string('lastName', 20),
+      link.string('email', 25),
+      link.string('company', 18),
+      link.string('jobTitle', 25),
+      link.string('phone', 14),
+      link.integer('userID').references('users.id'),
+      link.timestamps();
+    }).then(function (table) {
+      console.log('created table', table);
+    });
+  }
+});
 
 // db.knex.schema.hasTable('connections').then(function(exists) {
 //   if (!exists) {
