@@ -4,12 +4,12 @@
 
 var expect = require('chai').expect;
 var should = require('chai').should;
-var User = require('../database/user/user');
-var Users = require('../database/user/users');
-var Card = require('../database/card/card');
-var Cards = require('../database/card/cards');
-var Connection = require('../database/connection/connection');
-var Connections = require('../database/connection/connections');
+// var User = require('../database/user/user');
+// var Users = require('../database/user/users');
+// var Card = require('../database/card/card');
+// var Cards = require('../database/card/cards');
+// var Connection = require('../database/connection/connection');
+// var Connections = require('../database/connection/connections');
 
 describe('Array', function() {
   describe('#indexOf()', function () {
@@ -24,7 +24,7 @@ describe('Array', function() {
 //                  DATABASE TESTING                  //
 ////////////////////////////////////////////////////////
 
-describe('User Model and Users Collection', function() {
+xdescribe('User Model and Users Collection', function() {
   it('should add a user model', function() {
 
   });
@@ -54,7 +54,7 @@ describe('User Model and Users Collection', function() {
   });
 });
 
-describe('Card Model and Cards Collection', function() {
+xdescribe('Card Model and Cards Collection', function() {
   it('should add a card model', function() {
 
   });
@@ -78,7 +78,7 @@ describe('Card Model and Cards Collection', function() {
 
 // connections collection sounds like something 101 Dalmations
 // dalmatian sensation-esque
-describe('Connection Model and Connections Collection', function() {
+xdescribe('Connection Model and Connections Collection', function() {
   it('should add a connection model', function() {
 
   });
