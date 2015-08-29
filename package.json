@@ -35,8 +35,13 @@
   },
   "homepage": "https://github.com/IrreproachableCentaur/workwhere#readme",
   "dependencies": {
+    "bluebird": "^2.9.34",
+    "body-parser": "^1.13.3",
     "bookshelf": "^0.8.2",
+    "express": "^4.13.3",
     "knex": "^0.8.6",
+    "pg": "^4.4.1"
+  },
   "devDependencies": {
     "chai": "^3.2.0",
     "mocha": "^2.2.5"
