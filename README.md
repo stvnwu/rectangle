@@ -1,7 +1,4 @@
-# workwhere
-# Project Name
-
-> Pithy project description
+# workwhere [![Build Status](https://travis-ci.org/IrreproachableCentaur/workwhere.png)](https://travis-ci.org/IrreproachableCentaur/workwhere)
 
 ## Team
 
