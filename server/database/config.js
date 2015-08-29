@@ -25,6 +25,8 @@ db.knex.schema.hasTable('users').then(function(exists) {
       link.timestamps();
     }).then(function (table) {
       console.log('created table', table);
+    }).then(function () {
+      console.log('okay, we\'re done now');
     });
   }
 });
