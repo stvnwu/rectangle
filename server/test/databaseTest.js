@@ -5,52 +5,64 @@
 
 var expect = require('chai').expect;
 var should = require('chai').should;
-// var User = require('../database/user/user');
-// var Users = require('../database/user/users');
-// var Card = require('../database/card/card');
-// var Cards = require('../database/card/cards');
-// var Connection = require('../database/connection/connection');
-// var Connections = require('../database/connection/connections');
+var User = require('../database/users/user');
+var Users = require('../database/users/users');
+// var Card = require('../database/cards/card');
+// var Cards = require('../database/cards/cards');
+// var Connection = require('../database/connections/connection');
+// var Connections = require('../database/connections/connections');
 
-describe('Array', function() {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      var arr = [1, 2, 3];
-      expect(arr.indexOf(4)).to.equal(-1);
-    });
-  });
-});
+/**
+ * @example The test below is an example of the mocha and chai syntax
+*/
+
+// describe('Array', function() {
+//   describe('#indexOf()', function () {
+//     it('should return -1 when the value is not present', function () {
+//       var arr = [1, 2, 3];
+//       expect(arr.indexOf(4)).to.equal(-1);
+//     });
+//   });
+// });
 
 ////////////////////////////////////////////////////////
 //                  DATABASE TESTING                  //
 ////////////////////////////////////////////////////////
 
-xdescribe('User Model and Users Collection', function() {
+describe('User Model and Users Collection', function() {
   it('should add a user model', function() {
-
+    new User({email: 'testing@email.com', password: '1234'})
+    .save()
+    .then(function(user) {
+      expect(user.get('email')).to.equal('testing@email.com');
+    });
   });
 
-  it('should require a first name, last name, email, and password', function() {
+  xit('should require a first name, last name, email, and password', function() {
 
   });
 
   it('should find an added user', function() {
+    new User({email: 'testing@email.com'})
+    .fetch()
+    .then(function(user) {
+      expect(user.get('password')).to.equal('1234');
+    });
+  });
+
+  xit('should remove a user model', function() {
 
   });
 
-  it('should remove a user model', function() {
+  xit('should store only the hashed password', function() {
 
   });
 
-  it('should store only the hashed password', function() {
+  xit('should have all the users in the collection', function() {
 
   });
 
-  it('should have all the users in the collection', function() {
-
-  });
-
-  it('should have a cards method', function() {
+  xit('should have a cards method', function() {
 
   });
 });
