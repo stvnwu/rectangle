@@ -1,3 +1,7 @@
+/**
+ * @file Test server and database functionality
+*/
+
 var assert = require("assert");
 
 describe('Array', function() {
