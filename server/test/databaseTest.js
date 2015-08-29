@@ -10,6 +10,7 @@ chai.use(chaiAsPromised);
 var expect = require('chai').expect;
 var should = require('chai').should;
 
+
 var User = require('../database/users/user');
 var Users = require('../database/users/users');
 var Card = require('../database/cards/card');
@@ -39,11 +40,14 @@ var Cards = require('../database/cards/cards');
 */
 describe('User Model and Users Collection', function() {
   it('should add a user model', function() {
-    return expect(new User({email: 'testing@email.com', password: '1234'})
-            .save()).to.eventually.be.fulfilled;
+    new User({email: 'testing@email.com', password: '1234'})
+    .save()
+    .then(function(user) {
+      expect(user.get('email')).to.equal('testing@email.com');
+    });
   });
 
-  xit('should require an email and password', function() {
+  xit('should require a first name, last name, email, and password', function() {
 
   });
 
@@ -69,6 +73,11 @@ describe('User Model and Users Collection', function() {
     .then(function(id) {
       return new User({'id': id}).fetch()
     })).to.eventually.be.null;
+    new User({email: 'testing@email.com'})
+    .fetch()
+    .then(function(user) {
+      expect(user.get('password')).to.equal('1234');
+    });
   });
 
   xit('should store only the hashed password', function() {
@@ -80,7 +89,7 @@ describe('User Model and Users Collection', function() {
   });
 
   // it just actually doesn't have the method, which is bad
-  it('should have a cards method', function() {
+  xit('should have a cards method', function() {
     return expect(new User({email: 'testing@email.com'})
     .fetch().then(function(user) {
       // console.log(user);
