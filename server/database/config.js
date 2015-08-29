@@ -25,12 +25,9 @@ db.knex.schema.hasTable('users').then(function(exists) {
       link.timestamps();
     }).then(function (table) {
       console.log('created table', table);
-    }).then(function () {
-      console.log('okay, we\'re done now');
     });
   }
 });
-
 
 db.knex.schema.hasTable('cards').then(function(exists) {
   if (!exists) {
@@ -50,21 +47,20 @@ db.knex.schema.hasTable('cards').then(function(exists) {
   }
 });
 
-// db.knex.schema.hasTable('connections').then(function(exists) {
-//   if (!exists) {
-//     db.knex.schema.createTable('connections', function(link) {
-//       link.increments('id').primary(),
-//       link.integer('userID').references('users.id'),
-//       link.integer('cardID').references('cards.id'),
-//       link.string('createdWhere', 30),
-//       link.string('QR', 5),
-//       link.timestamps();
-//     }).then(function (table) {
-//       console.log('created table', table);
-//     });
-//   }
-// });
-
+db.knex.schema.hasTable('connections').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('connections', function(link) {
+      link.increments('id').primary(),
+      link.integer('userID').references('users.id'),
+      link.integer('cardID').references('cards.id'),
+      link.string('createdWhere', 30),
+      link.string('QR', 5),
+      link.timestamps();
+    }).then(function (table) {
+      console.log('created table', table);
+    });
+  }
+});
 
 
 

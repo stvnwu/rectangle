@@ -17,3 +17,4 @@ var Connection = db.Model.extend({
     return this.hasOne(Card);
   }
 });
+

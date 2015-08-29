@@ -10,3 +10,4 @@ var Connections = new db.Collection();
 Connections.model = User;
 
 module.exports = Connections;
+
