@@ -1,5 +1,6 @@
 /**
  * @file Test server and database functionality
+ *
 */
 
 var expect = require('chai').expect;
