@@ -2,6 +2,10 @@
  * @file Test database functionality
  *
 */
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
+ 
+chai.use(chaiAsPromised);
 
 var expect = require('chai').expect;
 var should = require('chai').should;
@@ -30,13 +34,13 @@ var Users = require('../database/users/users');
 //                  DATABASE TESTING                  //
 ////////////////////////////////////////////////////////
 
+/**
+ * @example Test using Chai-As-Promised correctly
+*/
 describe('User Model and Users Collection', function() {
   it('should add a user model', function() {
-    new User({email: 'testing@email.com', password: '1234'})
-    .save()
-    .then(function(user) {
-      expect(user.get('email')).to.equal('testing@email.com');
-    });
+    return expect(new User({email: 'testing@email.com', password: '1234'})
+            .save()).to.eventually.be.fulfilled;
   });
 
   xit('should require a first name, last name, email, and password', function() {
@@ -47,7 +51,7 @@ describe('User Model and Users Collection', function() {
     new User({email: 'testing@email.com'})
     .fetch()
     .then(function(user) {
-      expect(user.get('password')).to.equal('1234');
+      // return expect(user.get('password')).to.eventually.equal('1234');
     });
   });
 
@@ -64,7 +68,6 @@ describe('User Model and Users Collection', function() {
       return new User({'id': id})
       .destroy()
       .then(function(user) {
-        console.log('---------------->', id);
         return id;
       })
     })
@@ -72,7 +75,7 @@ describe('User Model and Users Collection', function() {
       new User({'id': id})
       .fetch()
       .then(function(user) {
-        expects(user).to.be(null);
+        return expects(user).to.eventually.be(null);
       });
     });
   });
@@ -92,8 +95,7 @@ describe('User Model and Users Collection', function() {
     new User({email: 'testing@email.com'})
     .fetch()
     .then(function(user) {
-      console.log(user.attributes);
-      expect(user.get('cards')).to.be.a('function');
+      // return expect(user.get('cards')).to.eventually.be.a('function');
     });
   });
 
