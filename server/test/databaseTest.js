@@ -5,6 +5,7 @@
 
 var expect = require('chai').expect;
 var should = require('chai').should;
+
 var User = require('../database/users/user');
 var Users = require('../database/users/users');
 // var Card = require('../database/cards/card');
@@ -50,21 +51,52 @@ describe('User Model and Users Collection', function() {
     });
   });
 
-  xit('should remove a user model', function() {
 
+  /**
+   * @todo refactor this test so that the asynchronous nature doesn't mean that it times out
+   * look at https://mochajs.org/#asynchronous-code
+  */
+  it('should remove a user model', function() {
+    new User({email: 'testing@email.com'})
+    .fetch()
+    .then(function(user) {
+      var id = user.get('id');
+      return new User({'id': id})
+      .destroy()
+      .then(function(user) {
+        console.log('---------------->', id);
+        return id;
+      })
+    })
+    .then(function(id) {
+      new User({'id': id})
+      .fetch()
+      .then(function(user) {
+        expects(user).to.be(null);
+      });
+    });
   });
 
   xit('should store only the hashed password', function() {
 
   });
 
-  xit('should have all the users in the collection', function() {
-
+  it('should have all the users in the collection', function() {
+    Users.fetch()
+    .then(function(users) {
+      expect(users).to.have.property('models');
+    });
   });
 
-  xit('should have a cards method', function() {
-
+  it('should have a cards method', function() {
+    new User({email: 'testing@email.com'})
+    .fetch()
+    .then(function(user) {
+      console.log(user.attributes);
+      expect(user.get('cards')).to.be.a('function');
+    });
   });
+
 });
 
 xdescribe('Card Model and Cards Collection', function() {
@@ -117,4 +149,5 @@ xdescribe('Connection Model and Connections Collection', function() {
   it('should have all the connections in the collection', function() {
 
   });
+
 });
