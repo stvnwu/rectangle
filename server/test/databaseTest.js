@@ -39,11 +39,8 @@ var Cards = require('../database/cards/cards');
 */
 describe('User Model and Users Collection', function() {
   it('should add a user model', function() {
-    new User({email: 'testing@email.com', password: '1234'})
-    .save()
-    .then(function(user) {
-      expect(user.get('email')).to.equal('testing@email.com');
-    });
+    return expect(new User({email: 'testing@email.com', password: '1234'})
+            .save()).to.eventually.be.fulfilled;
   });
 
   xit('should require a first name, last name, email, and password', function() {
@@ -72,11 +69,6 @@ describe('User Model and Users Collection', function() {
     .then(function(id) {
       return new User({'id': id}).fetch()
     })).to.eventually.be.null;
-    new User({email: 'testing@email.com'})
-    .fetch()
-    .then(function(user) {
-      expect(user.get('password')).to.equal('1234');
-    });
   });
 
   xit('should store only the hashed password', function() {
