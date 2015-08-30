@@ -48,11 +48,8 @@ describe('User Model and Users Collection', function() {
   });
 
   it('should find an added user', function() {
-    new User({email: 'testing@email.com'})
-    .fetch()
-    .then(function(user) {
-      // return expect(user.get('password')).to.eventually.equal('1234');
-    });
+    return expect(new User({email: 'testing@email.com'})
+      .fetch().to.eventually.have.property('email'));
   });
 
 
@@ -61,7 +58,7 @@ describe('User Model and Users Collection', function() {
    * look at https://mochajs.org/#asynchronous-code
   */
   it('should remove a user model', function() {
-    new User({email: 'testing@email.com'})
+    expect(new User({email: 'testing@email.com'})
     .fetch()
     .then(function(user) {
       var id = user.get('id');
@@ -72,12 +69,8 @@ describe('User Model and Users Collection', function() {
       })
     })
     .then(function(id) {
-      new User({'id': id})
-      .fetch()
-      .then(function(user) {
-        return expects(user).to.eventually.be(null);
-      });
-    });
+      return new User({'id': id}).fetch()
+    })).to.eventually.be.null;
   });
 
   xit('should store only the hashed password', function() {
@@ -85,18 +78,14 @@ describe('User Model and Users Collection', function() {
   });
 
   it('should have all the users in the collection', function() {
-    Users.fetch()
-    .then(function(users) {
-      expect(users).to.have.property('models');
-    });
+    return expect(Users.fetch()).to.eventually.have.property('models');
   });
 
   it('should have a cards method', function() {
-    new User({email: 'testing@email.com'})
-    .fetch()
-    .then(function(user) {
-      // return expect(user.get('cards')).to.eventually.be.a('function');
-    });
+    return expect(new User({email: 'testing@email.com'})
+    .fetch().then(function(user) {
+      return user.get('cards');
+    })).to.eventually.be.a('function');
   });
 
 });
