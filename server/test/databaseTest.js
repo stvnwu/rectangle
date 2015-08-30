@@ -10,7 +10,6 @@ chai.use(chaiAsPromised);
 var expect = require('chai').expect;
 var should = require('chai').should;
 
-
 var User = require('../database/users/user');
 var Users = require('../database/users/users');
 var Card = require('../database/cards/card');
@@ -95,6 +94,10 @@ describe('User Model and Users Collection', function() {
       // console.log(user);
       return user.get('cards');
     })).to.eventually.be.a('function');
+    Users.fetch()
+    .then(function(users) {
+      expect(users).to.have.property('models');
+    });
   });
 
 });
