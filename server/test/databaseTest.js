@@ -43,6 +43,7 @@ describe('User Model and Users Collection', function() {
             .save()).to.eventually.be.fulfilled;
   });
 
+
 /**
  * @todo make this work
  */
