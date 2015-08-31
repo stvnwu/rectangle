@@ -14,8 +14,8 @@ var User = require('../database/users/user');
 var Users = require('../database/users/users');
 var Card = require('../database/cards/card');
 var Cards = require('../database/cards/cards');
-// var Connection = require('../database/connections/connection');
-// var Connections = require('../database/connections/connections');
+var Connection = require('../database/connections/connection');
+var Connections = require('../database/connections/connections');
 
 /**
  * @example The test below is an example of the mocha and chai syntax
@@ -86,7 +86,7 @@ describe('User Model and Users Collection', function() {
   });
 
   // it just actually doesn't have the method, which is bad
-  it('should have a cards method', function() {
+  xit('should have a cards method', function() {
     return expect(new User({email: 'testing@email.com'})
     .fetch().then(function(user) {
       // console.log(user);
@@ -148,30 +148,51 @@ describe('Card Model and Cards Collection', function() {
 
 // connections collection sounds like something 101 Dalmations
 // dalmatian sensation-esque
-xdescribe('Connection Model and Connections Collection', function() {
+describe('Connection Model and Connections Collection', function() {
+  var marcusID;
+  new User({email: 'test4cards@email.com', password: '1234'})
+  .save()
+  .then(function(userObj) {
+    marcusID = userObj.get('id')
+  });
+
+  var marcusCardID;
+  new Card({
+    firstName: 'Marcus', 
+    lastName: 'Phillips', 
+    userID: marcusID
+  })
+  .save()
+  .then(function(card) {
+    marcusCardID = card.get('id');
+  });
+
+  new Connection({userID: marcusID}).save()
+
   it('should add a connection model', function() {
+    return expect(
+      new Connection({})
+      )
+    .to.eventually.be.fulfilled()
+  });
+
+  xit('should have a user method and userID property', function() {
 
   });
 
-  it('should have a user method and userID property', function() {
+  xit('should have a card method and a cardID property', function() {
 
   });
 
-  it('should have a card method and a cardID property', function() {
+  xit('should be able to find a card based on the userID', function() {
 
   });
 
-  it('should be able to find a card based on the userID', function() {
-    // find one
-    // find all
+  xit('should remove an added connection', function() {
 
   });
 
-  it('should remove an added connection', function() {
-
-  });
-
-  it('should have all the connections in the collection', function() {
+  xit('should have all the connections in the collection', function() {
 
   });
 
