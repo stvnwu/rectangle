@@ -43,7 +43,7 @@ describe('User Model and Users Collection', function() {
             .save()).to.eventually.be.fulfilled;
   });
 
-  xit('should require a first name, last name, email, and password', function() {
+  xit('should require an email and password', function() {
 
   });
 
