@@ -13,7 +13,6 @@ var {
   View,
 } = React;
 
-
 class HelloWorld extends React.Component {
   render() {
     return React.createElement(React.Text, {style: styles.text}, "Hello World!");
