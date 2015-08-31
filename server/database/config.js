@@ -7,9 +7,9 @@ var knex = require('knex')({
   client: 'pg',
   connection: {
     host: '127.0.0.1',
-    user: 'ksg',
+    user: 'ksg', // change this out as needed
     password: '',
-    database: 'ksg',
+    database: 'ksg', // change this out as needed
     charset: 'utf8'
   }
 });
@@ -33,7 +33,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
 
 db.knex.schema.hasTable('cards').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('cards', function (link) {
+    db.knex.schema.createTable('users', function (link) {
       link.increments('id').primary();
       link.string('firstName', 20),
       link.string('lastName', 20),
@@ -63,8 +63,6 @@ db.knex.schema.hasTable('connections').then(function(exists) {
     });
   }
 });
-
-
 
 
 
