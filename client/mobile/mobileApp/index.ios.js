@@ -13,19 +13,19 @@ var {
   View,
 } = React;
 
-class HelloWorld extends React.Component {
+class HelloWorld extends Component {
   render() {
     return React.createElement(React.Text, {style: styles.text}, "Hello World!");
   }
 }
 
-class mobileApp extends React.Component {
+class mobileApp extends Component {
   render() {
     return (
       <React.NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'Property Finder',
+          title: 'workwhere',
           component: HelloWorld,
         }}/>
     );
