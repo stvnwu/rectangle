@@ -6,7 +6,6 @@
 
 var React = require('react-native');
 // var Signup = require('./Signup');
-var COLUMNNUMBER = 4;
 
 var {
   AppRegistry,
@@ -33,19 +32,18 @@ class mobileApp extends Component {
 class DumbRoutes extends Component {
   render() {
     return(
-
       <View style={styles.container}>
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Auth</Text>
           </TouchableHighlight>
-          //the onPress prop is the listener
+
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
                 onPress={this._signUpHandler.bind(this)}>
             <Text style={styles.buttonText} >Signup</Text>
-          </TouchableHighlight>
+      
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Login</Text>
@@ -97,22 +95,6 @@ class DumbRoutes extends Component {
           </TouchableHighlight>
         </View>
       </View>  
-
-      <View style={styles.flowRight}>
-        <TouchableHighlight style={styles.button}
-              underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Auth</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.button}
-              underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Signup</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.button}
-              underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
-      </View> 
-
     );
   }
   //here I added the event handler
@@ -147,7 +129,6 @@ var styles = StyleSheet.create({
       flex: 1,
   },
   flowRight: {
-    marginTop: 65,
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch'
