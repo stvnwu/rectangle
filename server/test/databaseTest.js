@@ -99,24 +99,41 @@ describe('User Model and Users Collection', function() {
 
 });
 
-xdescribe('Card Model and Cards Collection', function() {
+describe('Card Model and Cards Collection', function() {
+  var user;
+  new User({email: 'test4cards@email.com', password: '1234'}).save().then(function(userObj) {user = userObj});
+  var id;
+
   it('should add a card model', function() {
+    return expect(new Card({
+      firstName: 'Marcus', 
+      lastName: 'Phillips', 
+      userID: user.get('id')
+    })
+    .save()
+    .then(function(marcus) {
+      id = marcus.get('id');
+    })).to.eventually.be.fulfilled;
+  });
+
+  it('should have (a user method and) a userID property', function() {
+    return expect(new Card({'id': id})
+      .fetch()
+      .then(function(marcus) {
+        return marcus.get('userID');
+      }))
+    .to.eventually.equal(user.get('id'));
+  });
+
+  xit('should find an added card', function() {
 
   });
 
-  it('should have a user method and a userID property', function() {
+  xit('should remove an added card', function() {
 
   });
 
-  it('should find an added card', function() {
-
-  });
-
-  it('should remove an added card', function() {
-
-  });
-
-  it('should have all cards in the collection', function() {
+  xit('should have all cards in the collection', function() {
 
   });
 });
