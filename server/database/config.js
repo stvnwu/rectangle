@@ -19,8 +19,8 @@ var db = require('bookshelf')(knex);
 db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (link) {
-      link.increments('id').primary();
-      link.string('email', 25),
+      link.increments('id').primary(),
+      link.string('email', 25).unique(),
       link.string('password', 20),
       link.timestamps();
     }).then(function (table) {
