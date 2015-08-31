@@ -43,8 +43,13 @@ describe('User Model and Users Collection', function() {
             .save()).to.eventually.be.fulfilled;
   });
 
-  xit('should require an email and password', function() {
-
+/**
+ * @todo make this work
+ */
+  xit('should require unique emails per signup', function() {
+    return expect(new User({email: 'testing@email.com'})
+      .save()
+      ).to.eventually.be.rejected;
   });
 
   it('should find an added user', function() {
