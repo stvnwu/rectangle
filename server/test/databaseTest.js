@@ -12,8 +12,8 @@ var should = require('chai').should;
 
 var User = require('../database/users/user');
 var Users = require('../database/users/users');
-// var Card = require('../database/cards/card');
-// var Cards = require('../database/cards/cards');
+var Card = require('../database/cards/card');
+var Cards = require('../database/cards/cards');
 // var Connection = require('../database/connections/connection');
 // var Connections = require('../database/connections/connections');
 
@@ -43,20 +43,18 @@ describe('User Model and Users Collection', function() {
             .save()).to.eventually.be.fulfilled;
   });
 
-  xit('should require a first name, last name, email, and password', function() {
+  xit('should require an email and password', function() {
 
   });
 
   it('should find an added user', function() {
     return expect(new User({email: 'testing@email.com'})
-      .fetch().to.eventually.have.property('email'));
+      .fetch().then(function(user) {
+        return user.get('email')
+      }))
+    .to.eventually.equal('testing@email.com');
   });
 
-
-  /**
-   * @todo refactor this test so that the asynchronous nature doesn't mean that it times out
-   * look at https://mochajs.org/#asynchronous-code
-  */
   it('should remove a user model', function() {
     expect(new User({email: 'testing@email.com'})
     .fetch()
@@ -81,9 +79,11 @@ describe('User Model and Users Collection', function() {
     return expect(Users.fetch()).to.eventually.have.property('models');
   });
 
+  // it just actually doesn't have the method, which is bad
   it('should have a cards method', function() {
     return expect(new User({email: 'testing@email.com'})
     .fetch().then(function(user) {
+      // console.log(user);
       return user.get('cards');
     })).to.eventually.be.a('function');
   });
