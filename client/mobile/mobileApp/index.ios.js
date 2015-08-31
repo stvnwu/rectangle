@@ -46,6 +46,7 @@ class mobileApp extends Component {
 class DumbRoutes extends Component {
   render() {
     return(
+
       <View style={styles.container}>
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
@@ -117,6 +118,22 @@ class DumbRoutes extends Component {
           </TouchableHighlight>
         </View>
       </View>  
+
+      <View style={styles.flowRight}>
+        <TouchableHighlight style={styles.button}
+              underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Auth</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button}
+              underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Signup</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button}
+              underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableHighlight>
+      </View> 
+
     );
   }
   //here I added the event handler
@@ -192,9 +209,6 @@ class DumbRoutes extends Component {
             component: Search
           });
   };
-  
-
-
 
 }
 
@@ -221,6 +235,7 @@ var styles = StyleSheet.create({
     marginTop: 65,
   },
   flowRight: {
+    marginTop: 65,
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
