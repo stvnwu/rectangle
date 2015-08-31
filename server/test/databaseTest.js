@@ -125,17 +125,28 @@ describe('Card Model and Cards Collection', function() {
     .to.eventually.equal(user.get('id'));
   });
 
-  xit('should find an added card', function() {
-
+  it('should find an added card', function() {
+    return expect(new Card({'id': id})
+      .fetch()
+      .then(function(marcus) {
+        return marcus.get('firstName');
+      }))
+    .to.eventually.equal('Marcus');
   });
 
-  xit('should remove an added card', function() {
-
+  it('should remove an added card', function() {
+    return expect(new Card({'id': id})
+      .destroy()
+      .then(function(marcus) {
+        return new Card({'id': id})
+        .fetch()
+      })).to.eventually.be.null;
   });
 
-  xit('should have all cards in the collection', function() {
-
+  it('should have all cards in the collection', function() {
+    return expect(Cards.fetch()).to.eventually.have.property('models');
   });
+  
 });
 
 // connections collection sounds like something 101 Dalmations
