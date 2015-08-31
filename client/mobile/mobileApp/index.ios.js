@@ -38,9 +38,11 @@ class DumbRoutes extends Component {
                 underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Auth</Text>
           </TouchableHighlight>
+          //the onPress prop is the listener
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Signup</Text>
+                underlayColor='#99d9f4'
+                onPress={this._signUpHandler.bind(this)}>
+            <Text style={styles.buttonText} >Signup</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'>
@@ -95,6 +97,14 @@ class DumbRoutes extends Component {
       </View>  
     );
   }
+  //here I added the event handler
+  _signUpHandler (){
+    this.props.navigator.push({
+            title: 'Signup',
+            component: Signup
+          });
+  };
+
 }
 
 var styles = StyleSheet.create({
