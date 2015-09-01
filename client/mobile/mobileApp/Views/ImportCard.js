@@ -17,7 +17,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   container: {
-    marginTop:65,
+    marginTop: 65,
   },
   flowRight: {
     flexDirection: 'row',
@@ -31,7 +31,7 @@ class ImportCard extends Component {
   render() {
       return (
         <View style={styles.container}>
-          <Text style={[globalStyles.text, styles.text]}>
+          <Text style={[globalStyles.prompt, styles.text]}>
             Update your business card
           </Text>
           <View style={styles.flowRight}>

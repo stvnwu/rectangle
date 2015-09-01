@@ -22,8 +22,8 @@ class Signup extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={globalStyles.text}>
-        Sign Up now...
+      <Text style={globalStyles.prompt}>
+        Sign Up
       </Text>
         <TextInput
             style={globalStyles.textInput}

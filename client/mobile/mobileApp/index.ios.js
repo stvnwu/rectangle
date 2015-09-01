@@ -59,8 +59,8 @@ class DumbRoutes extends Component {
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
                 onPress={this._signUpHandler.bind(this)}>
-            <Text style={styles.buttonText} >Signup</Text>
-      
+            <Text style={styles.buttonText}>Signup</Text>
+          </TouchableHighlight>
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
                 onPress={this._loginHandler.bind(this)}>

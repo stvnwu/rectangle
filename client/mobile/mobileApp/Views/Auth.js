@@ -14,7 +14,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop:65,
+    marginTop: 65,
   }
 });
 

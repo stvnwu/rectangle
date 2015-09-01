@@ -22,7 +22,7 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={globalStyles.text}>
+      <Text style={globalStyles.prompt}>
         Welcome Back
       </Text>
         <TextInput
