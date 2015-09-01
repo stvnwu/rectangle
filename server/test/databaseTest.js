@@ -185,12 +185,17 @@ describe('Connection Model and Connections Collection', function() {
       })).to.eventually.exist;
   });
 
-  xit('should have (a card method and) a cardID property', function() {
-
+  it('should have (a card method and) a cardID property', function() {
+    return expect(new Connection({cardID: marcusCardID})
+      .fetch()
+      .then(function(connection) {
+        return connection.get('cardID');
+      })).to.eventually.exist;
   });
 
-  xit('should be able to find a card based on the userID', function() {
-
+  it('should be able to find a card based on the userID', function() {
+    return expect(new Connection({userID: marcus.get('id')})
+      .fetch()).to.eventually.be.fulfilled;
   });
 
   xit('should remove an added connection', function() {
