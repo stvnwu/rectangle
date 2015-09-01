@@ -10,4 +10,3 @@ var Connections = new db.Collection();
 Connections.model = Connection;
 
 module.exports = Connections;
-
