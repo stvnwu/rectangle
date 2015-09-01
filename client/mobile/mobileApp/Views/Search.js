@@ -1,10 +1,14 @@
 'use strict';
 
 var React = require('react-native');
+var SearchBar = require('react-native-search-bar');
 var globalStyles = require('../Stylesheet');
+
+
 var {
   AppRegistry,
   Component,
+  ListView,
   StyleSheet,
   Text,
   TextInput,
@@ -14,16 +18,21 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop:65,
+    marginTop: 65,
   }
 });
 
 class Search extends Component {
   render() {
-      return (
-        <View style={styles.container}>
-        </View>
-        );
+    return (
+      <View style={styles.container}>
+        <SearchBar placeholder='Search'
+          //onChangeText={...}
+          //onSearchButtonPress={...}
+          //onCancelButtonPress={...}
+        />
+      </View>
+    );
   }
 }
 
