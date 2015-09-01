@@ -33,8 +33,7 @@ var User = db.Model.extend({
    * returns a promise
   */
   comparePassword: function(attemptedPassword) {
-    var compare = Q.nbind(bcrypt.compare);
-    return compare(attemptedPassword, this.get('password'))
+    return bcrypt.compareAsync(attemptedPassword, this.get('password'))
     .then(function(isMatch) {
       return isMatch;
     })
@@ -49,12 +48,12 @@ var User = db.Model.extend({
    * No parameters, returns a promise
   */
   hashPassword: function(){
-    var cipher = bcrypt.hashAsync;
-    var getSalt = bcrypt.genSaltAsync;
+    // var cipher = bcrypt.hashAsync;
+    // var getSalt = bcrypt.genSaltAsync;
 
-    return getSalt(null).bind(this)
+    return bcrypt.genSaltAsync(null).bind(this)
     .then(function(salt) {
-      return cipher(this.get('password'), salt, function() {});
+      return bcrypt.hashAsync(this.get('password'), salt, function() {});
     })
     .then(function(hash) {
       this.set('password', hash);
