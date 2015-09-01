@@ -6,11 +6,22 @@ var chai = require("chai");
 var expect = require('chai').expect;
 var should = require('chai').should;
 var supertest = require('supertest');
-var api = supertest('http://localhost:8080');
+var api = supertest('https://tranquil-earth-7083.herokuapp.com/');
 var app = require('../server.js');
 var userController = require('../users/userController.js');
 var cardController = require('../cards/cardController.js');
 var connectionController = require('../connections/connectionController.js');
+
+var User = require('../database/users/user');
+var Users = require('../database/users/users');
+var Card = require('../database/cards/card');
+var Cards = require('../database/cards/cards');
+var Connection = require('../database/connections/connection');
+var Connections = require('../database/connections/connections');
+
+/**
+ * Test all of the routes that the API will and will not support
+*/
 
 describe('routing test', function () {
   it("/ should return 404", function (done) {
@@ -54,6 +65,10 @@ describe('routing test', function () {
 
 });
 
+
+/**
+ * test the connection between the server and the database
+*/
 describe('connecting to the database', function () {
 
   it('should not add users to the database when email is empty using POST', function (done) {
@@ -82,7 +97,6 @@ describe('connecting to the database', function () {
         }));
         done();
       });
-  });
 
   it("cards routing get/post", function (done) {
     api.get('/cards/getcards/')
@@ -130,3 +144,4 @@ describe('connecting to the database', function () {
   });
 
 });
+
