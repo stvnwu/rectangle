@@ -6,7 +6,6 @@
 
 var React = require('react-native');
 
-
 var Auth = require('./Views/Auth');
 var CardInfo = require('./Views/CardInfo');
 var Camera = require('./Views/Camera');
@@ -21,7 +20,6 @@ var QRCamera = require('./Views/QRCamera');
 var Search = require('./Views/Search');
 
 var globalStyles = require('./Stylesheet');
-
 
 var {
   AppRegistry,
@@ -219,6 +217,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 65,
+
   },
   flowRight: {
     flexDirection: 'row',
