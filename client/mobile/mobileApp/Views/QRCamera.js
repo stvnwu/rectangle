@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var globalStyles = require('./Stylesheet');
+var globalStyles = require('../Stylesheet');
 var {
   AppRegistry,
   Component,
@@ -18,7 +18,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class Search extends Component {
+class QRCamera extends Component {
   render() {
       return (
         <View style={styles.container}>
@@ -27,4 +27,4 @@ class Search extends Component {
   }
 }
 
-module.exports = Search;
+module.exports = QRCamera;

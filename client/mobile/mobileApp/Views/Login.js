@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var globalStyles = require('./Stylesheet');
+var globalStyles = require('../Stylesheet');
 var {
   AppRegistry,
   Component,
@@ -54,25 +54,19 @@ var styles = StyleSheet.create({
 
 });
 
-class Signup extends Component {
+class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
       <Text style={styles.text}>
-        Sign Up now...
+        Welcome Back
       </Text>
         <TextInput
             style={styles.textInput}
-            placeholder='Name...'/>
-        <TextInput
-            style={styles.textInput}
-            placeholder='Last...'/>
+            placeholder='Email...'/>
         <TextInput
             style={styles.textInput}
             placeholder='Password...'/>
-        <TextInput
-            style={styles.textInput}
-            placeholder='Email...'/>
         <TouchableHighlight style={styles.button}
              underlayColor='#99d9f4'>
            <Text style={styles.buttonText}>
@@ -84,5 +78,5 @@ class Signup extends Component {
   }
 }
 
-module.exports = Signup;
+module.exports = Login;
 

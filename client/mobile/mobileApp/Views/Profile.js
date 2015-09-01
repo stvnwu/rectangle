@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var globalStyles = require('./Stylesheet');
+var globalStyles = require('../Stylesheet');
 var {
   AppRegistry,
   Component,
@@ -18,7 +18,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class Auth extends Component {
+class Profile extends Component {
   render() {
       return (
         <View style={styles.container}>
@@ -27,4 +27,4 @@ class Auth extends Component {
   }
 }
 
-module.exports = Auth;
+module.exports = Profile;
