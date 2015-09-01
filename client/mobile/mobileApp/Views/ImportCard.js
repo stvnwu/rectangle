@@ -15,6 +15,13 @@ var {
 var styles = StyleSheet.create({
   container: {
     marginTop:65,
+  },
+  flowRight: {
+    flexDirection: 'row',
+
+  },
+  test:{
+    flex:1
   }
 });
 
@@ -22,6 +29,23 @@ class ImportCard extends Component {
   render() {
       return (
         <View style={styles.container}>
+          <Text style={globalStyles.text}>
+            Update your business card
+          </Text>
+          <View style={styles.flowRight}>
+            <TouchableHighlight style={[globalStyles.button, styles.test]}
+                 underlayColor='#99d9f4'>
+               <Text style={globalStyles.buttonText}>
+                  Camera Roll
+               </Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={[globalStyles.button, styles.test]}
+                  underlayColor='#99d9f4'>
+                <Text style={globalStyles.buttonText}>
+                   Take a Photo
+                </Text>
+            </TouchableHighlight>
+          </View>
         </View>
         );
   }
