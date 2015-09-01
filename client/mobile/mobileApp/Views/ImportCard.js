@@ -18,9 +18,8 @@ var styles = StyleSheet.create({
   },
   flowRight: {
     flexDirection: 'row',
-
   },
-  test:{
+  button:{
     flex:1
   }
 });
@@ -33,13 +32,13 @@ class ImportCard extends Component {
             Update your business card
           </Text>
           <View style={styles.flowRight}>
-            <TouchableHighlight style={[globalStyles.button, styles.test]}
+            <TouchableHighlight style={[globalStyles.button, styles.button]}
                  underlayColor='#99d9f4'>
                <Text style={globalStyles.buttonText}>
                   Camera Roll
                </Text>
             </TouchableHighlight>
-            <TouchableHighlight style={[globalStyles.button, styles.test]}
+            <TouchableHighlight style={[globalStyles.button, styles.button]}
                   underlayColor='#99d9f4'>
                 <Text style={globalStyles.buttonText}>
                    Take a Photo
