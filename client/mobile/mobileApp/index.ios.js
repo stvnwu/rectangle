@@ -5,19 +5,21 @@
 'use strict';
 
 var React = require('react-native');
-var Signup = require('./Signup');
-var CardInfo = require('./CardInfo');
-var Login = require('./Login');
-var Auth = require('./Auth');
-var Camera = require('./Camera');
-var ImportCard = require('./ImportCard');
-var Map = require('./Map');
+
+var Auth = require('./Views/Auth');
+var CardInfo = require('./Views/CardInfo');
+var Camera = require('./Views/Camera');
+var Signup = require('./Views/Signup');
+var Login = require('./Views/Login');
+var ImportCard = require('./Views/ImportCard');
+var Map = require('./Views/Map');
+var PhotoLibrary = require('./Views/PhotoLibrary');
+var Profile = require('./Views/Profile');
+var QR = require('./Views/QR');
+var QRCamera = require('./Views/QRCamera');
+var Search = require('./Views/Search');
+
 var globalStyles = require('./Stylesheet');
-var PhotoLibrary = require('./PhotoLibrary');
-var Profile = require('./Profile');
-var QR = require('./QR');
-var QRCamera = require('./QRCamera');
-var Search = require('./Search');
 
 var {
   AppRegistry,
@@ -47,7 +49,8 @@ class DumbRoutes extends Component {
       <View style={styles.container}>
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._authHandler.bind(this)}>
             <Text style={styles.buttonText}>Auth</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
@@ -64,7 +67,8 @@ class DumbRoutes extends Component {
 
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._importCardHandler.bind(this)}>
             <Text style={styles.buttonText}>Import</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
@@ -73,29 +77,34 @@ class DumbRoutes extends Component {
             <Text style={styles.buttonText}>Card Info</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._photoLibraryHandler.bind(this)}>
             <Text style={styles.buttonText}>Library</Text>
           </TouchableHighlight>
         </View>
 
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._profileHandler.bind(this)}>
             <Text style={styles.buttonText}>Profile</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._mapHandler.bind(this)}>
             <Text style={styles.buttonText}>Map</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._qrHandler.bind(this)}>
             <Text style={styles.buttonText}>QR</Text>
           </TouchableHighlight>
         </View>
 
         <View style={styles.flowRight}>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._searchHandler.bind(this)}>
             <Text style={styles.buttonText}>Search</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
@@ -129,6 +138,62 @@ class DumbRoutes extends Component {
             component: CardInfo
           });
   };
+  _authHandler (){
+    this.props.navigator.push({
+            title: 'Auth',
+            component: Auth
+          });
+  };
+  _cameraHandler (){
+    this.props.navigator.push({
+            title: 'Camera',
+            component: Camera
+          });
+  };
+  _importCardHandler (){
+    this.props.navigator.push({
+            title: 'ImportCard',
+            component: ImportCard
+          });
+  };
+  _mapHandler (){
+    this.props.navigator.push({
+            title: 'Map',
+            component: Map
+          });
+  };
+  _photoLibraryHandler (){
+    this.props.navigator.push({
+            title: 'PhotoLibrary',
+            component: PhotoLibrary
+          });
+  };
+  _profileHandler (){
+    this.props.navigator.push({
+            title: 'Profile',
+            component: Profile
+          });
+  };
+  _qrHandler (){
+    this.props.navigator.push({
+            title: 'QR',
+            component: QR
+          });
+  };
+  _qrCameraHandler (){
+    this.props.navigator.push({
+            title: 'QRCamera',
+            component: QRCamera
+          });
+  };
+  _searchHandler (){
+    this.props.navigator.push({
+            title: 'Search',
+            component: Search
+          });
+  };
+  
+
 
 
 }
