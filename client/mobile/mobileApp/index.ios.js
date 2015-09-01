@@ -36,7 +36,7 @@ class mobileApp extends Component {
       <React.NavigatorIOS
         style={styles.navContainer}
         initialRoute={{
-          title: 'workwhere',
+          title: '',
           component: DumbRoutes,
         }}/>
     );
@@ -123,73 +123,73 @@ class DumbRoutes extends Component {
   //here I added the event handler
   _signUpHandler (){
     this.props.navigator.push({
-            title: 'Signup',
+            title: '',
             component: Signup
           });
   };
   _loginHandler (){
     this.props.navigator.push({
-            title: 'Login',
+            title: '',
             component: Login
           });
   };
   _cardInfoHandler (){
     this.props.navigator.push({
-            title: 'CardInfo',
+            title: '',
             component: CardInfo
           });
   };
   _authHandler (){
     this.props.navigator.push({
-            title: 'Auth',
+            title: '',
             component: Auth
           });
   };
   _cameraHandler (){
     this.props.navigator.push({
-            title: 'Camera',
+            title: '',
             component: Camera
           });
   };
   _importCardHandler (){
     this.props.navigator.push({
-            title: 'ImportCard',
+            title: '',
             component: ImportCard
           });
   };
   _mapHandler (){
     this.props.navigator.push({
-            title: 'Map',
+            title: '',
             component: Map
           });
   };
   _photoLibraryHandler (){
     this.props.navigator.push({
-            title: 'PhotoLibrary',
+            title: '',
             component: PhotoLibrary
           });
   };
   _profileHandler (){
     this.props.navigator.push({
-            title: 'Profile',
+            title: '',
             component: Profile
           });
   };
   _qrHandler (){
     this.props.navigator.push({
-            title: 'QR',
+            title: '',
             component: QR
           });
   };
   _qrCameraHandler (){
     this.props.navigator.push({
-            title: 'QRCamera',
+            title: '',
             component: QRCamera
           });
   };
   _searchHandler (){
     this.props.navigator.push({
-            title: 'Search',
+            title: '',
             component: Search
           });
   };

@@ -53,13 +53,13 @@ class Auth extends Component {
   }
   _signUpHandler (){
     this.props.navigator.push({
-            title: 'Signup',
+            title: '',
             component: Signup
           });
   };
   _loginHandler (){
     this.props.navigator.push({
-            title: 'Login',
+            title: '',
             component: Login
           });
   };
