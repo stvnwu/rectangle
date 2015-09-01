@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server/server.js",
     "test": "mocha server/test/databaseTest.js server/test/serverTest.js",
-    "postinstall": "npm install"
+    "postinstall": "bash ./post_install.sh"
   },
   "repository": {
     "type": "git",
