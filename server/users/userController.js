@@ -4,6 +4,19 @@ var Promise = require("bluebird");
 
 var userRoutes = {
   signin: function (req, res) {
+    return new Promise(function (resolve, reject) {
+      return new User({
+          email: req.body.email
+        })
+        .fetch()
+        .then(function (user) {
+          if (!user) {
+            // console.log("redirect to login");
+          } else {
+            return user.comparePassword(password);
+          }
+        })
+    })
     console.log("all routes");
     res.json({
       message: "user get message"
