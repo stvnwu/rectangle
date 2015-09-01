@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 
+
 var Auth = require('./Views/Auth');
 var CardInfo = require('./Views/CardInfo');
 var Camera = require('./Views/Camera');
@@ -20,6 +21,7 @@ var QRCamera = require('./Views/QRCamera');
 var Search = require('./Views/Search');
 
 var globalStyles = require('./Stylesheet');
+
 
 var {
   AppRegistry,
@@ -53,10 +55,11 @@ class DumbRoutes extends Component {
                 onPress={this._authHandler.bind(this)}>
             <Text style={styles.buttonText}>Auth</Text>
           </TouchableHighlight>
+
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
                 onPress={this._signUpHandler.bind(this)}>
-            <Text style={styles.buttonText} >Signup</Text>
+            <Text style={styles.buttonText}>Signup</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
@@ -192,9 +195,6 @@ class DumbRoutes extends Component {
             component: Search
           });
   };
-  
-
-
 
 }
 

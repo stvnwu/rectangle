@@ -35,6 +35,7 @@ var styles = StyleSheet.create({
   },
   textInput:{
     flex: 2,
+    marginTop: 65,
   }
 
 
