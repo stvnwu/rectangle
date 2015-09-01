@@ -6,16 +6,11 @@ var Cards = require('./cards/cards');
 // var Connections = require('./connections/connections');
 
 new User({email: 'testing@email.com', password: '1234'})
-.fetch()
+.save()
 .then(function(user) {
-  return new Card({
-    firstName: 'Kiri',
-    lastName: 'S-G',
-    email: user.get('email')
-    // userID: user.get('id')
-  }).save();
+  console.log(user.get('password'))
 })
-.then(function(card) {
-  console.log(card);
-});
+// .catch(function(err) {
+//   console.log(new Error(err));
+// });
 
