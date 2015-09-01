@@ -1,4 +1,3 @@
-var User = require('./connectionModel.js');
 var Promise = require("bluebird");
 var connectionRoutes = {
   connectionGet: function (req, res) {

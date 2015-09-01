@@ -1,4 +1,3 @@
-var User = require('./cardModel.js');
 var Promise = require("bluebird");
 var cardRoutes = {
   cardGet: function (req, res) {
