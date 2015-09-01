@@ -6,6 +6,18 @@
 
 var React = require('react-native');
 var Signup = require('./Signup');
+var CardInfo = require('./CardInfo');
+var Login = require('./Login');
+var Auth = require('./Auth');
+var Camera = require('./Camera');
+var ImportCard = require('./ImportCard');
+var Map = require('./Map');
+var globalStyles = require('./Stylesheet');
+var PhotoLibrary = require('./PhotoLibrary');
+var Profile = require('./Profile');
+var QR = require('./QR');
+var QRCamera = require('./QRCamera');
+var Search = require('./Search');
 
 var {
   AppRegistry,
@@ -44,7 +56,8 @@ class DumbRoutes extends Component {
             <Text style={styles.buttonText} >Signup</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._loginHandler.bind(this)}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableHighlight>
         </View>
@@ -55,7 +68,8 @@ class DumbRoutes extends Component {
             <Text style={styles.buttonText}>Import</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
-                underlayColor='#99d9f4'>
+                underlayColor='#99d9f4'
+                onPress={this._cardInfoHandler.bind(this)}>
             <Text style={styles.buttonText}>Card Info</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button}
@@ -103,6 +117,19 @@ class DumbRoutes extends Component {
             component: Signup
           });
   };
+  _loginHandler (){
+    this.props.navigator.push({
+            title: 'Login',
+            component: Login
+          });
+  };
+  _cardInfoHandler (){
+    this.props.navigator.push({
+            title: 'CardInfo',
+            component: CardInfo
+          });
+  };
+
 
 }
 

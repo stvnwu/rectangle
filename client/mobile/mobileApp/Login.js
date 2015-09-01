@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var globalStyles = require('./Stylesheet');
 var {
   AppRegistry,
   Component,
