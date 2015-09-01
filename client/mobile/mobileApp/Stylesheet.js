@@ -6,7 +6,7 @@ var {
   StyleSheet,
 } = React;
 
-var styles = StyleSheet.create({
+module.exports = StyleSheet.create({
   button: {
     height: 36,
     margin: 10,
@@ -48,5 +48,3 @@ var styles = StyleSheet.create({
   
 
 });
-
-module.exports = styles;
