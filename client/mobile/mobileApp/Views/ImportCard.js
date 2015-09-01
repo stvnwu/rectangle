@@ -13,14 +13,17 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+  button:{
+    flex: 1
+  },
   container: {
     marginTop:65,
   },
   flowRight: {
     flexDirection: 'row',
   },
-  button:{
-    flex:1
+  text: {
+    textAlign: 'center',
   }
 });
 
@@ -28,7 +31,7 @@ class ImportCard extends Component {
   render() {
       return (
         <View style={styles.container}>
-          <Text style={globalStyles.text}>
+          <Text style={[globalStyles.text, styles.text]}>
             Update your business card
           </Text>
           <View style={styles.flowRight}>
