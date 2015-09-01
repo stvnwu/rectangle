@@ -25,19 +25,6 @@ var styles = StyleSheet.create({
   bot:{
     flex: 1,
   },
-  text:{
-    color: 'black',
-    fontSize: 20,
-    flex: 1,
-    padding: 5,
-    alignSelf: 'center',
-    textAlign: 'left',
-  },
-  textInput:{
-    flex: 2,
-  }
-
-
 });
 
 class CardInfo extends Component {
@@ -47,31 +34,24 @@ class CardInfo extends Component {
           <View style={styles.top}>
             <Text style={globalStyles.prompt}>Fill the required fields</Text>
           </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>Name</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>Last name</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>e-mail</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>Phone</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>Company</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-          <View style={styles.mid}>
-            <Text style={styles.text}>Job title</Text>
-            <TextInput style={[globalStyles.textInput, styles.textInput]}></TextInput>
-          </View>
-
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='First name...'/>
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='Last name...'/>
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='Email...'/>
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='Phone...'/>
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='Company...'/>
+          <TextInput
+              style={globalStyles.textInput}
+              placeholder='Job title...'/>
           <View style={styles.bot}>
             <TouchableHighlight style={globalStyles.button}>
               <Text style={globalStyles.buttonText}>Send</Text>
