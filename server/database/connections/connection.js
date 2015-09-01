@@ -8,13 +8,19 @@ var User = require('../users/user');
 var Card = require('../cards/card');
 
 var Connection = db.Model.extend({
-  tablename: 'connections',
+  tableName: 'connections',
   hasTimestamps: true,
   user: function() {
     return this.hasOne(User);
   },
   card: function() {
     return this.hasOne(Card);
+  },
+  initialize: function() {
+    this.on('updating', function() {
+      console.log(this);
+    });
   }
 });
 
+module.exports = Connection;

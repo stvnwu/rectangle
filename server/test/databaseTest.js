@@ -152,38 +152,40 @@ describe('Card Model and Cards Collection', function() {
 // connections collection sounds like something 101 Dalmations
 // dalmatian sensation-esque
 describe('Connection Model and Connections Collection', function() {
-  var marcusID;
+  var marcus;
+  var marcusCardID;
   new User({email: 'test4cards@email.com', password: '1234'})
   .save()
   .then(function(userObj) {
-    marcusID = userObj.get('id')
-  });
-
-  var marcusCardID;
-  new Card({
-    firstName: 'Marcus', 
-    lastName: 'Phillips', 
-    userID: marcusID
+    marcus = userObj;
+    return new Card({
+      firstName: 'Marcus', 
+      lastName: 'Phillips', 
+      userID: marcus.get('id')
+    })
+    .save()
+    .then(function(card) {
+      marcusCardID = card.get('id');
+    });
   })
-  .save()
-  .then(function(card) {
-    marcusCardID = card.get('id');
-  });
 
-  new Connection({userID: marcusID}).save()
+
+  // new Connection({userID: marcus}).save()
 
   it('should add a connection model', function() {
-    return expect(
-      new Connection({})
-      )
-    .to.eventually.be.fulfilled()
+    return expect(new Connection({userID: marcus.get('id'), cardID: marcusCardID})
+      .save()).to.eventually.be.fulfilled;
   });
 
-  xit('should have a user method and userID property', function() {
-
+  it('should have a (user method and) userID property', function() {
+    return expect(new Connection({cardID: marcusCardID})
+      .fetch()
+      .then(function(connection) {
+        return connection.get('userID');
+      })).to.eventually.exist;
   });
 
-  xit('should have a card method and a cardID property', function() {
+  xit('should have (a card method and) a cardID property', function() {
 
   });
 

@@ -22,7 +22,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
       link.increments('id').primary(),
       link.string('email', 25).unique(),
       link.string('password', 20),
-      link.timestamps();
+      link.timestamps()
     }).then(function (table) {
       console.log('created table', table);
     }).then(function () {
@@ -34,7 +34,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
 db.knex.schema.hasTable('cards').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (link) {
-      link.increments('id').primary();
+      link.increments('id').primary(),
       link.string('firstName', 20),
       link.string('lastName', 20),
       link.string('email', 25),
@@ -42,7 +42,7 @@ db.knex.schema.hasTable('cards').then(function(exists) {
       link.string('jobTitle', 25),
       link.string('phone', 14),
       link.integer('userID').references('users.id'),
-      link.timestamps();
+      link.timestamps()
     }).then(function (table) {
       console.log('created table', table);
     });
@@ -51,13 +51,13 @@ db.knex.schema.hasTable('cards').then(function(exists) {
 
 db.knex.schema.hasTable('connections').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('connections', function(link) {
+    db.knex.schema.createTable('connections', function (link) {
       link.increments('id').primary(),
+      link.string('createdWhere', 30),
+      link.string('QR', 25),
       link.integer('userID').references('users.id'),
       link.integer('cardID').references('cards.id'),
-      link.string('createdWhere', 30),
-      link.string('QR', 5),
-      link.timestamps();
+      link.timestamps()
     }).then(function (table) {
       console.log('created table', table);
     });

@@ -7,7 +7,7 @@ var Connection = require('./connection');
 
 var Connections = new db.Collection();
 
-Connections.model = User;
+Connections.model = Connection;
 
 module.exports = Connections;
 
