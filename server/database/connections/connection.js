@@ -15,6 +15,7 @@ var Connection = db.Model.extend({
   },
   card: function() {
     return this.hasOne(Card);
+  }
 });
 
 module.exports = Connection;
