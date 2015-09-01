@@ -198,12 +198,29 @@ describe('Connection Model and Connections Collection', function() {
       .fetch()).to.eventually.be.fulfilled;
   });
 
-  xit('should remove an added connection', function() {
+  it('should remove an added connection', function() {
+    expect(new Connection({cardID: marcusCardID})
+    .fetch()
+    .then(function(connection) {
+      var id = connection.get('id');
+      return new Connection({'id': id})
+      .destroy()
+      .then(function(connection) {
+        return id;
+      })
+    })
+    .then(function(id) {
+      return new User({'id': id}).fetch()
+    })).to.eventually.be.null;
+  }); 
 
-  });
-
-  xit('should have all the connections in the collection', function() {
-
+  it('should have all the connections in the collection', function() {
+    return expect(Connections.fetch()).to.eventually.have.property('models');
   });
 
 });
+
+
+
+
+
