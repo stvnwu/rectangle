@@ -27,18 +27,17 @@ module.exports = StyleSheet.create({
     height: 36,
     padding: 10,
     margin: 10,
-    flex: 1,
     fontSize: 18,
     borderWidth: 1,
     borderColor: '#48BBEC',
     borderRadius: 8,
-    flexDirection: 'row',
     color: '#48BBEC'
   },
-  text: {
+  prompt: {
     color: 'black',
     fontSize: 30,
-    margin: 80
+    margin: 40,
+    textAlign: 'center',
   }
   
 
