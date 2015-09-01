@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var Signup = require('./Signup');
+var Login = require('./Login');
 var globalStyles = require('../Stylesheet');
 var {
   AppRegistry,
@@ -37,10 +39,11 @@ class Auth extends Component {
             <Text style={globalStyles.prompt}>WorkWhere</Text>
           </View>
           <View style={styles.bot}>
-          <TouchableHighlight style={globalStyles.button}>
+          <TouchableHighlight style={globalStyles.button} onPress={this._signUpHandler.bind(this)}>
             <Text style={globalStyles.buttonText}>Sign Up</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={globalStyles.button}>
+          <TouchableHighlight style={globalStyles.button}
+            onPress={this._loginHandler.bind(this)}>
             <Text style={globalStyles.buttonText}>Log In</Text>
           </TouchableHighlight>
 
@@ -48,6 +51,18 @@ class Auth extends Component {
         </View>
         );
   }
+  _signUpHandler (){
+    this.props.navigator.push({
+            title: 'Signup',
+            component: Signup
+          });
+  };
+  _loginHandler (){
+    this.props.navigator.push({
+            title: 'Login',
+            component: Login
+          });
+  };
 }
 
 module.exports = Auth;
