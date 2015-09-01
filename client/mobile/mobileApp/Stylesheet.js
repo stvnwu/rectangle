@@ -23,11 +23,6 @@ module.exports = StyleSheet.create({
     color: 'white',
     alignSelf: 'center'
   },
-  container: {
-    marginTop: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   textInput: {
     height: 36,
     padding: 10,
