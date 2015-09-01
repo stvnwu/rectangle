@@ -1,6 +1,6 @@
 var cardController = require('./cardController.js');
 
 module.exports = function (app) {
-  app.get('/', cardController.cardGet);
-  app.post('/', cardController.cardPost);
+  app.post('/createcard', cardController.createCard);
+  app.post('/getcards', cardController.getCards);
 };
