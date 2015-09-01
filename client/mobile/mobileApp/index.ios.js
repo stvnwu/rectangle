@@ -20,7 +20,7 @@ class mobileApp extends Component {
   render() {
     return (
       <React.NavigatorIOS
-        style={styles.container}
+        style={styles.navContainer}
         initialRoute={{
           title: 'workwhere',
           component: DumbRoutes,
@@ -38,7 +38,6 @@ class DumbRoutes extends Component {
                 underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Auth</Text>
           </TouchableHighlight>
-          //the onPress prop is the listener
           <TouchableHighlight style={styles.button}
                 underlayColor='#99d9f4'
                 onPress={this._signUpHandler.bind(this)}>
@@ -126,13 +125,17 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   container: {
-      flex: 1,
-      marginTop: 65,
+    flex: 1,
+    marginTop: 65,
   },
   flowRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+
+  },
+  navContainer: {
+    flex: 1,
   },
   text: {
     color: 'black',
