@@ -5,17 +5,18 @@ var Cards = require('./cards/cards');
 // var Connection = require('./connections/connection');
 // var Connections = require('./connections/connections');
 
-new User({email: 'testing@email.com', password: '1234'})
+
+
+
+new User({email: 'testing1@email.com'})
 .fetch()
 .then(function(user) {
-  return new Card({
-    firstName: 'Kiri',
-    lastName: 'S-G',
-    email: user.get('email')
-    // userID: user.get('id')
-  }).save();
+  return user.comparePassword('12345');
 })
-.then(function(card) {
-  console.log(card);
-});
+.then(function(result) {
+  console.log('result is', result);
+})
+// .catch(function(err) {
+//   console.log(new Error(err));
+// });
 
