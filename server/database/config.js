@@ -7,9 +7,9 @@ var knex = require('knex')({
   client: 'pg',
   connection: {
     host: '127.0.0.1',
-    user: 'ksg', // change this out as needed
+    user: 'Surya', // change this out as needed
     password: '',
-    database: 'ksg', // change this out as needed
+    database: 'test', // change this out as needed
     charset: 'utf8'
   }
 });
