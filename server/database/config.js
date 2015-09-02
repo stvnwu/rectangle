@@ -6,10 +6,10 @@ var path = require('path');
 var knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: 'Surya', // change this out as needed
-    password: '',
-    database: 'test', // change this out as needed
+    host: process.env.DATABASE_HOST || '127.0.0.1',
+    user: process.env.DATABASE_USER || 'ksg', // change this out as needed
+    password: process.env.DATABASE_PW || '',
+    database: process.env.DATABASE || 'ksg', // change this out as needed
     charset: 'utf8'
   }
 });
@@ -20,7 +20,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (link) {
       link.increments('id').primary(),
-      link.string('email', 40).unique(),
+      link.string('email', 254),
       link.string('password', 254),
       link.timestamps()
     }).then(function (table) {
@@ -33,11 +33,11 @@ db.knex.schema.hasTable('cards').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('cards', function (link) {
       link.increments('id').primary(),
-      link.string('firstName', 20),
-      link.string('lastName', 20),
-      link.string('email', 25),
-      link.string('company', 18),
-      link.string('jobTitle', 25),
+      link.string('firstName', 254),
+      link.string('lastName', 254),
+      link.string('email', 254),
+      link.string('company', 254),
+      link.string('jobTitle', 254),
       link.string('phone', 14),
       link.integer('userID').references('users.id'),
       link.timestamps()
@@ -61,7 +61,5 @@ db.knex.schema.hasTable('connections').then(function(exists) {
     });
   }
 });
-
-
 
 module.exports = db;
