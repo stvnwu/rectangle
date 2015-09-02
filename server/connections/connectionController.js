@@ -72,7 +72,7 @@ var connectionRoutes = {
             if (con.length > 0) {
               con.models[0].destroy().then(function (model) {
                 res.end(JSON.stringify({
-                  "connection": "deleted "
+                  "connection": "deleted"
                 }));
               })
             } else {
