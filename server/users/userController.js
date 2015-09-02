@@ -19,7 +19,7 @@ var userRoutes = {
               error: "user doesn't exist"
             }));
           } else {
-            return user.comparePassword(req.body.password);
+            res.end(JSON.stringify(user.comparePassword(req.body.password)));
           }
         })
     })
