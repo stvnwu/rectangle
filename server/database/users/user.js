@@ -5,8 +5,6 @@
 var db = require('../config');
 var Card = require('../cards/card');
 var Promise = require('bluebird');
-// var bcrypt = require('bcrypt-nodejs');
-var Q = require('Q');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 /**
