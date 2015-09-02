@@ -31,10 +31,8 @@ var User = db.Model.extend({
    * returns a promise
   */
   comparePassword: function(attemptedPassword) {
-    console.log('just about to compare passwords');
     return bcrypt.compareAsync(attemptedPassword, this.get('password'))
     .then(function(isMatch) {
-      console.log('your passwords match!');
       return isMatch;
     })
     .catch(function(err) {
