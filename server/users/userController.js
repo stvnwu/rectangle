@@ -16,7 +16,7 @@ var userRoutes = {
               error: "user email is empty"
             }));
           } else {
-            return user.comparePassword(password);
+            return user.comparePassword(req.body.password);
           }
         })
     })
