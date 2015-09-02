@@ -2,6 +2,9 @@ var User = require('../database/users/user.js');
 var Users = require('../database/users/users.js');
 var Promise = require("bluebird");
 
+/** 
+ * userRoutes is an object that contains the routes for '/users' in our API
+*/
 var userRoutes = {
   /**
    * @function to sign the user in, comparing hashed passwords
