@@ -6,10 +6,10 @@ var path = require('path');
 var knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: 'Surya', // change this out as needed
-    password: '',
-    database: 'test', // change this out as needed
+    host: process.env.DATABASE_HOST || '127.0.0.1',
+    user: process.env.DATABASE_USER || 'ksg', // change this out as needed
+    password: process.env.DATABASE_PW || '',
+    database: process.env.DATABASE || 'ksg', // change this out as needed
     charset: 'utf8'
   }
 });
@@ -61,7 +61,5 @@ db.knex.schema.hasTable('connections').then(function(exists) {
     });
   }
 });
-
-
 
 module.exports = db;
