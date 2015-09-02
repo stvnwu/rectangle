@@ -4,16 +4,19 @@ var Promise = require("bluebird");
 
 var userRoutes = {
   signin: function (req, res) {
+    console.log('SIGNING IN');
     return new Promise(function (resolve, reject) {
+      console.log('about to lookup user with email');
       return new User({
           email: req.body.email
         })
         .fetch()
         .then(function (user) {
+          console.log('done looking up user, going to comparePassword');
           if (!user) {
-            // console.log("redirect to login");
+            // console.log("redirect to sign up");
             res.end(JSON.stringify({
-              error: "user email is empty"
+              error: "user doesn't exist"
             }));
           } else {
             return user.comparePassword(req.body.password);
