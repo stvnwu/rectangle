@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "test": "mocha server/test/databaseTest.js server/test/serverTest.js",
-    "postinstall": "npm install"
+    "postinstall": "bash ./post_install.sh"
   },
   "engines": {
     "node": "^0.12.7",
