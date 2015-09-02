@@ -48,16 +48,12 @@ var User = db.Model.extend({
    * No parameters, returns a promise
   */
   hashPassword: function(){
-    // var cipher = bcrypt.hashAsync;
-    // var getSalt = bcrypt.genSaltAsync;
-
     return bcrypt.genSaltAsync(null).bind(this)
     .then(function(salt) {
       return bcrypt.hashAsync(this.get('password'), salt, function() {});
     })
     .then(function(hash) {
       this.set('password', hash);
-      return hash;
     });
   }
 });

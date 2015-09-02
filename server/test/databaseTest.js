@@ -8,8 +8,9 @@ var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
 var expect = require('chai').expect;
-var should = require('chai').should;
+var should = require('chai').should
 
+var db = require('../database/config');
 var User = require('../database/users/user');
 var Users = require('../database/users/users');
 var Card = require('../database/cards/card');
@@ -38,95 +39,93 @@ var Connections = require('../database/connections/connections');
  * @example Test using Chai-As-Promised correctly
 */
 describe('User Model and Users Collection', function() {
+  var testEmail = 'user@email.com';
+  var testPassword = '1234';
+  var user;
+  var userid;
+
   it('should add a user model', function() {
-    return expect(new User({email: 'testing@email.com', password: '1234'})
-            .save()).to.eventually.be.fulfilled;
+    return expect(new User({email: testEmail, password: testPassword})
+            .save()
+            .then(function(userObj) {
+              user = userObj;
+              userid = userObj.get('id');
+              return userObj;
+            })).to.eventually.be.fulfilled;
   });
 
-/**
- * @todo make this work
- */
-  xit('should require unique emails per signup', function() {
-    return expect(new User({email: 'testing@email.com'})
-      .save()
-      ).to.eventually.be.rejected;
-  });
+  // it('should require unique emails per signup', function() {
+  //   return expect(new User({email: testEmail})
+  //     .save()).to.eventually.be.rejected;
+  // });
 
   it('should find an added user', function() {
-    return expect(new User({email: 'testing@email.com'})
+    return expect(new User({email: testEmail})
       .fetch().then(function(user) {
         return user.get('email')
       }))
-    .to.eventually.equal('testing@email.com');
+    .to.eventually.equal(testEmail);
   });
 
-  it('should remove a user model', function() {
-    expect(new User({email: 'testing@email.com'})
-    .fetch()
-    .then(function(user) {
-      var id = user.get('id');
-      return new User({'id': id})
-      .destroy()
-      .then(function(user) {
-        return id;
-      })
-    })
-    .then(function(id) {
-      return new User({'id': id}).fetch()
-    })).to.eventually.be.null;
-  });
-
-  xit('should store only the hashed password', function() {
-
+  it('should store only the hashed password', function() {
+    expect(new User({email: testEmail})
+      .fetch().then(function(user) {
+        return user.get('password');
+      }))
+    .to.eventually.not.equal(testPassword);
   });
 
   it('should have all the users in the collection', function() {
     return expect(Users.fetch()).to.eventually.have.property('models');
   });
 
-  // it just actually doesn't have the method, which is bad
-  xit('should have a cards method', function() {
-    return expect(new User({email: 'testing@email.com'})
-    .fetch().then(function(user) {
-      // console.log(user);
-      return user.get('cards');
-    })).to.eventually.be.a('function');
-    Users.fetch()
-    .then(function(users) {
-      expect(users).to.have.property('models');
-    });
+  it('should remove a user model', function() {
+    return expect(new User({'id': userid})
+      .destroy()
+      .then(function(user) {
+        return user.get('id');
+      })
+      .then(function(id) {
+        return new User({email:testEmail}).fetch()
+      })
+      .catch(function(err) {
+        console.log(new Error(err));
+      })).to.eventually.be.null;
   });
 
 });
 
 describe('Card Model and Cards Collection', function() {
-  var user;
-  new User({email: 'test4cards@email.com', password: '1234'}).save().then(function(userObj) {user = userObj});
-  var id;
+  var userid;
+  var user = new User({email: 'test4cards@email.com', password: '1234'})
+  .save()
+  .then(function(userObj) {
+    userid = userObj.get('id');
+    console.log("user id when created", userid);
+    return userObj; 
+  });
 
   it('should add a card model', function() {
     return expect(new Card({
       firstName: 'Marcus', 
-      lastName: 'Phillips', 
-      userID: user.get('id')
+      lastName: 'Phillips',
+      email: user.get('email'), 
+      userID: userid
     })
-    .save()
-    .then(function(marcus) {
-      id = marcus.get('id');
-    })).to.eventually.be.fulfilled;
+    .save()).to.eventually.be.fulfilled;
   });
 
   it('should have (a user method and) a userID property', function() {
-    return expect(new Card({'id': id})
+    return expect(new Card({userID: userid})
       .fetch()
       .then(function(marcus) {
         return marcus.get('userID');
       }))
-    .to.eventually.equal(user.get('id'));
+    .to.eventually.equal(userid);
   });
 
   it('should find an added card', function() {
-    return expect(new Card({'id': id})
+    return expect(new Card({email: user.get('email')})
       .fetch()
       .then(function(marcus) {
         return marcus.get('firstName');
@@ -134,17 +133,32 @@ describe('Card Model and Cards Collection', function() {
     .to.eventually.equal('Marcus');
   });
 
+  it('should have all cards in the collection', function() {
+    return expect(Cards.fetch()).to.eventually.have.property('models');
+  });
+
   it('should remove an added card', function() {
-    return expect(new Card({'id': id})
-      .destroy()
-      .then(function(marcus) {
-        return new Card({'id': id})
-        .fetch()
+    return expect(new Card({'userID': userid})
+      .fetch()
+      .then(function(card) {
+        return new Card({id: card.get('id')})
+        .destroy()
+        .then(function(marcus) {
+          return new Card({userID: userid})
+          .fetch()
+        });
       })).to.eventually.be.null;
   });
 
-  it('should have all cards in the collection', function() {
-    return expect(Cards.fetch()).to.eventually.have.property('models');
+  // remove the user
+  console.log('userid', userid);
+  new User({id: userid})
+  .destroy()
+  .then(function(user) {
+    console.log('in cards, destroyed user\'s email', user.get('email'));
+  })
+  .catch(function(err) {
+    console.log(new Error(err));
   });
   
 });
@@ -153,8 +167,10 @@ describe('Card Model and Cards Collection', function() {
 // dalmatian sensation-esque
 describe('Connection Model and Connections Collection', function() {
   var marcus;
+  var fred;
+  var fredID;
   var marcusCardID;
-  new User({email: 'test4cards@email.com', password: '1234'})
+  new User({email: 'marcus@email.com', password: '1234'})
   .save()
   .then(function(userObj) {
     marcus = userObj;
@@ -168,12 +184,20 @@ describe('Connection Model and Connections Collection', function() {
       marcusCardID = card.get('id');
     });
   })
+  .then(function() {
+    fred = new User({email: 'fred@email.com', password: 'asdf'})
+    .save()
+    .then(function(fredObj) {
+      fred = fredObj;
+      fredID = fredObj.get('id');
+    })
+  })
 
-
-  // new Connection({userID: marcus}).save()
+  // in general, these tests are testing the connection between
+  // marcus's card and fred-the-user    
 
   it('should add a connection model', function() {
-    return expect(new Connection({userID: marcus.get('id'), cardID: marcusCardID})
+    return expect(new Connection({userID: fred.get('id'), cardID: marcusCardID})
       .save()).to.eventually.be.fulfilled;
   });
 
@@ -210,12 +234,24 @@ describe('Connection Model and Connections Collection', function() {
       })
     })
     .then(function(id) {
-      return new User({'id': id}).fetch()
+      return new Connection({'id': id}).fetch()
     })).to.eventually.be.null;
   }); 
 
   it('should have all the connections in the collection', function() {
     return expect(Connections.fetch()).to.eventually.have.property('models');
+  });
+
+  // clean up after the test: remove fred, marcus, and marcus card
+  new Card({id: marcusCardID})
+  .destroy()
+  .then(function(card) {
+    new User({id: card.get('userID')})
+    .destroy();
+  })
+  .then(function() {
+    new User({id: fredID})
+    .destroy();
   });
 
 });
