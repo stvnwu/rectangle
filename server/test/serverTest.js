@@ -56,16 +56,46 @@ describe('routing test', function () {
 
 describe('connecting to the database', function () {
 
-  xit('should add users to the database using POST', function (done) {
-
+  it('should not add users to the database when email is empty using POST', function (done) {
+    api.post('/users/signup/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        var resText = JSON.parse(res.text);
+        expect(JSON.stringify(resText)).to.equal(JSON.stringify({
+          error: 'enter your email'
+        }));
+        done();
+      });
   });
 
-  xit('should edit users in the database', function (done) {
+  it('should add users to the database using POST', function (done) {
+    api.post('/users/signup/?email="test@google.com"')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        var resText = JSON.parse(res.text);
+        expect(JSON.stringify(resText)).to.equal(JSON.stringify({
+          "email": "already exists"
+        }));
+        done();
+      });
+  });
+  xit('should edit password in the database', function (done) {
 
   });
 
   xit('should remove a user\'s card(s)', function (done) {
-
+    api.post('/users/signup/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        done();
+      });
   });
 
   xit('should remove a user form the database', function (done) {
