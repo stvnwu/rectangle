@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "mocha server/test/databaseTest.js server/test/serverTest.js",
-    "postinstall": "bash ./post_install.sh"
+    "test": "mocha server/test/databaseTest.js server/test/serverTest.js"
   },
   "engines": {
     "node": "^0.12.7",
