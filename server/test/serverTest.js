@@ -84,12 +84,8 @@ describe('connecting to the database', function () {
       });
   });
 
-  xit('should edit password in the database', function (done) {
-
-  });
-
-  xit('should remove a user\'s card(s)', function (done) {
-    api.post('/users/signup/')
+  it("cards routing get/post", function (done) {
+    api.get('/cards/getcards/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -99,32 +95,38 @@ describe('connecting to the database', function () {
       });
   });
 
-  xit('should remove a user form the database', function (done) {
-
+  it("cards routing get/post", function (done) {
+    api.get('/cards/createcard/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        done();
+      });
   });
 
-  xit('should add a users\'s cards using post', function (done) {
 
+  it("connections routing get/post", function (done) {
+    api.get('/connections/createconnection/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        done();
+      });
   });
 
-  xit('should edit a user\'s cards', function (done) {
-
-  });
-
-  xit('should find all of the cards that belong to a user', function (done) {
-
-  });
-
-  xit('should create connections between a card and another user', function (done) {
-
-  });
-
-  xit('should find all the cards a user has a connection with', function (done) {
-
-  });
-
-  xit('should remove connections between a card and another user', function (done) {
-
+  it("connections routing get/post", function (done) {
+    api.get('/connections/deleteconnection/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        done();
+      });
   });
 
 });
