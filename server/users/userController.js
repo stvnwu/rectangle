@@ -12,6 +12,9 @@ var userRoutes = {
         .then(function (user) {
           if (!user) {
             // console.log("redirect to login");
+            res.end(JSON.stringify({
+              error: "user email is empty"
+            }));
           } else {
             return user.comparePassword(password);
           }
@@ -24,16 +27,19 @@ var userRoutes = {
   },
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
-      console.log(17, req.body.email);
+      // console.log(17, req.body.email);
       Users.query({
         where: {
           email: req.body.email
         }
       }).fetchOne().then(function (user) {
-        console.log(21, user);
+        // console.log(21, user);
         if (user) {
-          res.end("Email already exists");
-        } else {
+          res.end(JSON.stringify({
+            error: "Email already exists"
+          }));
+        } else if (req.body.email) {
+          console.log(37, "email provided");
           return new User({
             email: req.body.email,
             password: req.body.password
@@ -44,6 +50,11 @@ var userRoutes = {
             console.log(new Error(err));
             res.end(JSON.stringify(err));
           })
+        } else {
+          console.log(51, req.body);
+          res.end(JSON.stringify({
+            error: 'enter your email'
+          }));
         }
       })
     });
