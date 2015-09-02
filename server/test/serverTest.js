@@ -70,19 +70,20 @@ describe('connecting to the database', function () {
       });
   });
 
-  it('should add users to the database using POST', function (done) {
-    api.post('/users/signup/?email="test@google.com"')
+  it('should not signin a user if email is empty', function (done) {
+    api.post('/users/signin/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function (err, res) {
         var resText = JSON.parse(res.text);
         expect(JSON.stringify(resText)).to.equal(JSON.stringify({
-          "email": "already exists"
+          error: "user email is empty"
         }));
         done();
       });
   });
+
   xit('should edit password in the database', function (done) {
 
   });
