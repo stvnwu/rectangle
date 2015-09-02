@@ -18,6 +18,7 @@ var Profile = require('./Views/Profile');
 var QR = require('./Views/QR');
 var QRCamera = require('./Views/QRCamera');
 var Search = require('./Views/Search');
+var TabBar = require('./Views/TabBar');
 
 var globalStyles = require('./Stylesheet');
 
@@ -117,6 +118,23 @@ class DumbRoutes extends Component {
             <Text style={styles.buttonText}>Blah</Text>
           </TouchableHighlight>
         </View>
+
+        <View style={styles.flowRight}>
+          <TouchableHighlight style={styles.button}
+                underlayColor='#99d9f4'
+                onPress={this._tabBarHandler.bind(this)}>
+            <Text style={styles.buttonText}>TabBar</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button}
+                underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>New</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button}
+                underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Newer</Text>
+          </TouchableHighlight>
+        </View>
+
       </View>  
     );
   }
@@ -192,6 +210,13 @@ class DumbRoutes extends Component {
             title: '',
             component: Search
           });
+  };
+
+  _tabBarHandler (){
+    this.props.navigator.push({
+            title: '',
+            component: TabBar
+    });
   };
 
 }
