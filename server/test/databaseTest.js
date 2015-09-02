@@ -54,7 +54,7 @@ describe('User Model and Users Collection', function() {
             })).to.eventually.be.fulfilled;
   });
 
-  it('should require unique emails per signup', function() {
+  xit('should require unique emails per signup', function() {
     return expect(new User({email: testEmail})
       .save()).to.eventually.be.rejected;
   });
@@ -130,6 +130,18 @@ describe('Card Model and Cards Collection', function() {
     .save()).to.eventually.be.fulfilled;
   });
 
+  xit('should require a unique email address per card', function() {
+    return expect(new Card({
+      email: user.get('email'),
+      userID: userid
+    })
+    .save()).to.eventually.be.rejected;
+  });
+
+  xit('should require a userID', function() {
+
+  });
+
   it('should have (a user method and) a userID property', function() {
     return expect(new Card({userID: userid})
       .fetch()
@@ -200,19 +212,36 @@ describe('Connection Model and Connections Collection', function() {
   })
 
   // clean up the database
+  /**
+   * @todo delete the card and users
+   * aka make this work
+  */
   after(function() {
+    console.log('variables in after function: marcus card id', marcusCardID, 'fredID', fredID);
     new Card({id: marcusCardID})
-    .destroy()
+    .fetch()
     .then(function(card) {
-      new User({id: card.get('userID')})
-      .destroy();
-    })
-    .then(function() {
-      new User({id: fredID})
+      // new User({id: card.get('userID')})
+      // .destroy();
+      new Card({id: card.get('id')})
       .destroy();
     });
+    // .destroy()
+    // .then(function(card) {
+    //   console.log('PRINT ME');
+    //   console.log('this should be marcus\'s id', card.get('userID'));
+    //   new User({id: card.get('userID')})
+    //   .destroy();
+    // })
+    // .then(function() {
+    //   new User({id: fredID})
+    //   .destroy();
+    // })
+    // .catch(function(err) {
+    //   console.log(217, new Error(err));
+    // });
   });
-  
+
   // in general, these tests are testing the connection between
   // marcus's card and fred-the-user    
 
@@ -229,12 +258,20 @@ describe('Connection Model and Connections Collection', function() {
       })).to.eventually.exist;
   });
 
+  xit('should require a userID', function() {
+
+  });
+
   it('should have (a card method and) a cardID property', function() {
     return expect(new Connection({cardID: marcusCardID})
       .fetch()
       .then(function(connection) {
         return connection.get('cardID');
       })).to.eventually.exist;
+  });
+
+  xit('should require a cardID', function() {
+
   });
 
   it('should be able to find a card based on the userID', function() {
