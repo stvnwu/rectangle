@@ -3,6 +3,11 @@ var Users = require('../database/users/users.js');
 var Promise = require("bluebird");
 
 var userRoutes = {
+  /**
+   * @function to sign the user in, comparing hashed passwords
+   * @param {object} HTTP request object
+   * @param {object} HTTP response object
+  */
   signin: function (req, res) {
     return new Promise(function (resolve, reject) {
       return new User({
@@ -11,7 +16,8 @@ var userRoutes = {
         .fetch()
         .then(function (user) {
           if (!user) {
-            // console.log("redirect to sign up");
+            // HERE we would redirect to signup
+            // confer with front end
             res.end(JSON.stringify({
               error: "user doesn't exist"
             }));
@@ -28,15 +34,18 @@ var userRoutes = {
       message: "user get message"
     });
   },
+  /**
+   * @function to sign the user up and hash the password
+   * @param {object} HTTP request object
+   * @param {object} HTTP response object
+  */
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
-      // console.log(17, req.body.email);
       Users.query({
         where: {
           email: req.body.email
         }
       }).fetchOne().then(function (user) {
-        // console.log(21, user);
         if (user) {
           res.end(JSON.stringify({
             error: "Email already exists"
@@ -63,4 +72,5 @@ var userRoutes = {
     });
   }
 }
+
 module.exports = userRoutes;
