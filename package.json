@@ -9,7 +9,8 @@
     "postinstall": "bash ./post_install.sh"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "^0.12.7",
+    "npm": "2.14.1"
   },
   "repository": {
     "type": "git",
