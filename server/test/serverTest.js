@@ -21,15 +21,15 @@ var Connections = require('../database/connections/connections');
 
 
 // toggle between local and deployed server
-var developer = false;
-var api = developer ? supertest('https://tranquil-earth-7083.herokuapp.com/') : supertest('http://localhost:5000');
+var production = false;
+var api = production ? supertest('https://tranquil-earth-7083.herokuapp.com/') : supertest('http://localhost:5000');
 
 /**
  * Test all of the routes that the API will and will not support
 */
 
 describe('routing test', function () {
-  it(" route '/'' should return 404", function (done) {
+  it("route '/'' should return 404", function (done) {
     api.get('/')
       .set('Accept', 'application/json')
       .expect(404, done);
@@ -76,7 +76,7 @@ describe('routing test', function () {
 */
 describe('connecting to the database', function () {
 
-  if (!developer) {
+  if (!production) {
 
     it('should not add users to the database when email is empty using POST', function (done) {
       api.post('/users/signup/')
@@ -107,13 +107,14 @@ describe('connecting to the database', function () {
     });
 
   } else {
+
     it('should not add users to the database when email is empty using POST', function (done) {
-      api.post('/users/signup/')
+      api.post('users/signup/')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function (err, res) {
-          var resText = res.text;
+          var resText = JSON.parse(res.text);
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
             error: 'enter your email'
           }));
@@ -122,18 +123,19 @@ describe('connecting to the database', function () {
     });
 
     it('should not signin a user if email is empty', function (done) {
-      api.post('/users/signin/')
+      api.post('users/signin/')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function (err, res) {
-          var resText = res.text;
+          var resText = JSON.parse(res.text);
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
             error: "user doesn't exist"
           }));
           done();
         });
     });
+
   }
 
   it("cards routing get/post", function (done) {
