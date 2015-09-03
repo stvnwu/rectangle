@@ -67,8 +67,9 @@ class DumbRoutes extends Component {
     return(
       <View style={styles.masterContainer}>
         <View style={styles.top}>
+
         </View>
-        <View style={styles.container}>
+        <View style={styles.middle}>
           <View style={styles.flowRight}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
@@ -156,6 +157,8 @@ class DumbRoutes extends Component {
             </TouchableHighlight>
           </View>
 
+        </View>
+        <View style={styles.bottom}>
         </View>
       </View>  
     );
@@ -268,8 +271,14 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
-  container: {
-    flex: 10,
+  middle: {
+    flex: 5,
+    backgroundColor: 'blue',
+    // alignSelf: 'center',
+  },
+  bottom: {
+    flex: 3,
+    backgroundColor:'red',
   },
 
   flowRight: {
@@ -286,7 +295,8 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   navContainer: {
-    flex: 1,
+    flex: 10,
+    color: 'blue',
   },
   text: {
     color: 'black',
