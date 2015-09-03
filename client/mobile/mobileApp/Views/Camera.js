@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Camera = require('react-native-camera');
+// var Camera = require('react-native-camera');
 var globalStyles = require('../Stylesheet');
 var {
   AppRegistry,
