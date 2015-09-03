@@ -22,14 +22,14 @@ var Connections = require('../database/connections/connections');
  * @example The test below is an example of the mocha and chai syntax
 */
 
-// describe('Array', function() {
-//   describe('#indexOf()', function () {
-//     it('should return -1 when the value is not present', function () {
-//       var arr = [1, 2, 3];
-//       expect(arr.indexOf(4)).to.equal(-1);
-//     });
-//   });
-// });
+xdescribe('Array', function() {
+  describe('#indexOf()', function () {
+    it('should return -1 when the value is not present', function () {
+      var arr = [1, 2, 3];
+      expect(arr.indexOf(4)).to.equal(-1);
+    });
+  });
+});
 
 ////////////////////////////////////////////////////////
 //                  DATABASE TESTING                  //
