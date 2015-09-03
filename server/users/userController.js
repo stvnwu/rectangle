@@ -2,7 +2,15 @@ var User = require('../database/users/user.js');
 var Users = require('../database/users/users.js');
 var Promise = require("bluebird");
 
+/** 
+ * userRoutes is an object that contains the routes for '/users' in our API
+*/
 var userRoutes = {
+  /**
+   * @function to sign the user in, comparing hashed passwords
+   * @param {object} HTTP request object
+   * @param {object} HTTP response object
+  */
   signin: function (req, res) {
     return new Promise(function (resolve, reject) {
       return new User({
@@ -11,12 +19,16 @@ var userRoutes = {
         .fetch()
         .then(function (user) {
           if (!user) {
-            // console.log("redirect to login");
+            // HERE we would redirect to signup
+            // confer with front end
             res.end(JSON.stringify({
-              error: "user email is empty"
+              error: "user doesn't exist"
             }));
           } else {
-            return user.comparePassword(password);
+            user.comparePassword(req.body.password)
+            .then(function(isMatch) {
+              res.end(JSON.stringify(isMatch));
+            });
           }
         })
     })
@@ -25,15 +37,18 @@ var userRoutes = {
       message: "user get message"
     });
   },
+  /**
+   * @function to sign the user up and hash the password
+   * @param {object} HTTP request object
+   * @param {object} HTTP response object
+  */
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
-      // console.log(17, req.body.email);
       Users.query({
         where: {
           email: req.body.email
         }
       }).fetchOne().then(function (user) {
-        // console.log(21, user);
         if (user) {
           res.end(JSON.stringify({
             error: "Email already exists"
@@ -60,4 +75,5 @@ var userRoutes = {
     });
   }
 }
+
 module.exports = userRoutes;

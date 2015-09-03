@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js",
+    "test": "mocha server/test/databaseTest.js server/test/serverTest.js"
+  },
+  "engines": {
+    "node": "^0.12.7",
+    "npm": "2.14.1"
   },
   "repository": {
     "type": "git",
