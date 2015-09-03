@@ -19,6 +19,10 @@ var Cards = require('../database/cards/cards');
 var Connection = require('../database/connections/connection');
 var Connections = require('../database/connections/connections');
 
+
+// toggle between local and deployed server
+var developer = true;
+var api = developer ? supertest('https://tranquil-earth-7083.herokuapp.com/') : supertest('http://localhost:5000');
 /**
  * Test all of the routes that the API will and will not support
 */
@@ -77,7 +81,7 @@ describe('connecting to the database', function () {
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function (err, res) {
-        var resText = JSON.parse(res.text);
+        var resText = res.text;
         expect(JSON.stringify(resText)).to.equal(JSON.stringify({
           error: 'enter your email'
         }));
@@ -91,12 +95,13 @@ describe('connecting to the database', function () {
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function (err, res) {
-        var resText = JSON.parse(res.text);
+        var resText = res.text;
         expect(JSON.stringify(resText)).to.equal(JSON.stringify({
           error: "user email is empty"
         }));
         done();
       });
+  });
 
   it("cards routing get/post", function (done) {
     api.get('/cards/getcards/')
