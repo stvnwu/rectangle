@@ -26,6 +26,7 @@ class Signup extends Component {
         Sign Up
       </Text>
         <TextInput
+            autoFocus={true}
             style={globalStyles.textInput}
             placeholder='Name...'/>
         <TextInput
