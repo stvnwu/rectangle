@@ -5,7 +5,6 @@ var chai = require("chai");
 var expect = require('chai').expect;
 var should = require('chai').should;
 var supertest = require('supertest');
-var api = supertest('https://tranquil-earth-7083.herokuapp.com/');
 var app = require('../server.js');
 var userController = require('../users/userController.js');
 var cardController = require('../cards/cardController.js');
