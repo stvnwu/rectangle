@@ -20,7 +20,9 @@ db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (link) {
       link.increments('id').primary(),
-      link.string('email', 254).unique(),
+      link.string('firstName', 40),
+      link.string('lastName', 40),
+      link.string('email', 80).unique(),
       link.string('password', 254),
       link.timestamps()
     }).then(function (table) {
@@ -33,11 +35,11 @@ db.knex.schema.hasTable('cards').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('cards', function (link) {
       link.increments('id').primary(),
-      link.string('firstName', 254),
-      link.string('lastName', 254),
-      link.string('email', 254).unique(),
-      link.string('company', 254),
-      link.string('jobTitle', 254),
+      link.string('firstName', 40),
+      link.string('lastName', 40),
+      link.string('email', 80).unique(),
+      link.string('company', 40),
+      link.string('jobTitle', 80),
       link.string('phone', 14),
       link.integer('userID').references('users.id'),
       link.timestamps()
