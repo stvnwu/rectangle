@@ -54,7 +54,7 @@ describe('User Model and Users Collection', function() {
             })).to.eventually.be.fulfilled;
   });
 
-  xit('should require unique emails per signup', function() {
+  it('should require unique emails per signup', function() {
     return expect(new User({email: testEmail})
       .save()).to.eventually.be.rejected;
   });
@@ -130,7 +130,7 @@ describe('Card Model and Cards Collection', function() {
     .save()).to.eventually.be.fulfilled;
   });
 
-  xit('should require a unique email address per card', function() {
+  it('should require a unique email address per card', function() {
     return expect(new Card({
       email: user.get('email'),
       userID: userid
@@ -212,10 +212,6 @@ describe('Connection Model and Connections Collection', function() {
   })
 
   // clean up the database
-  /**
-   * @todo delete the card and users
-   * aka make this work
-  */
   after(function() {
     var marcusID = marcus.get('id');
 
