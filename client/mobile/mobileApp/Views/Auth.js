@@ -7,6 +7,7 @@ var Login = require('./Login');
 var {
   AppRegistry,
   Component,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -16,26 +17,30 @@ var {
 
 var Auth = React.createClass({
   render: function(){
+    var spacer=<View style={styles.spacer}/>;
     return (
       <View style={styles.container}>
-        <View style={styles.top}>
-          <Text style={styles.prompt}>WorkWhere</Text>
-        </View>
-        <View style={styles.middle}>
-        </View>
-        <View style={styles.bottom}>
-          <TouchableHighlight  
-            style={styles.button}
-            onPress={this._signUpHandler.bind(this)}>
-            <Text 
-            style={styles.buttonText}>Sign Up</Text>
-          </TouchableHighlight>
-          <TouchableHighlight 
-            style={styles.button}
-            onPress={this._loginHandler.bind(this)}>
-            <Text 
-            style={styles.buttonText}>Log In</Text>
-          </TouchableHighlight>
+        <View style={styles.wrapper}>
+          <View style={styles.containerBox}>
+            <View style={styles.heading}>
+              <Text style={styles.titleText}>WorkWhere</Text>
+            </View>
+            {spacer}
+            <View style={styles.footer}>
+              <TouchableHighlight  
+                style={styles.button}
+                onPress={this._signUpHandler.bind(this)}>
+                <Text 
+                style={styles.buttonText}>Sign Up</Text>
+              </TouchableHighlight>
+              <TouchableHighlight 
+                style={styles.button}
+                onPress={this._loginHandler.bind(this)}>
+                <Text 
+                style={styles.buttonText}>Log In</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -57,16 +62,11 @@ var Auth = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  bottom: {
-    flex: 2,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
   button: {
     flex: 1,
     margin: 10,
     padding: 10,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#ffffff',
     borderColor: '#1abc9c',
     borderWidth: 1,
     borderRadius: 8,
@@ -75,31 +75,48 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#1abc9c',
     alignSelf: 'center'
   },
   container: {
     flex: 1,
-    marginTop: 65,
-    flexDirection :'column', 
-    justifyContent: 'center',
+    backgroundColor: 'orange',
+    paddingTop: 64,
   },
-  middle: {
-    flex: 5,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-  },
-  prompt: {
-    fontSize: 30,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  top: {
+  containerBox: {
+    flex: 1,
+    borderRadius: 3,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
     backgroundColor: '#1abc9c',
+    margin: 0,
+    marginVertical: 0,
+    overflow: 'hidden',
+  },
+  footer: {
     flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
+  },
+  heading: {
+    backgroundColor: '#1abc9c',
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
+  spacer:{
+    flex: 4,
+    backgroundColor: '#1abc9c'
+  },
+  titleText: {
+    color: 'white',
+    fontSize: 30,
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column'
+  }
 });
 
 module.exports = Auth;

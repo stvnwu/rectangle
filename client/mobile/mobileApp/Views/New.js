@@ -24,17 +24,17 @@ var Auth = React.createClass({
         <ScrollView
           style={styles.wrapper}>
             <View style={styles.containerBox}>
-                    <View style={styles.prompt}>
-                      <Text style={styles.titleText}>
-                        hi
-                      </Text>
-                    </View>
-                    <View style={styles.prompt2}>
-                      <Text style={styles.titleText}>
-                        hi
-                      </Text>
-                    </View>
-                  </View>
+              <View style={styles.prompt}>
+                <Text style={styles.titleText}>
+                  hi
+                </Text>
+              </View>
+              <View style={styles.prompt2}>
+                <Text style={styles.titleText}>
+                  hi
+                </Text>
+              </View>
+            </View>
             {spacer}
         </ScrollView>
       </View>
@@ -66,23 +66,20 @@ var styles = StyleSheet.create({
   },
   prompt: {
     backgroundColor: 'blue',
-    flex: 2,
   },
   prompt2: {
     backgroundColor: 'red',
     fontSize: 30,
     color: 'blue',
-    flex: 1,
   },
 
   spacer: {
-    height: 100,
+    height: 400,
+    backgroundColor: 'black'
   },
   wrapper: {
     flex: 1,
     flexDirection: 'column',
-
-
   },
   containerBox: {
     flex:1,
@@ -94,31 +91,11 @@ var styles = StyleSheet.create({
     marginVertical: 0,
     overflow: 'hidden',
   },
-  titleContainerBox: {
-    borderBottomWidth: 0.5,
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 2.5,
-    borderBottomColor: '#d6d7da',
-    backgroundColor: '#f6f7f8',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
+
   titleText: {
     fontSize: 14,
     fontWeight: '500',
-  },
-  descriptionText: {
-    fontSize: 14,
-  },
-  disclosure: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    padding: 10,
-  },
-  children: {
-    margin: 10,
-  }
+  }, 
 
 });
 
