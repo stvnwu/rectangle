@@ -14,6 +14,7 @@ var QR = require('./QR');
 var QRCamera = require('./QRCamera');
 var Search = require('./Search');
 var TabBar = require('./TabBar');
+var New = require('./New');
 
 var {
   AppRegistry,
@@ -110,7 +111,8 @@ var DumbRoutes = React.createClass({
               <Text style={styles.buttonText}>TabBar</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
-                  underlayColor='#99d9f4'>
+                  underlayColor='#99d9f4'
+                  onPress={this._newHandler.bind(this)}>
               <Text style={styles.buttonText}>New</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
@@ -205,6 +207,12 @@ var DumbRoutes = React.createClass({
             component: TabBar
     });
   },
+  _newHandler: function(){
+      this.props.navigator.push({
+              title: '',
+              component: New
+      });
+    },
 
 });
 
