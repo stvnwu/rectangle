@@ -18,7 +18,7 @@ var Connection = require('../database/connections/connection');
 var Connections = require('../database/connections/connections');
 
 
-// toggle between local and deployed server
+// variable to toggle between local and deployed server
 var production = true;
 var api = production ? supertest('https://tranquil-earth-7083.herokuapp.com/') : supertest('http://localhost:5000');
 
