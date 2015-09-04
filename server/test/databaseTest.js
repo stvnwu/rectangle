@@ -218,13 +218,11 @@ describe('Connection Model and Connections Collection', function() {
   */
   after(function() {
     console.log('variables in after function: marcus card id', marcusCardID, 'fredID', fredID);
-    new Card({id: marcusCardID})
-    .fetch()
-    .then(function(card) {
-      // new User({id: card.get('userID')})
-      // .destroy();
-      new Card({id: card.get('id')})
-      .destroy();
+    return new Card({id: marcusCardID})
+      .destroy()
+      .then(function(card) {
+        console.log('deleted', card);
+      });
     });
     // .destroy()
     // .then(function(card) {
@@ -240,7 +238,6 @@ describe('Connection Model and Connections Collection', function() {
     // .catch(function(err) {
     //   console.log(217, new Error(err));
     // });
-  });
 
   // in general, these tests are testing the connection between
   // marcus's card and fred-the-user    
