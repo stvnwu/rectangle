@@ -19,6 +19,7 @@ var New = require('./New');
 var {
   AppRegistry,
   NavigatorIOS,
+  ScrollView,
   StyleSheet,
   TouchableHighlight,
   Text,
@@ -28,12 +29,10 @@ var {
 var DumbRoutes = React.createClass({
   render: function() {
     return(
-      <View style={styles.masterContainer}>
-        <View style={styles.top}>
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
 
-        </View>
-        <View style={styles.middle}>
-          <View style={styles.flowRight}>
+          <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
                   onPress={this._authHandler.bind(this)}>
@@ -52,7 +51,7 @@ var DumbRoutes = React.createClass({
             </TouchableHighlight>
           </View>
 
-          <View style={styles.flowRight}>
+          <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
                   onPress={this._importCardHandler.bind(this)}>
@@ -70,7 +69,7 @@ var DumbRoutes = React.createClass({
             </TouchableHighlight>
           </View>
 
-          <View style={styles.flowRight}>
+          <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
                   onPress={this._profileHandler.bind(this)}>
@@ -88,7 +87,7 @@ var DumbRoutes = React.createClass({
             </TouchableHighlight>
           </View>
 
-          <View style={styles.flowRight}>
+          <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
                   onPress={this._searchHandler.bind(this)}>
@@ -104,7 +103,7 @@ var DumbRoutes = React.createClass({
             </TouchableHighlight>
           </View>
 
-          <View style={styles.flowRight}>
+          <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
                   onPress={this._tabBarHandler.bind(this)}>
@@ -121,8 +120,6 @@ var DumbRoutes = React.createClass({
             </TouchableHighlight>
           </View>
 
-        </View>
-        <View style={styles.bottom}>
         </View>
       </View>  
     );
@@ -229,32 +226,24 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+  buttonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
   buttonText: {
     fontSize: 18,
     color: 'white',
     alignSelf: 'center'
   },
-  top: {
-    flex: 1,
-    backgroundColor: 'yellow'
-  },
-  middle: {
-    flex: 5,
-    backgroundColor: 'blue',
-    // alignSelf: 'center',
-  },
-  bottom: {
-    flex: 5,
-    backgroundColor:'red',
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
-  masterContainer: {
+  container: {
     flexDirection: 'column',
     flex: 1,
+    paddingTop: 64,
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column',
   },
 });
 
