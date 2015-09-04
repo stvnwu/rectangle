@@ -111,7 +111,7 @@ var styles = StyleSheet.create({
   },
   titleText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 24,
   },
   wrapper: {
     flex: 1,
