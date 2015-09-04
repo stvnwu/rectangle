@@ -41,7 +41,7 @@ var mobileApp = React.createClass({
           }
         }}
         itemWrapperStyle={styles.itemWrapper}
-        barTintColor='#1abc9c'
+        barTintColor='#d6d7da'
         tintColor="#008888"
       />
     );
@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   itemWrapper: {
-    backgroundColor: '#eaeaea',
+    backgroundColor: '#d6d7da',
   },
 });
 
