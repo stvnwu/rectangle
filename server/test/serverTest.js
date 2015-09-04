@@ -5,7 +5,6 @@ var chai = require("chai");
 var expect = require('chai').expect;
 var should = require('chai').should;
 var supertest = require('supertest');
-var api = supertest('https://tranquil-earth-7083.herokuapp.com/');
 var app = require('../server.js');
 var userController = require('../users/userController.js');
 var cardController = require('../cards/cardController.js');
@@ -19,7 +18,7 @@ var Connection = require('../database/connections/connection');
 var Connections = require('../database/connections/connections');
 
 
-// toggle between local and deployed server
+// variable to toggle between local and deployed server
 var production = true;
 var api = production ? supertest('https://tranquil-earth-7083.herokuapp.com/') : supertest('http://localhost:5000');
 
