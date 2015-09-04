@@ -75,20 +75,17 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
   },
   footer: {
-    flex: 2,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingBottom: 64,
   },
   heading: {
     backgroundColor: '#1abc9c',
-    flex: 1,
+    flex: 4,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  spacer:{
-    flex: 4,
-    backgroundColor: '#1abc9c'
   },
   titleText: {
     color: 'white',
@@ -97,6 +94,10 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     flexDirection: 'column'
+  },
+  spacer: {
+    flex: 1,
+    backgroundColor: '#1abc9c'
   }
 });
 
