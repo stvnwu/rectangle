@@ -66,7 +66,7 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     padding: 10,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#ffffff',
     borderColor: '#1abc9c',
     borderWidth: 1,
     borderRadius: 8,
@@ -75,7 +75,7 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#1abc9c',
     alignSelf: 'center'
   },
   container: {
@@ -88,7 +88,7 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1abc9c',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -107,7 +107,7 @@ var styles = StyleSheet.create({
   },
   spacer:{
     flex: 4,
-    backgroundColor: 'black'
+    backgroundColor: '#1abc9c'
   },
   titleText: {
     color: 'white',
