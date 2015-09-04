@@ -217,27 +217,22 @@ describe('Connection Model and Connections Collection', function() {
    * aka make this work
   */
   after(function() {
-    console.log('variables in after function: marcus card id', marcusCardID, 'fredID', fredID);
+    var marcusID = marcus.get('id');
+
     return new Card({id: marcusCardID})
+    .destroy()
+    .then(function() {
+      return new User({id: fredID})
       .destroy()
-      .then(function(card) {
-        console.log('deleted', card);
-      });
+    })
+    .then(function() {
+      return new User({id: marcusID})
+      .destroy()
+    })
+    .catch(function(err) {
+      console.log(err);
     });
-    // .destroy()
-    // .then(function(card) {
-    //   console.log('PRINT ME');
-    //   console.log('this should be marcus\'s id', card.get('userID'));
-    //   new User({id: card.get('userID')})
-    //   .destroy();
-    // })
-    // .then(function() {
-    //   new User({id: fredID})
-    //   .destroy();
-    // })
-    // .catch(function(err) {
-    //   console.log(217, new Error(err));
-    // });
+  });
 
   // in general, these tests are testing the connection between
   // marcus's card and fred-the-user    
