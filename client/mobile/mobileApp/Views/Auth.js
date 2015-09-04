@@ -27,18 +27,22 @@ var Auth = React.createClass({
             </View>
             {spacer}
             <View style={styles.footer}>
-              <TouchableHighlight  
-                style={styles.button}
-                onPress={this._signUpHandler.bind(this)}>
-                <Text 
-                style={styles.buttonText}>Sign Up</Text>
-              </TouchableHighlight>
-              <TouchableHighlight 
-                style={styles.button}
-                onPress={this._loginHandler.bind(this)}>
-                <Text 
-                style={styles.buttonText}>Log In</Text>
-              </TouchableHighlight>
+              <View style={styles.buttonContainer}>
+                <TouchableHighlight  
+                  style={styles.button}
+                  onPress={this._signUpHandler.bind(this)}>
+                  <Text 
+                  style={styles.buttonText}>Sign Up</Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableHighlight 
+                  style={styles.button}
+                  onPress={this._loginHandler.bind(this)}>
+                  <Text 
+                  style={styles.buttonText}>Log In</Text>
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
         </View>
@@ -94,19 +98,19 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
   },
   footer: {
-    flex: 2,
+    flex: 4,
     flexDirection: 'column',
     justifyContent: 'flex-end'
   },
   heading: {
     backgroundColor: '#1abc9c',
-    flex: 1,
+    flex: 4,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   spacer:{
-    flex: 4,
+    flex: 2,
     backgroundColor: '#1abc9c'
   },
   titleText: {

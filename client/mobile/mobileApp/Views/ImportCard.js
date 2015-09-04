@@ -96,7 +96,7 @@ var styles = StyleSheet.create({
     flexDirection: 'column'
   },
   spacer: {
-    flex: 1,
+    flex: 4,
     backgroundColor: '#1abc9c'
   }
 });
