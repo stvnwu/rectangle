@@ -22,14 +22,14 @@ var Connections = require('../database/connections/connections');
  * @example The test below is an example of the mocha and chai syntax
 */
 
-// describe('Array', function() {
-//   describe('#indexOf()', function () {
-//     it('should return -1 when the value is not present', function () {
-//       var arr = [1, 2, 3];
-//       expect(arr.indexOf(4)).to.equal(-1);
-//     });
-//   });
-// });
+xdescribe('Array', function() {
+  describe('#indexOf()', function () {
+    it('should return -1 when the value is not present', function () {
+      var arr = [1, 2, 3];
+      expect(arr.indexOf(4)).to.equal(-1);
+    });
+  });
+});
 
 ////////////////////////////////////////////////////////
 //                  DATABASE TESTING                  //
@@ -54,10 +54,10 @@ describe('User Model and Users Collection', function() {
             })).to.eventually.be.fulfilled;
   });
 
-  // it('should require unique emails per signup', function() {
-  //   return expect(new User({email: testEmail})
-  //     .save()).to.eventually.be.rejected;
-  // });
+  it('should require unique emails per signup', function() {
+    return expect(new User({email: testEmail})
+      .save()).to.eventually.be.rejected;
+  });
 
   it('should find an added user', function() {
     return expect(new User({email: testEmail})
@@ -89,20 +89,35 @@ describe('User Model and Users Collection', function() {
         return new User({email:testEmail}).fetch()
       })
       .catch(function(err) {
-        console.log(new Error(err));
+        console.log(92, new Error(err));
       })).to.eventually.be.null;
   });
 
 });
 
 describe('Card Model and Cards Collection', function() {
+  // variables
   var userid;
-  var user = new User({email: 'test4cards@email.com', password: '1234'})
+  var testEmail = 'test4cards@email.com';
+  var testPassword = '1234';
+  var user = new User({email: testEmail, password: testPassword})
   .save()
   .then(function(userObj) {
     userid = userObj.get('id');
-    console.log("user id when created", userid);
     return userObj; 
+  });
+
+  // clean up after the test
+  after(function() {
+    new User({email: testEmail})
+    .fetch()
+    .then(function(user) {
+      new User({id: user.get('id')})
+      .destroy();
+    })
+    .catch(function(err) {
+      console.log(163, new Error(err));
+    });
   });
 
   it('should add a card model', function() {
@@ -113,6 +128,14 @@ describe('Card Model and Cards Collection', function() {
       userID: userid
     })
     .save()).to.eventually.be.fulfilled;
+  });
+
+  it('should require a unique email address per card', function() {
+    return expect(new Card({
+      email: user.get('email'),
+      userID: userid
+    })
+    .save()).to.eventually.be.rejected;
   });
 
   it('should have (a user method and) a userID property', function() {
@@ -149,23 +172,14 @@ describe('Card Model and Cards Collection', function() {
         });
       })).to.eventually.be.null;
   });
-
-  // remove the user
-  console.log('userid', userid);
-  new User({id: userid})
-  .destroy()
-  .then(function(user) {
-    console.log('in cards, destroyed user\'s email', user.get('email'));
-  })
-  .catch(function(err) {
-    console.log(new Error(err));
-  });
   
 });
 
 // connections collection sounds like something 101 Dalmations
 // dalmatian sensation-esque
 describe('Connection Model and Connections Collection', function() {
+
+  // variables!
   var marcus;
   var fred;
   var fredID;
@@ -192,6 +206,25 @@ describe('Connection Model and Connections Collection', function() {
       fredID = fredObj.get('id');
     })
   })
+
+  // clean up the database
+  after(function() {
+    var marcusID = marcus.get('id');
+
+    return new Card({id: marcusCardID})
+    .destroy()
+    .then(function() {
+      return new User({id: fredID})
+      .destroy()
+    })
+    .then(function() {
+      return new User({id: marcusID})
+      .destroy()
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+  });
 
   // in general, these tests are testing the connection between
   // marcus's card and fred-the-user    
@@ -240,18 +273,6 @@ describe('Connection Model and Connections Collection', function() {
 
   it('should have all the connections in the collection', function() {
     return expect(Connections.fetch()).to.eventually.have.property('models');
-  });
-
-  // clean up after the test: remove fred, marcus, and marcus card
-  new Card({id: marcusCardID})
-  .destroy()
-  .then(function(card) {
-    new User({id: card.get('userID')})
-    .destroy();
-  })
-  .then(function() {
-    new User({id: fredID})
-    .destroy();
   });
 
 });
