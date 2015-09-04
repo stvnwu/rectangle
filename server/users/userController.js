@@ -57,7 +57,9 @@ var userRoutes = {
           console.log(37, "email provided");
           return new User({
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
           }).save().then(function (newUser) {
             console.log(20, newUser);
             res.end(JSON.stringify(newUser));
