@@ -19,7 +19,7 @@ var ImportCard = React.createClass({
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <View style={styles.containerBox}>
-            <View style={styles.heading}>
+            <View style={styles.header}>
               <Text style={styles.titleText}>Update your business card</Text>
             </View>
             {spacer}
@@ -80,7 +80,7 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingBottom: 64,
   },
-  heading: {
+  header: {
     backgroundColor: '#1abc9c',
     flex: 4,
     flexDirection: 'row',

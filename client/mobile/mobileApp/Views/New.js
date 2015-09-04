@@ -72,7 +72,6 @@ var styles = StyleSheet.create({
     fontSize: 30,
     color: 'blue',
   },
-
   spacer: {
     height: 400,
     backgroundColor: 'black'
@@ -91,7 +90,6 @@ var styles = StyleSheet.create({
     marginVertical: 0,
     overflow: 'hidden',
   },
-
   titleText: {
     fontSize: 14,
     fontWeight: '500',
