@@ -138,10 +138,6 @@ describe('Card Model and Cards Collection', function() {
     .save()).to.eventually.be.rejected;
   });
 
-  xit('should require a userID', function() {
-
-  });
-
   it('should have (a user method and) a userID property', function() {
     return expect(new Card({userID: userid})
       .fetch()
@@ -246,20 +242,12 @@ describe('Connection Model and Connections Collection', function() {
       })).to.eventually.exist;
   });
 
-  xit('should require a userID', function() {
-
-  });
-
   it('should have (a card method and) a cardID property', function() {
     return expect(new Connection({cardID: marcusCardID})
       .fetch()
       .then(function(connection) {
         return connection.get('cardID');
       })).to.eventually.exist;
-  });
-
-  xit('should require a cardID', function() {
-
   });
 
   it('should be able to find a card based on the userID', function() {
