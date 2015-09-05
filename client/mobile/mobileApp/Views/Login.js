@@ -13,6 +13,16 @@ var {
   View,
 } = React;
 
+var reqBody = {};
+var test = "resp here: "
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: {}
+}
+
 var Login = React.createClass({
   render: function(){
       var spacer = <View style={styles.spacer}/>;
@@ -25,16 +35,23 @@ var Login = React.createClass({
             <TextInput
                 autoFocus={true}
                 style={styles.textInput}
-                placeholder='Email'/>
+                placeholder='Email'
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'email')
+                }/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Password'/>
+                placeholder='Password'
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'password')
+                }/>
             <View style={styles.footer}>
               <View style={styles.moveRight}>
               </View>
               <TouchableHighlight 
                 style={styles.button}
-                underlayColor={'orange'}>
+                underlayColor={'orange'}
+                onPress={this.onSend}>
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
             </View>
@@ -43,6 +60,28 @@ var Login = React.createClass({
         </View>
         );
     },
+    onInputChanged: function(event) {
+      this.setState({ input: event.nativeEvent.text });
+    },
+    updateProp: function(text,prop) {
+      reqBody[prop] = text;
+      obj.body = JSON.stringify(reqBody);
+      this.setState((state) => {
+        return {
+          curText: text
+        };
+      });
+    },
+    onSend: function() {
+      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)  
+        .then(function(res) {
+          return res.json();
+         })
+        .then(function(resJson) {
+          console.log('response----->',resJson);
+          return resJson;
+         })
+    }
 });
 
 var styles = StyleSheet.create({
@@ -105,6 +144,10 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     flexDirection: 'column'
+  },
+  test:{
+    flex:1,
+    overflow:"hidden"
   }
 });
 
