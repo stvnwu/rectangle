@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
   button: {
     flex: 1,
     margin: 10,
-    padding: 10,
+    padding: 20,
     backgroundColor: '#ffffff',
     borderColor: '#1abc9c',
     borderWidth: 1,
