@@ -50,8 +50,8 @@ var CardInfo = React.createClass({
               <Text style={styles.buttonText}>Next</Text>
             </TouchableHighlight>
           </View>
-        </ScrollView>
         {spacer}
+        </ScrollView>
       </View>
       );
   },
