@@ -72,6 +72,7 @@ var Signup =  React.createClass({
              </TouchableHighlight>
           </View>
         </ScrollView>
+        {spacer}
       </View>
     );
   },
@@ -147,7 +148,7 @@ var styles = StyleSheet.create({
     flex: 2,
   },
   spacer:{
-    paddingTop: 10,
+    paddingTop: 250,
     backgroundColor: '#1abc9c'
   },
   textInput: {
