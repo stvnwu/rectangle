@@ -77,7 +77,7 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
   },
   footer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingBottom: 64,
