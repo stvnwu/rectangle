@@ -45,6 +45,7 @@ var Auth = React.createClass({
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
               </View>
+              {spacer}
             </View>
           </View>
         </View>
