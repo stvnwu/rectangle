@@ -3,6 +3,7 @@
 var React = require('react-native');
 
 var {
+  ActivityIndicatorIOS,
   AppRegistry,
   Component,
   ScrollView,
@@ -24,8 +25,16 @@ var obj = {
 }
 
 var Login = React.createClass({
+  getInitialState: function() {
+  return {isLoading: false};
+},
   render: function(){
       var spacer = <View style={styles.spacer}/>;
+      var spinner = this.state.isLoading ?
+        ( <ActivityIndicatorIOS
+            hidden='true'
+            size='large'/> ) :
+        ( <View/>);
       return (
         <View style={styles.container}>
           <ScrollView style={styles.wrapper}>
@@ -55,12 +64,14 @@ var Login = React.createClass({
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
             </View>
+          {spinner}
           {spacer}
           </ScrollView>
         </View>
         );
     },
     onInputChanged: function(event) {
+
       this.setState({ input: event.nativeEvent.text });
     },
     updateProp: function(text,prop) {
@@ -73,6 +84,7 @@ var Login = React.createClass({
       });
     },
     onSend: function() {
+      this.setState({ isLoading: true });
       fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)  
         .then(function(res) {
           return res.json();
@@ -80,7 +92,7 @@ var Login = React.createClass({
         .then(function(resJson) {
           console.log('response----->',resJson);
           return resJson;
-         })
+         });
     }
 });
 
