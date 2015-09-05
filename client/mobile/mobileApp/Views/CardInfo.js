@@ -20,7 +20,7 @@ var CardInfo = React.createClass({
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
           <View style={styles.header}>
-            <Text style={styles.titleText}>Enter your business information</Text>
+            <Text style={styles.titleText}>Enter your information</Text>
           </View>
           <TextInput
               autoFocus={true}
@@ -105,7 +105,7 @@ var styles = StyleSheet.create({
     flex: 2,
   },
   spacer:{
-    paddingTop: 250,
+    paddingTop: 10,
     backgroundColor: '#1abc9c'
   },
   textInput: {
