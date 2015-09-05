@@ -18,8 +18,19 @@ var styles = StyleSheet.create({
   }
 });
 
-class Signup extends Component {
-  render() {
+var reqBody = {};
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: {}
+}
+
+
+var Signup =  React.createClass({
+  t: {t:'1'},
+  render: function(){
     return (
       <View style={styles.container}>
       <Text style={globalStyles.prompt}>
@@ -28,26 +39,63 @@ class Signup extends Component {
         <TextInput
             autoFocus={true}
             style={globalStyles.textInput}
-            placeholder='Name...'/>
+            placeholder='Name'
+             onChange={(event) => 
+              this.updateProp(event.nativeEvent.text,'firstName')
+            }/>
         <TextInput
             style={globalStyles.textInput}
-            placeholder='Last...'/>
+            placeholder='Last'
+            onChange={(event) => 
+              this.updateProp(event.nativeEvent.text,'lastName')
+            }/>
         <TextInput
             style={globalStyles.textInput}
-            placeholder='Password...'/>
+            keyboardType='email-address'
+            placeholder='Email'
+            onChange={(event) => 
+              this.updateProp(event.nativeEvent.text,'email')
+            }/>
         <TextInput
             style={globalStyles.textInput}
-            placeholder='Email...'/>
+            placeholder='Password'
+            secureTextEntry={true}
+            onChange={(event) => 
+              this.updateProp(event.nativeEvent.text,'password')
+            }/>
         <TouchableHighlight style={globalStyles.button}
-             underlayColor='#99d9f4'>
+             underlayColor='#99d9f4'
+             onPress={this.onSend}>
            <Text style={globalStyles.buttonText}>
               Send
            </Text>
          </TouchableHighlight>
       </View>
       );
+  },
+  onInputChanged: function(event) {
+    this.setState({ input: event.nativeEvent.text });
+  },
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  onSend: function() {
+    fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
+      .then(function(res) {
+        test += JSON.stringify(res);
+        return res.json();
+       })
+      .then(function(resJson) {
+        return resJson;
+       })
   }
-}
+}); 
 
 module.exports = Signup;
 
