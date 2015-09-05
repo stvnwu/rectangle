@@ -25,12 +25,14 @@ var ImportCard = React.createClass({
             {spacer}
             <View style={styles.footer}>
               <TouchableHighlight  
-                style={styles.button}>
+                style={styles.button}
+                underlayColor={'orange'}>
                 <Text 
                 style={styles.buttonText}>Camera Roll</Text>
               </TouchableHighlight>
               <TouchableHighlight 
-                style={styles.button}>
+                style={styles.button}
+                underlayColor={'orange'}>
                 <Text 
                 style={styles.buttonText}>Take a Photo</Text>
               </TouchableHighlight>

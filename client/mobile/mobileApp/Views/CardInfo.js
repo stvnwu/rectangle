@@ -44,7 +44,9 @@ var CardInfo = React.createClass({
           <View style={styles.footer}>
             <View style={styles.moveRight}>
             </View>
-            <TouchableHighlight style={styles.button}>
+            <TouchableHighlight 
+              style={styles.button}
+              underlayColor={'orange'}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableHighlight>
           </View>
@@ -103,7 +105,7 @@ var styles = StyleSheet.create({
     flex: 2,
   },
   spacer:{
-    paddingTop: 200,
+    paddingTop: 250,
     backgroundColor: '#1abc9c'
   },
   textInput: {

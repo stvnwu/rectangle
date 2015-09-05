@@ -30,7 +30,8 @@ var Auth = React.createClass({
               <View >
                 <TouchableHighlight  
                   style={styles.button}
-                  onPress={this._signUpHandler.bind(this)}>
+                  onPress={this._signUpHandler.bind(this)}
+                  underlayColor={'orange'}>
                   <Text 
                   style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
@@ -38,7 +39,8 @@ var Auth = React.createClass({
               <View >
                 <TouchableHighlight 
                   style={styles.button}
-                  onPress={this._loginHandler.bind(this)}>
+                  onPress={this._loginHandler.bind(this)}
+                  underlayColor={'orange'}>
                   <Text 
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
