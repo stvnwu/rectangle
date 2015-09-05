@@ -18,12 +18,7 @@ var styles = StyleSheet.create({
   }
 });
 
-var reqBody = {
-  firstName: 'jjj',
-  lastName: null,
-  email: "jj",
-  password: null
-};
+var reqBody = {};
 var obj = {  
   method: 'POST',
   headers: {
