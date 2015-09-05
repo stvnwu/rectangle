@@ -105,7 +105,7 @@ var styles = StyleSheet.create({
     flex: 2,
   },
   spacer:{
-    paddingTop: 10,
+    paddingTop: 250,
     backgroundColor: '#1abc9c'
   },
   textInput: {
