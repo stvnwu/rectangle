@@ -4,13 +4,13 @@ var Promise = require("bluebird");
 
 /** 
  * userRoutes is an object that contains the routes for '/users' in our API
-*/
+ */
 var userRoutes = {
   /**
    * @function to sign the user in, comparing hashed passwords
    * @param {object} HTTP request object
    * @param {object} HTTP response object
-  */
+   */
   signin: function (req, res) {
     return new Promise(function (resolve, reject) {
       return new User({
@@ -19,16 +19,22 @@ var userRoutes = {
         .fetch()
         .then(function (user) {
           if (!user) {
+            //Sending a 400 response code for wrong email/password requests
             // HERE we would redirect to signup
             // confer with front end
-            res.end(JSON.stringify({
-              error: "user doesn't exist"
-            }));
+            res.status(400).send('email does not match');
           } else {
             user.comparePassword(req.body.password)
-            .then(function(isMatch) {
-              res.end(JSON.stringify(isMatch));
-            });
+              .then(function (isMatch) {
+                if (!isMatch) {
+                  res.status(400).send('password does not match');
+                }
+                res.end(JSON.stringify(isMatch));
+              }).catch(function (err) {
+                console.log(err);
+                res.status(400).send('password/email does not match');
+
+              });
           }
         })
     })
@@ -41,7 +47,7 @@ var userRoutes = {
    * @function to sign the user up and hash the password
    * @param {object} HTTP request object
    * @param {object} HTTP response object
-  */
+   */
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
       Users.query({
@@ -50,10 +56,10 @@ var userRoutes = {
         }
       }).fetchOne().then(function (user) {
         if (user) {
-          res.end(JSON.stringify({
-            error: "Email already exists"
-          }));
-        } else if (req.body.email) {
+          //Sending 422 response code if email already exists in DB
+          res.status(422).send('email already exists');
+        } else if (req.body.email !== "" && req.body.email.indexOf("@") !== -1 && req.body.email !== undefined) {
+          console.log(62, req.body.email);
           console.log(37, "email provided");
           return new User({
             email: req.body.email,
@@ -69,9 +75,7 @@ var userRoutes = {
           })
         } else {
           console.log(51, req.body);
-          res.end(JSON.stringify({
-            error: 'enter your email'
-          }));
+          res.status(400).send('email is not provided/invalid');
         }
       })
     });
