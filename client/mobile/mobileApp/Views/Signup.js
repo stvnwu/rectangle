@@ -71,8 +71,8 @@ var Signup =  React.createClass({
                </Text>
              </TouchableHighlight>
           </View>
-        </ScrollView>
         {spacer}
+        </ScrollView>
       </View>
     );
   },

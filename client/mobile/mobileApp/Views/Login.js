@@ -38,8 +38,8 @@ var Login = React.createClass({
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
             </View>
-          </ScrollView>
           {spacer}
+          </ScrollView>
         </View>
         );
     },
@@ -83,7 +83,7 @@ var styles = StyleSheet.create({
     flex: 2,
   },
   spacer:{
-    paddingTop: 150,
+    paddingTop: 250,
     backgroundColor: '#1abc9c'
   },
   textInput: {
