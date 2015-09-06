@@ -37,6 +37,7 @@ var userRoutes = {
       message: "user get message"
     });
   },
+  
   /**
    * @function to sign the user up and hash the password
    * @param {object} HTTP request object
