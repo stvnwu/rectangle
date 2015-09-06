@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var MapboxGLMap = require('react-native-mapbox-gl');
-var mapRef = require('../config').map2;
+var mapRef = require('../config').map;
 var {
   AppRegistry,
   StyleSheet,
