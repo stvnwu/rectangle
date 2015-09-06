@@ -91,20 +91,20 @@ var Signup =  React.createClass({
   },
   onSend: function() {
     fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
-    .then(function(res) {
+    .then((res) => {
       AsyncStorage.setItem('userEmail', res._bodyText)
-      .then(function() {
+      .then(() => {
         console.log('successfully saved user email:', res._bodyText, 'Signup.js', 97);
       })
-      .then(function() {
+      .then(() => {
         return AsyncStorage.getItem('userEmail');
       })
-      .then(function(email) {
+      .then((email) => {
         console.log('successfully retrieved user email:', email, 'Signup.js', 103);
       });
       return JSON.stringify(res.json());
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(new Error(err));
     });
   }
