@@ -63,7 +63,6 @@ var userRoutes = {
           }).save().then(function (newUser) {
             console.log(20, newUser);
             res.end(newUser.get('email'));
-            res.end(JSON.stringify(newUser));
           }).catch(function (err) {
             console.log(new Error(err));
             res.end(JSON.stringify(err));
