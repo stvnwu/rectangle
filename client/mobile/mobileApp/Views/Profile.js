@@ -3,6 +3,7 @@
 var React = require('react-native');
 
 var {
+  AsyncStorage,
   Image,
   ScrollView,
   StyleSheet,
@@ -12,7 +13,25 @@ var {
   View, 
 } = React;
 
+var card = {};
+
 var Profile = React.createClass({
+  getInitialState: function() {
+    return AsyncStorage.getItem('cardEmail')
+    .then((email) => {
+      return fetch('https://tranquil-earth-7083.herokuapp.com/cards/getcard', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'cardEmail': email})
+      });
+    })
+    .then((response) => {
+      card = response._bodyText;
+      console.log('card is,', card, 'Profile.js', 30);
+      return card;
+    })
+  },
+
   render: function(){
     var spacer = <View style={styles.spacer}/>;
     return (
