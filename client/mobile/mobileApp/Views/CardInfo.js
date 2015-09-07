@@ -4,6 +4,7 @@ var React = require('react-native');
 
 var {
   AppRegistry,
+  AsyncStorage,
   Component,
   ScrollView,
   StyleSheet,
@@ -13,7 +14,20 @@ var {
   View,
 } = React;
 
+var reqBody = {};
+
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: {}
+}
+
 var CardInfo = React.createClass({
+  /**
+   * Method, no parameters, renders the page with text inputs and a send button
+  */
   render: function(){
     var spacer = <View style={styles.spacer}/>;
     return (
@@ -25,27 +39,48 @@ var CardInfo = React.createClass({
           <TextInput
               autoFocus={true}
               style={styles.textInput}
-              placeholder='First Name'/>
+              placeholder='First Name'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'firstName')
+              }/>
           <TextInput
               style={styles.textInput}
-              placeholder='Last Name'/>
+              placeholder='Last Name'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
           <TextInput
               style={styles.textInput}
-              placeholder='Email'/>
+              placeholder='Email'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'cardEmail')
+              }/>
           <TextInput
               style={styles.textInput}
-              placeholder='Phone'/>
+              placeholder='Phone'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'phone')
+              }/>
           <TextInput
               style={styles.textInput}
-              placeholder='Company'/>
+              placeholder='Company'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'company')
+              }/>
           <TextInput
               style={styles.textInput}
-              placeholder='Job Title'/>
+              placeholder='Job Title'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'jobTitle')
+              }/>
           <View style={styles.footer}>
             <View style={styles.moveRight}>
             </View>
             <TouchableHighlight 
               style={styles.button}
+              onPress={(event) =>
+                this.onSend()
+              }
               underlayColor={'orange'}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableHighlight>
@@ -55,6 +90,47 @@ var CardInfo = React.createClass({
       </View>
       );
   },
+  /**
+   * Method that updates the binded data whenever it is changed
+   * @param {event} 
+  */
+  onInputChanged: function(event) {
+    this.setState({ input: event.nativeEvent.text });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  /**
+   * Method that creates the HTTP request to the server
+  */
+  onSend: function() {
+    AsyncStorage.getItem('userEmail')
+    .then((email) => {
+      this.updateProp(email, 'email');
+    })
+    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
+    .then((response) => {
+      return AsyncStorage.setItem('cardEmail', reqBody['cardEmail']);
+    })
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  }, 
+
 });
 
 var styles = StyleSheet.create({
