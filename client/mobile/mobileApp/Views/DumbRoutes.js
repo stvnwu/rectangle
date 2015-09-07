@@ -239,11 +239,11 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    paddingTop: 64,
   },
   wrapper: {
     flex: 1,
     flexDirection: 'column',
+    paddingTop: 64,
   },
 });
 
