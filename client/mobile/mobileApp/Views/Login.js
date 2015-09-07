@@ -21,7 +21,10 @@ var obj = {
   headers: {
      'Content-Type': 'application/json',
    },
-  body: {}
+  body: {
+    "email": "mananana",
+    "password": "wuu"
+}
 }
 
 var Login = React.createClass({
@@ -60,7 +63,8 @@ var Login = React.createClass({
               <TouchableHighlight 
                 style={styles.button}
                 underlayColor={'orange'}
-                onPress={this.onSend}>
+                onPress={(event) => 
+                  this.onSend()}>
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
             </View>
@@ -83,16 +87,32 @@ var Login = React.createClass({
         };
       });
     },
+    _responseHandler: function (response) {
+      //save it to localstorage
+      this.setState((state) => {
+        return {
+          isLoading: false
+        };
+      });
+      console.log('97 response----->',response);
+    },
     onSend: function() {
-      this.setState({ isLoading: true });
-      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)  
-        .then(function(res) {
-          return res.json();
-         })
-        .then(function(resJson) {
-          console.log('response----->',resJson);
+      this.setState((state) => {
+        return {
+          isLoading: true
+        };
+      });
+      // this.setState({ isLoading: true });
+      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
+        .then(response => response.json())
+        .then((resJson) => {
+          console.log('112 response----->', typeof resJson);
+          this._responseHandler(resJson);
           return resJson;
-         });
+        })
+    },
+    onStop: function() {
+      this.setState({ isLoading: false });
     }
 });
 
@@ -164,4 +184,5 @@ var styles = StyleSheet.create({
 });
 
 module.exports = Login;
+
 
