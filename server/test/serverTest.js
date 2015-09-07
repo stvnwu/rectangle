@@ -24,7 +24,7 @@ var api = production ? supertest('https://tranquil-earth-7083.herokuapp.com/') :
 
 /**
  * Test all of the routes that the API will and will not support
-*/
+ */
 
 describe('routing test', function () {
   it("route '/'' should return 404", function (done) {
@@ -33,15 +33,18 @@ describe('routing test', function () {
       .expect(404, done);
   });
 
-  it("users routing get/post", function (done) {
+  it("users routing get", function (done) {
     api.get('/users/')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end(function (err, res) {
-        expect(typeof res.body).to.equal("object");
-        done();
-      });
+      .set('Accept', 'text/html')
+      .expect('Content-Type', /html/)
+      .expect(404, done)
+  });
+
+  it("users routing post", function (done) {
+    api.post('/users/')
+      .set('Accept', 'text/html')
+      .expect('Content-Type', /html/)
+      .expect(404, done)
   });
 
   it("cards routing get/post", function (done) {
@@ -71,7 +74,7 @@ describe('routing test', function () {
 
 /**
  * test the connection between the server and the database
-*/
+ */
 describe('connecting to the database', function () {
 
   if (!production) {
@@ -181,4 +184,3 @@ describe('connecting to the database', function () {
   });
 
 });
-
