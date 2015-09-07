@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Profile = require('./Profile');
 
 var {
   ActivityIndicatorIOS,
@@ -89,6 +90,12 @@ var Login = React.createClass({
     },
     _responseHandler: function (response) {
       //save it to localstorage
+      if(response === true){
+        this.props.navigator.push({
+          title: '',
+          component: Profile
+        });
+      }
       this.setState((state) => {
         return {
           isLoading: false
