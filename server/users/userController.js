@@ -67,7 +67,6 @@ var userRoutes = {
             lastName: req.body.lastName
           }).save().then(function (newUser) {
             console.log(20, newUser);
-            // res.end(JSON.stringify(newUser));
             res.end(newUser.get("email"));
           }).catch(function (err) {
             console.log(new Error(err));
