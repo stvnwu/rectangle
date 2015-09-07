@@ -6,6 +6,7 @@ var Profile = require('./Profile');
 var {
   ActivityIndicatorIOS,
   AppRegistry,
+  AsyncStorage,
   Component,
   ScrollView,
   StyleSheet,
@@ -16,7 +17,7 @@ var {
 } = React;
 
 var reqBody = {'email': null, 'password': ''};
-// var errorText = 'hh';
+
 var obj = {  
   method: 'POST',
   headers: {
@@ -27,57 +28,57 @@ var obj = {
 
 var Login = React.createClass({
   getInitialState: function() {
-  return {
-    isLoading: false,
-    errorText: '',
-    emailInputStyle: styles.textInput,
-    passwordInputStyle: styles.textInput,
-  };
-},
+    return {
+      isLoading: false,
+      errorText: '',
+      emailInputStyle: styles.textInput,
+      passwordInputStyle: styles.textInput,
+    };
+  },
   render: function(){
-      var spacer = <View style={styles.spacer}/>;
-      var spinner = this.state.isLoading ?
-        ( <ActivityIndicatorIOS
-            hidden='true'
-            size='large'
-            color='#ffffff'/> ) :
-        ( <View/>);
-      return (
-        <View style={styles.container}>
-          <ScrollView style={styles.wrapper}>
-            <View style={styles.header}>
-              <Text style={styles.titleText}>Welcome Back</Text>
+    var spacer = <View style={styles.spacer}/>;
+    var spinner = this.state.isLoading ?
+      ( <ActivityIndicatorIOS
+          hidden='true'
+          size='large'
+          color='#ffffff'/> ) :
+      ( <View/>);
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.header}>
+            <Text style={styles.titleText}>Welcome Back</Text>
+          </View>
+          <TextInput
+              autoFocus={true}
+              style={this.state.emailInputStyle}
+              placeholder='Email'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'email')
+              }/>
+          <TextInput
+              style={this.state.passwordInputStyle}
+              placeholder='Password'
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'password')
+              }/>
+          <View style={styles.footer}>
+            <View style={styles.moveRight}>
             </View>
-            <TextInput
-                autoFocus={true}
-                style={this.state.emailInputStyle}
-                placeholder='Email'
-                onChange={(event) => 
-                  this.updateProp(event.nativeEvent.text,'email')
-                }/>
-            <TextInput
-                style={this.state.passwordInputStyle}
-                placeholder='Password'
-                onChange={(event) => 
-                  this.updateProp(event.nativeEvent.text,'password')
-                }/>
-            <View style={styles.footer}>
-              <View style={styles.moveRight}>
-              </View>
-              <TouchableHighlight 
-                style={styles.button}
-                underlayColor={'orange'}
-                onPress={(event) => 
-                  this.onSend()}>
-                <Text style={styles.buttonText}>Log In</Text>
-              </TouchableHighlight>
-            </View>
-            <Text>{this.state.errorText}</Text>
-          {spinner}
-          {spacer}
-          </ScrollView>
-        </View>
-        );
+            <TouchableHighlight 
+              style={styles.button}
+              underlayColor={'orange'}
+              onPress={(event) => 
+                this.onSend()}>
+              <Text style={styles.buttonText}>Log In</Text>
+            </TouchableHighlight>
+          </View>
+          <Text>{this.state.errorText}</Text>
+        {spinner}
+        {spacer}
+        </ScrollView>
+      </View>
+      );
     },
     updateProp: function(text,prop) {
       reqBody[prop] = text;
@@ -120,7 +121,7 @@ var Login = React.createClass({
           isLoading: false
         };
       });
-      console.log('97 response----->',response);
+      console.log('response is:', response, 'Login.js', 124);
     },
     onSend: function() {
       this.setState((state) => {
@@ -128,14 +129,19 @@ var Login = React.createClass({
           isLoading: true
         };
       });
-      // this.setState({ isLoading: true });
-      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
+      AsyncStorage.setItem('userEmail', reqBody.email)
+      .then(() => {
+        fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
         .then(response => response.json())
         .then((resJson) => {
-          console.log('112 response----->', typeof resJson);
+          console.log('response is:', typeof resJson, 'Login.js', 124);
           this._responseHandler(resJson);
           return resJson;
-        })
+        });
+      })
+      .catch((err) => {
+        console.log(new Error(err));
+      });
     }
 });
 var styles = StyleSheet.create({
