@@ -16,21 +16,21 @@ var {
 } = React;
 
 var reqBody = {};
-var test = "resp here: "
+// var errorText = 'hh';
 var obj = {  
   method: 'POST',
   headers: {
      'Content-Type': 'application/json',
    },
-  body: {
-    "email": "mananana",
-    "password": "wuu"
-}
-}
+  body: {}
+};
 
 var Login = React.createClass({
   getInitialState: function() {
-  return {isLoading: false};
+  return {
+    isLoading: false,
+    errorText: ''
+  };
 },
   render: function(){
       var spacer = <View style={styles.spacer}/>;
@@ -69,6 +69,7 @@ var Login = React.createClass({
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
             </View>
+            <Text>{this.state.errorText}</Text>
           {spinner}
           {spacer}
           </ScrollView>
@@ -95,6 +96,13 @@ var Login = React.createClass({
           title: '',
           component: Profile
         });
+      } else if(response === false){
+        //password incorrect
+        this.state.errorText = 'password incorrect';
+        //tint input red
+      } else {
+        //email does not exist in the db
+        this.state.errorText = 'email does not exist in the db'
       }
       this.setState((state) => {
         return {
@@ -117,9 +125,6 @@ var Login = React.createClass({
           this._responseHandler(resJson);
           return resJson;
         })
-    },
-    onStop: function() {
-      this.setState({ isLoading: false });
     }
 });
 
@@ -165,6 +170,17 @@ var styles = StyleSheet.create({
     backgroundColor: '#1abc9c'
   },
   textInput: {
+    height: 36,
+    padding: 10,
+    margin: 15,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    borderRadius: 8,
+    backgroundColor: '#d6d7da',
+    color: '#1abc9c'
+  },
+  wrongInput:{
     height: 36,
     padding: 10,
     margin: 15,
