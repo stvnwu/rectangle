@@ -15,7 +15,7 @@ var {
   View,
 } = React;
 
-var reqBody = {};
+var reqBody = {'email': null, 'password': ''};
 // var errorText = 'hh';
 var obj = {  
   method: 'POST',
@@ -96,19 +96,24 @@ var Login = React.createClass({
           component: Profile
         });
       } else if(response === false){
-        //password incorrect
-        this.state.passwordInputStyle = styles.wrongInput;
-        this.state.emailInputStyle = styles.textInput;
-        //tint input red
-        this.state.errorText = 'password incorrect';
+          //password incorrect
+          this.state.passwordInputStyle = styles.wrongInput;
+          this.state.emailInputStyle = styles.textInput;
+          //tint input red
+          if(JSON.parse(obj.body).password === ""){
+            this.state.errorText = 'Please enter a password';
+          } else {
+            this.state.errorText = 'incorrect password';
+          }
+          
       } else {
-        //email does not exist in the db
-        this.state.emailInputStyle = styles.wrongInput;
-        if(JSON.parse(obj.body).email === null){
-          this.state.errorText = 'Please insert an email'
-        } else {
-          this.state.errorText = 'email is not registered'
-        }
+          //email does not exist in the db
+          this.state.emailInputStyle = styles.wrongInput;
+          if(JSON.parse(obj.body).email === null){
+            this.state.errorText = 'Please insert an email'
+          } else {
+            this.state.errorText = 'email is not registered'
+          }
       }
       this.setState((state) => {
         return {
