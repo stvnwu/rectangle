@@ -4,6 +4,7 @@ module.exports = function (app, express) {
   var userRouter = express.Router();
   var cardRouter = express.Router();
   var connectionRouter = express.Router();
+  var qrRouter = express.Router();
 
   app.use(bodyParser.urlencoded({
     extended: true
@@ -17,7 +18,7 @@ module.exports = function (app, express) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-  
+
   app.use('/users', userRouter);
   require('../users/userRoute.js')(userRouter);
 
@@ -26,4 +27,7 @@ module.exports = function (app, express) {
 
   app.use('/connections', connectionRouter);
   require('../connections/connectionRoute.js')(connectionRouter);
+
+  app.use('/qr', qrRouter);
+  require('../cards/qrRoute.js')(qrRouter);
 };
