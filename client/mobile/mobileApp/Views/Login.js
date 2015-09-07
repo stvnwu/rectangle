@@ -22,14 +22,16 @@ var obj = {
   headers: {
      'Content-Type': 'application/json',
    },
-  body: {}
+  body: JSON.stringify({'email': null, 'password': null})
 };
 
 var Login = React.createClass({
   getInitialState: function() {
   return {
     isLoading: false,
-    errorText: ''
+    errorText: '',
+    emailInputStyle: styles.textInput,
+    passwordInputStyle: styles.textInput,
   };
 },
   render: function(){
@@ -37,7 +39,8 @@ var Login = React.createClass({
       var spinner = this.state.isLoading ?
         ( <ActivityIndicatorIOS
             hidden='true'
-            size='large'/> ) :
+            size='large'
+            color='#ffffff'/> ) :
         ( <View/>);
       return (
         <View style={styles.container}>
@@ -47,13 +50,13 @@ var Login = React.createClass({
             </View>
             <TextInput
                 autoFocus={true}
-                style={styles.textInput}
+                style={this.state.emailInputStyle}
                 placeholder='Email'
                 onChange={(event) => 
                   this.updateProp(event.nativeEvent.text,'email')
                 }/>
             <TextInput
-                style={styles.textInput}
+                style={this.state.passwordInputStyle}
                 placeholder='Password'
                 onChange={(event) => 
                   this.updateProp(event.nativeEvent.text,'password')
@@ -76,10 +79,6 @@ var Login = React.createClass({
         </View>
         );
     },
-    onInputChanged: function(event) {
-
-      this.setState({ input: event.nativeEvent.text });
-    },
     updateProp: function(text,prop) {
       reqBody[prop] = text;
       obj.body = JSON.stringify(reqBody);
@@ -92,17 +91,24 @@ var Login = React.createClass({
     _responseHandler: function (response) {
       //save it to localstorage
       if(response === true){
-        this.props.navigator.push({
+        this.props.navigator.replace({
           title: '',
           component: Profile
         });
       } else if(response === false){
         //password incorrect
-        this.state.errorText = 'password incorrect';
+        this.state.passwordInputStyle = styles.wrongInput;
+        this.state.emailInputStyle = styles.textInput;
         //tint input red
+        this.state.errorText = 'password incorrect';
       } else {
         //email does not exist in the db
-        this.state.errorText = 'email does not exist in the db'
+        this.state.emailInputStyle = styles.wrongInput;
+        if(JSON.parse(obj.body).email === null){
+          this.state.errorText = 'Please insert an email'
+        } else {
+          this.state.errorText = 'email is not registered'
+        }
       }
       this.setState((state) => {
         return {
@@ -127,7 +133,6 @@ var Login = React.createClass({
         })
     }
 });
-
 var styles = StyleSheet.create({
   button: {
     flex: 1,
@@ -185,8 +190,8 @@ var styles = StyleSheet.create({
     padding: 10,
     margin: 15,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#d6d7da',
+    borderWidth: 1.5,
+    borderColor: 'red',
     borderRadius: 8,
     backgroundColor: '#d6d7da',
     color: '#1abc9c'
