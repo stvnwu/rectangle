@@ -108,7 +108,7 @@ var connectionRoutes = {
             })
           } else {
             res.status(400).send({
-              error: "card doesnot exist"
+              error: "card does not exist"
             });
           }
         })
