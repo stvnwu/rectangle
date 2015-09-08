@@ -9,7 +9,7 @@ var cardRoutes = {
     return new Promise(function (resolve, reject) {
       Users.query({
         where: {
-          email: req.body.email
+          email: req.body.userEmail
         }
       }).fetchOne().then(function (user) {
         if (user) {
