@@ -13,6 +13,16 @@ var {
   View, 
 } = React;
 
+var reqBody = {};
+
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: {}
+}
+
 var Profile = React.createClass({
   getInitialState: function() {
     return {
@@ -35,16 +45,16 @@ var Profile = React.createClass({
     })
     .then((response) => {
       var card = response._bodyText;
-      console.log('why is this so hard', response._bodyText);
+      reqBody = JSON.parse(card);
       // this.render();
-      this.setState({card: JSON.parse(card)});
+      this.setState({card: reqBody});
     })
     .done();
   },
 
   render: function(){
     if (this.state.card) {
-      console.log('this should be the card', this.state.card.jobTitle);
+      console.log('this should be the card', reqBody);
       var spacer = <View style={styles.spacer}/>;
       return (
         <View style={styles.container}>
@@ -59,27 +69,54 @@ var Profile = React.createClass({
             <TextInput
                 autoFocus={true}
                 style={styles.textInput}
-                placeholder= {this.state.card.firstName || 'First Name'}/>
+                placeholder= 'First Name'
+                value={this.state.card.firstName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
             <TextInput
                 style={styles.textInput}
-                placeholder={this.state.card.lastName || 'Last Name'}/>
+                placeholder={this.state.card.lastName || 'Last Name'}
+                value={this.state.card.lastName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
             <TextInput
                 style={styles.textInput}
-                placeholder={this.state.card.email || 'Email'}/>
+                placeholder={this.state.card.email || 'Email'}
+                value={this.state.card.email}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'email')
+              }/>
             <TextInput
                 style={styles.textInput}
-                placeholder={this.state.card.phone || 'Phone'}/>
+                placeholder={this.state.card.phone || 'Phone'}
+                value={this.state.card.phone}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'phone')
+              }/>
             <TextInput
                 style={styles.textInput}
-                placeholder={this.state.card.company || 'Company'}/>
+                placeholder={this.state.card.company || 'Company'}
+                value={this.state.card.company}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'company')
+              }/>
             <TextInput
                 style={styles.textInput}
-                placeholder={this.state.card.jobTitle || 'Job Title'}/>
+                placeholder={this.state.card.jobTitle || 'Job Title'}
+                value={this.state.card.jobTitle}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'jobTitle')
+              }/>
             <View style={styles.footer}>
               <View style={styles.moveRight}>
               </View>
               <TouchableHighlight 
                 style={styles.button}
+                onPress={(event) =>
+                  this.onSend()
+                }
                 underlayColor={'orange'}>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
@@ -98,6 +135,48 @@ var Profile = React.createClass({
     );
     }
   },
+  /**
+   * Method that updates the binded data whenever it is changed
+   * @param {event} 
+  */
+  onInputChanged: function(event) {
+    this.setState({ input: event.nativeEvent.text });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  /**
+   * Method that creates the HTTP request to the server
+   * and updates an existing card (in this case)
+  */
+  onSend: function() {
+    AsyncStorage.getItem('userEmail')
+    .then((email) => {
+      this.updateProp(userEmail, 'email');
+    })
+    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
+    .then((response) => {
+      return AsyncStorage.setItem('cardEmail', reqBody['email']);
+    })
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  },
+
 });
 
 
