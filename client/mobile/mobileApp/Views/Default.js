@@ -10,7 +10,6 @@ var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
 var Profile = require('./Profile');
-var Icon = require("react-native-vector-icons/FontAwesome");
 
 var {
   StyleSheet,
