@@ -101,8 +101,9 @@ var DumbRoutes = React.createClass({
               <Text style={styles.buttonText}>Default</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
-                  underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Blah</Text>
+                  underlayColor='#99d9f4'
+                  onPress={this._cameraHandler.bind(this)}>
+              <Text style={styles.buttonText}>Camera</Text>
             </TouchableHighlight>
           </View>
 
@@ -224,6 +225,12 @@ var DumbRoutes = React.createClass({
       this.props.navigator.push({
               title: '',
               component: Default
+      });
+  },
+  _cameraHandler: function(){
+      this.props.navigator.push({
+              title: '',
+              component: Camera
       });
   },
 
