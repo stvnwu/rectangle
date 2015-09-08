@@ -22,7 +22,7 @@ var Search = React.createClass({
           {spacer}
           <View style={styles.header}> 
             <SearchBar 
-              placeholder='Search'
+              placeholder={'Search'}
               //onChangeText={...}
               //onSearchButtonPress={...}
               //onCancelButtonPress={...}

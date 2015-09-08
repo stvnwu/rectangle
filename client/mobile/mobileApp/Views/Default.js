@@ -45,15 +45,15 @@ var Default = React.createClass({
     return (
       <TabBarIOS
         selectedTab={this.state.selectedTab}
-        tintColor={'#99d9f4'}
-        barTintColor={'black'}>
+        tintColor={'#008888'}
+        barTintColor={'#d6d7da'}>
 
 
         <TabBarItemIOS
           name="home"
           iconName={'fontawesome|home'}
           title={'Home'}
-          badgeValue={3}
+          badgeValue={420}
           iconSize={18}
           accessibilityLabel="Home Tab"
           selected={this.state.selectedTab === 'home'}
@@ -96,7 +96,7 @@ var Default = React.createClass({
           }}>
           <Camera/>
         </TabBarItemIOS>
-        
+
 
         <TabBarItemIOS
           name="settings"
@@ -114,7 +114,21 @@ var Default = React.createClass({
         </TabBarItemIOS>
 
 
-
+        <TabBarItemIOS
+          name="profile"
+          iconName={'fontawesome|user'}
+          title={'Profile'}
+          badgeValue={69}
+          iconSize={18}
+          accessibilityLabel="Profile"
+          selected={this.state.selectedTab === 'profile'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'profile',
+            });
+          }}>
+          <Profile/>
+        </TabBarItemIOS>
         
       </TabBarIOS>
     );
