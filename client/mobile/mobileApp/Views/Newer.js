@@ -5,41 +5,32 @@
 'use strict';
 
 var React = require('react-native');
-var Search = require('./Search');
-var QR = require('./QR');
-var Camera = require('./Camera');
-var Map = require('./Map');
-var Profile = require('./Profile');
-var Icon = require("react-native-vector-icons/FontAwesome");
-
 var {
+  AppRegistry,
   StyleSheet,
   Text,
   View,
   ScrollView,
-  TouchableHighlight,
-} = React;
+  TouchableHighlight
+  //Animated
+  } = React;
 
-var {
-  Icon,
-  TabBarIOS,
-  Spinner 
-} = require('react-native-icons');
-
-var TabBarItemIOS = TabBarIOS.Item;
 
 var BrandColors = {
   Facebook: '#3b5998',
   Twitter: '#55acee'
 };
 
-var Default = React.createClass({
+var { Icon, TabBarIOS, Spinner} = require('react-native-icons');
+var TabBarItemIOS = TabBarIOS.Item;
+
+var Example = React.createClass({
   getInitialState: function () {
     return {
       selectedTab: 'home',
       notifCount: 0,
       presses: 0,
-      // rotation: Animated.Value(0)
+      //rotation: Animated.Value(0)
     };
   },
   render: function () {
@@ -310,4 +301,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Default;
+module.exports = Example;

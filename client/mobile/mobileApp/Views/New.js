@@ -22,8 +22,7 @@ var Fields = React.createClass({
     return (
 
       <View style={styles.container}>
-        <ScrollView
-          style={styles.wrapper}>
+        <ScrollView style={styles.wrapper}>
             <TextInput
                 autoFocus={true}
                 style={styles.prompt}
@@ -35,9 +34,9 @@ var Fields = React.createClass({
                <Text style={styles.titleText}>
                   Submit
                </Text>
-             </TouchableHighlight>
+            </TouchableHighlight>
 
-        <ScrollView style={styles.wrapper}>
+        
           <View style={styles.containerBox}>
             <View style={styles.prompt}>
               <Text style={styles.titleText}>
