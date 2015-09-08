@@ -13,8 +13,6 @@ var {
   View, 
 } = React;
 
-var card = {};
-
 var Profile = React.createClass({
   getInitialState: function() {
     return AsyncStorage.getItem('cardEmail')
@@ -26,56 +24,69 @@ var Profile = React.createClass({
       });
     })
     .then((response) => {
-      card = response._bodyText;
-      console.log('card is,', card, 'Profile.js', 30);
+      var card = response._bodyText;
+      card.loaded = true;
+      console.log('why is this so hard', response._bodyText);
+      this.render();
       return card;
     })
   },
 
   render: function(){
-    var spacer = <View style={styles.spacer}/>;
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.wrapper}>
-          <View style={styles.header}>
-            <Text style={styles.titleText}>Edit Profile</Text>
-          </View>
-          <Image 
-          style={styles.card_photo}
-          source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-          />
-          <TextInput
-              autoFocus={true}
-              style={styles.textInput}
-              placeholder='First Name'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Last Name'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Email'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Phone'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Company'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Job Title'/>
-          <View style={styles.footer}>
-            <View style={styles.moveRight}>
+    if (this.state.loaded) {
+      console.log('this should be the email', this.state.email);
+      var spacer = <View style={styles.spacer}/>;
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.wrapper}>
+            <View style={styles.header}>
+              <Text style={styles.titleText}>Edit Profile</Text>
             </View>
-            <TouchableHighlight 
-              style={styles.button}
-              underlayColor={'orange'}>
-              <Text style={styles.buttonText}>Save</Text>
-            </TouchableHighlight>
-          </View>
-        {spacer}
-        </ScrollView>
+            <Image 
+            style={styles.card_photo}
+            source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
+            />
+            <TextInput
+                autoFocus={true}
+                style={styles.textInput}
+                placeholder= {this.state.firstName || 'First Name'}/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Last Name'/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Email'/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Phone'/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Company'/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Job Title'/>
+            <View style={styles.footer}>
+              <View style={styles.moveRight}>
+              </View>
+              <TouchableHighlight 
+                style={styles.button}
+                underlayColor={'orange'}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          {spacer}
+          </ScrollView>
+        </View>
+      );
+    } else {
+      return (
+      <View style={styles.container}>
+        <Text>
+          Loading movies...
+        </Text>
       </View>
     );
+    }
   },
 });
 
