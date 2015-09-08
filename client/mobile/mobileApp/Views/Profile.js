@@ -163,15 +163,14 @@ var Profile = React.createClass({
   onSend: function() {
     AsyncStorage.getItem('userEmail')
     .then((email) => {
-      this.updateProp(email, 'userEmail');
-      console.log('this is the object', obj);
+      this.updateProp(userEmail, 'email');
     })
     .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
     .then((response) => {
       return AsyncStorage.setItem('cardEmail', reqBody['email']);
     })
-    .then((cardEmail) => {
-      console.log('saved cardEmail to AsyncStorage:', cardEmail, 'CardInfo.js', 131);
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
     })
     .catch((err) => {
       console.log(new Error(err));
