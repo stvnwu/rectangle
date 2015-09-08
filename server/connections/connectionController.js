@@ -87,11 +87,57 @@ var connectionRoutes = {
                 }));
               })
             } else {
-              res.status(400).send('connection does not exist');
+              res.status(400).send("connection does not exist");
             }
           })
         })
       })
+    });
+  },
+  getConnections: function (req, res) {
+    return new Promise(function (resolve, reject) {
+      return Users.query({
+        where: {
+          email: req.body.email
+        }
+      }).fetchOne().then(function (user) {
+        // console.log(104, user);
+        if (user) {
+          return Connections.query({
+            where: {
+              userID: user.get("id")
+            }
+          }).fetch().then(function (connections) {
+            var allCards = {};
+            var i = 0;
+            if (connections && connections.models.length > 0) {
+              connections.models.forEach(function (connection) {
+                var cardID = connection.get("cardID");
+                return Cards.query({
+                  where: {
+                    id: cardID
+                  }
+                }).fetchOne().then(function (card) {
+                  console.log(121, card);
+                  allCards[++i] = card;
+                }).then(function (card) {
+                  res.send(JSON.stringify(allCards));
+                }).catch(function (err) {
+                  console.log(126, err);
+                  res.end(JSON.stringify(err));
+                })
+              });
+            } else {
+              res.status(400).send("no connection exists");
+            }
+          }).catch(function (err) {
+            // res.status(400).send('user email not valid');
+          });
+        } else {
+          console.log(139, "no valid connection");
+          res.status(400).send("not a valid user email");
+        }
+      });
     });
   }
 }
