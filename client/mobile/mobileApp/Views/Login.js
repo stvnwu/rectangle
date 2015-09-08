@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Profile = require('./Profile');
+var Default = require('./Default');
 
 var {
   ActivityIndicatorIOS,
@@ -16,7 +16,7 @@ var {
   View,
 } = React;
 
-var reqBody = {'email': null, 'password': ''};
+var reqBody = {'email': null, 'password': null};
 
 var obj = {  
   method: 'POST',
@@ -91,12 +91,13 @@ var Login = React.createClass({
     },
     _responseHandler: function (response) {
       //save it to localstorage
-      if(response.valid){
+      if(response.message){
+        obj.body = JSON.stringify({'email': null, 'password': null});
         AsyncStorage.setItem('userEmail', reqBody.email)
           .then(() => {
             this.props.navigator.replace({
               title: '',
-              component: Profile
+              component: Default
             });
           })
       } else if(response.error === "password does not match"){
@@ -104,7 +105,7 @@ var Login = React.createClass({
           this.state.passwordInputStyle = styles.wrongInput;
           this.state.emailInputStyle = styles.textInput;
           //tint input red
-          if(JSON.parse(obj.body).password === ""){
+          if(JSON.parse(obj.body).password === null){
             this.state.errorText = 'Please enter a password';
           } else {
             this.state.errorText = 'incorrect password';
