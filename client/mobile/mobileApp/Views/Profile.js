@@ -15,7 +15,17 @@ var {
 
 var Profile = React.createClass({
   getInitialState: function() {
-    return AsyncStorage.getItem('cardEmail')
+    return {
+      card: null
+    };
+  },
+
+  componentDidMount: function() {
+    this.getCardInfo();
+  },
+
+  getCardInfo: function() {
+    AsyncStorage.getItem('cardEmail')
     .then((email) => {
       return fetch('https://tranquil-earth-7083.herokuapp.com/cards/getcard', {
         method: 'POST',
@@ -25,16 +35,16 @@ var Profile = React.createClass({
     })
     .then((response) => {
       var card = response._bodyText;
-      card.loaded = true;
       console.log('why is this so hard', response._bodyText);
-      this.render();
-      return card;
+      // this.render();
+      this.setState({card: JSON.parse(card)});
     })
+    .done();
   },
 
   render: function(){
-    if (this.state.loaded) {
-      console.log('this should be the email', this.state.email);
+    if (this.state.card) {
+      console.log('this should be the card', this.state.card.jobTitle);
       var spacer = <View style={styles.spacer}/>;
       return (
         <View style={styles.container}>
@@ -49,22 +59,22 @@ var Profile = React.createClass({
             <TextInput
                 autoFocus={true}
                 style={styles.textInput}
-                placeholder= {this.state.firstName || 'First Name'}/>
+                placeholder= {this.state.card.firstName || 'First Name'}/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Last Name'/>
+                placeholder={this.state.card.lastName || 'Last Name'}/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Email'/>
+                placeholder={this.state.card.email || 'Email'}/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Phone'/>
+                placeholder={this.state.card.phone || 'Phone'}/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Company'/>
+                placeholder={this.state.card.company || 'Company'}/>
             <TextInput
                 style={styles.textInput}
-                placeholder='Job Title'/>
+                placeholder={this.state.card.jobTitle || 'Job Title'}/>
             <View style={styles.footer}>
               <View style={styles.moveRight}>
               </View>
@@ -81,8 +91,8 @@ var Profile = React.createClass({
     } else {
       return (
       <View style={styles.container}>
-        <Text>
-          Loading movies...
+        <Text style={styles.titleText}>
+          Loading profile...
         </Text>
       </View>
     );
