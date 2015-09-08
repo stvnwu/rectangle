@@ -46,8 +46,8 @@ var Default = React.createClass({
     return (
       <TabBarIOS
         selectedTab={this.state.selectedTab}
-        tintColor={'black'}
-        barTintColor={'#1abc9c'}>
+        tintColor={'#99d9f4'}
+        barTintColor={'black'}>
 
 
         <TabBarItemIOS
@@ -115,7 +115,7 @@ var Default = React.createClass({
         </TabBarItemIOS>
 
 
-        
+
         
       </TabBarIOS>
     );
