@@ -12,6 +12,7 @@ var userRoutes = {
    * @param {object} HTTP response object
    */
   signin: function (req, res) {
+    console.log(15, req.body);
     return new Promise(function (resolve, reject) {
       return new User({
           email: req.body.email
@@ -22,17 +23,27 @@ var userRoutes = {
             //Sending a 400 response code for wrong email/password requests
             // HERE we would redirect to signup
             // confer with front end
-            res.status(400).send('email does not match');
+            console.log(25, user);
+            res.status(400).send({
+              error: "email does not match"
+            });
           } else {
             user.comparePassword(req.body.password)
               .then(function (isMatch) {
                 if (!isMatch) {
-                  res.status(400).send('password does not match');
+                  res.status(400).send({
+                    error: "password does not match"
+                  });
+                } else {
+                  res.status(200).send({
+                    message: "password matches"
+                  })
                 }
-                res.end(JSON.stringify(isMatch));
               }).catch(function (err) {
                 console.log(err);
-                res.status(400).send('password/email does not match');
+                res.status(400).send({
+                  error: "password/email does not match"
+                });
               });
           }
         })
@@ -56,8 +67,10 @@ var userRoutes = {
       }).fetchOne().then(function (user) {
         if (user) {
           //Sending 422 response code if email already exists in DB
-          res.status(422).send('email already exists');
-        } else if (req.body.email !== "" && req.body.email.indexOf("@") !== -1 && req.body.email !== undefined) {
+          res.status(422).send({
+            error: "email already exists"
+          });
+        } else if (req.body.email && req.body.email !== "" && req.body.email.indexOf("@") !== -1 && req.body.email !== undefined) {
           console.log(62, req.body.email);
           console.log(37, "email provided");
           return new User({
@@ -67,14 +80,20 @@ var userRoutes = {
             lastName: req.body.lastName
           }).save().then(function (newUser) {
             console.log(20, newUser);
-            res.end(newUser.get("email"));
+            res.end(newUser.get({
+              email: "email"
+            }));
           }).catch(function (err) {
             console.log(new Error(err));
-            res.end(JSON.stringify(err));
+            res.status(500).send({
+              error: err
+            });
           })
         } else {
           console.log(51, req.body);
-          res.status(400).send('email is not provided/invalid');
+          res.status(400).send({
+            error: "email is not provided/invalid"
+          });
         }
       })
     });

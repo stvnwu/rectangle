@@ -39,20 +39,33 @@ var connectionRoutes = {
                 userID: userID,
                 cardID: cardID
               }).save().then(function (newConnection) {
-                res.end(JSON.stringify(newConnection));
+                // res.end(JSON.stringify(newConnection));
+                res.status(200).send({
+                  message: newConnection
+                })
               }).catch(function (err) {
                 console.log(new Error(err));
-                res.end(JSON.stringify(err));
+                res.status(500).send({
+                  error: err
+                });
               })
             } else if (!userID) {
-              res.status(400).send('invalid user email');
+              res.status(400).send({
+                error: "invalid user email"
+              });
             } else if (!cardID) {
-              res.status(400).send('invalid card email');
+              res.status(400).send({
+                error: "invalid card email"
+              });
             } else {
-              res.status(400).send('connection already exists');
+              res.status(400).send({
+                error: "connection already exists"
+              });
             }
           }).catch(function (err) {
-            res.status(400).send('password/email does not match');
+            res.status(400).send({
+              error: "password/email does not match"
+            });
           })
         })
       })
@@ -82,12 +95,14 @@ var connectionRoutes = {
             console.log(72, con);
             if (con.length > 0) {
               con.models[0].destroy().then(function (model) {
-                res.end(JSON.stringify({
-                  "connection": "deleted"
-                }));
+                res.status(200).send({
+                  message: "deleted"
+                })
               })
             } else {
-              res.status(400).send("connection does not exist");
+              res.status(400).send({
+                error: "connection does not exist"
+              });
             }
           })
         })
@@ -128,14 +143,18 @@ var connectionRoutes = {
                 })
               });
             } else {
-              res.status(400).send("no connection exists");
+              res.status(400).send({
+                error: "no connection exists"
+              });
             }
           }).catch(function (err) {
             // res.status(400).send('user email not valid');
           });
         } else {
           console.log(139, "no valid connection");
-          res.status(400).send("not a valid user email");
+          res.status(400).send({
+            error: "not a valid user email"
+          });
         }
       });
     });
