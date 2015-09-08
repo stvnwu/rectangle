@@ -5,11 +5,14 @@
 'use strict';
 
 var React = require('react-native');
+
+
 var Search = require('./Search');
 var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
 var Profile = require('./Profile');
+
 
 var {
   StyleSheet,
@@ -134,6 +137,8 @@ var Default = React.createClass({
     );
   },
 });
+
+
 
 
 var styles = StyleSheet.create({
