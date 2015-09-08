@@ -91,12 +91,15 @@ var Login = React.createClass({
     },
     _responseHandler: function (response) {
       //save it to localstorage
-      if(response === true){
-        this.props.navigator.replace({
-          title: '',
-          component: Profile
-        });
-      } else if(response === false){
+      if(response.valid){
+        AsyncStorage.setItem('userEmail', reqBody.email)
+          .then(() => {
+            this.props.navigator.replace({
+              title: '',
+              component: Profile
+            });
+          })
+      } else if(response.error === "pasword/email does not match"){
           //password incorrect
           this.state.passwordInputStyle = styles.wrongInput;
           this.state.emailInputStyle = styles.textInput;
@@ -121,7 +124,6 @@ var Login = React.createClass({
           isLoading: false
         };
       });
-      console.log('response is:', response, 'Login.js', 124);
     },
     onSend: function() {
       this.setState((state) => {
@@ -129,19 +131,16 @@ var Login = React.createClass({
           isLoading: true
         };
       });
-      AsyncStorage.setItem('userEmail', reqBody.email)
-      .then(() => {
-        fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
+      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
         .then(response => response.json())
         .then((resJson) => {
           console.log('response is:', typeof resJson, 'Login.js', 124);
           this._responseHandler(resJson);
           return resJson;
+        })
+        .catch((err) => {
+          console.log(new Error(err));
         });
-      })
-      .catch((err) => {
-        console.log(new Error(err));
-      });
     }
 });
 var styles = StyleSheet.create({
