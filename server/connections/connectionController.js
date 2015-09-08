@@ -85,26 +85,32 @@ var connectionRoutes = {
             email: req.body.cardEmail
           }
         }).fetch().then(function (cards) {
-          var cardID = cards.models[0].get("id");
-          return Connections.query({
-            where: {
-              userID: userID,
-              cardID: cardID
-            }
-          }).fetch().then(function (con) {
-            console.log(72, con);
-            if (con.length > 0) {
-              con.models[0].destroy().then(function (model) {
-                res.status(200).send({
-                  message: "deleted"
+          if (cards.models.length > 0) {
+            var cardID = cards.models[0].get("id");
+            return Connections.query({
+              where: {
+                userID: userID,
+                cardID: cardID
+              }
+            }).fetch().then(function (con) {
+              console.log(72, con);
+              if (con.length > 0) {
+                con.models[0].destroy().then(function (model) {
+                  res.status(200).send({
+                    message: "deleted"
+                  })
                 })
-              })
-            } else {
-              res.status(400).send({
-                error: "connection does not exist"
-              });
-            }
-          })
+              } else {
+                res.status(400).send({
+                  error: "connection does not exist"
+                });
+              }
+            })
+          } else {
+            res.status(400).send({
+              error: "card doesnot exist"
+            });
+          }
         })
       })
     });
