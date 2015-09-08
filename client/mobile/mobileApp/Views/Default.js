@@ -46,10 +46,9 @@ var Default = React.createClass({
     return (
       <TabBarIOS
         selectedTab={this.state.selectedTab}
-        tintColor={'#c1d82f'}
-        barTintColor={'#000000'}
-        styles={styles.tabBar}>
-        
+        tintColor={'black'}
+        barTintColor={'#1abc9c'}>
+
 
         <TabBarItemIOS
           name="home"
@@ -116,20 +115,7 @@ var Default = React.createClass({
         </TabBarItemIOS>
 
 
-        <TabBarItemIOS
-          name="settings"
-          iconName={'fontawesome|user'}
-          title={'Profile'}
-          iconSize={18}
-          accessibilityLabel="Settings Tab"
-          selected={this.state.selectedTab === 'settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'settings',
-            });
-          }}>
-          <Profile/>
-        </TabBarItemIOS>
+        
         
       </TabBarIOS>
     );
@@ -138,14 +124,7 @@ var Default = React.createClass({
 
 
 var styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: '#dfdfdf',
-    flex: 1,
-    color: '#ff0000',
-    tintColor: '#877324'
-  },
-  
- 
+
 });
 
 module.exports = Default;
