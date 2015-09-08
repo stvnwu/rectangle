@@ -99,7 +99,7 @@ var Login = React.createClass({
               component: Profile
             });
           })
-      } else if(response.error === "pasword/email does not match"){
+      } else if(response.error === "password does not match"){
           //password incorrect
           this.state.passwordInputStyle = styles.wrongInput;
           this.state.emailInputStyle = styles.textInput;
