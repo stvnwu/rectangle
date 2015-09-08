@@ -27,7 +27,10 @@ var cardRoutes = {
                 phone: req.body.phone || card.get("phone"),
                 jobTitle: req.body.jobTitle || card.get("jobTitle")
               }).then(function (updatedCard) {
-                res.end(JSON.stringify(updatedCard));
+                res.status(200).send({
+                    message: updatedCard
+                  })
+                  // res.end(JSON.stringify(updatedCard));
               })
             } else {
               return new Card({
@@ -40,15 +43,23 @@ var cardRoutes = {
                 email: req.body.cardEmail,
               }).save().then(function (newCard) {
                 console.log(85, newCard);
-                res.end(JSON.stringify(newCard));
+                // res.end(JSON.stringify(newCard));
+                res.status(200).send({
+                  message: newCard
+                })
               }).catch(function (err) {
                 console.log(88, new Error(err));
-                res.end(JSON.stringify(err));
+                // res.end(JSON.stringify(err));
+                res.status(500).send({
+                  error: err
+                });
               });
             }
           });
         } else {
-          res.status(400).send('user not logged in');
+          res.status(400).send({
+            error: "user not logged in"
+          });
         }
       })
     });
@@ -62,13 +73,20 @@ var cardRoutes = {
       }).fetchOne().then(function (card) {
         console.log(63, card);
         if (card) {
-          res.end(JSON.stringify(card))
+          res.status(200).send({
+              message: card
+            })
+            // res.end(JSON.stringify(card))
         } else {
-          res.status(400).send('no card found related to email');
+          res.status(400).send({
+            error: "no card found related to email"
+          });
         }
       }).catch(function (err) {
         console.log(new Error(err));
-        res.end(JSON.stringify(err));
+        res.status(500).send({
+          error: err
+        });
       });
     });
   }
