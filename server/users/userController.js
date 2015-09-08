@@ -80,9 +80,12 @@ var userRoutes = {
             lastName: req.body.lastName
           }).save().then(function (newUser) {
             console.log(20, newUser);
-            res.end(newUser.get({
-              email: "email"
-            }));
+            // res.end(newUser.get({
+            //   email: "email"
+            // }));
+            res.status(200).send({
+              message: newUser.get("email")
+            })
           }).catch(function (err) {
             console.log(new Error(err));
             res.status(500).send({
