@@ -3,6 +3,7 @@
 var React = require('react-native');
 var MapboxGLMap = require('react-native-mapbox-gl');
 var mapRef = require('../config').map;
+
 var {
   AppRegistry,
   StyleSheet,
@@ -20,34 +21,34 @@ var Example = React.createClass({
          longitude: -73.97686958312988
        },
        zoom: 11,
-       annotations: [{
-         latitude: 40.72052634,
-         longitude:  -73.97686958312988,
-         title: 'This is marker 1',
-         subtitle: 'It has a rightCalloutAccessory too',
-         rightCalloutAccessory: {
-             url: 'https://cldup.com/9Lp0EaBw5s.png',
-             height: 25,
-             width: 25
-         },
-         annotationImage: {
-           url: 'https://cldup.com/CnRLZem9k9.png',
-           height: 25,
-           width: 25
-         },
-         id: 'marker1'
-       },{
-         latitude: 40.714541341726175,
-         longitude:  -74.00579452514648,
-         title: 'Important!',
-         subtitle: 'Neat, this is a custom annotation image',
-         annotationImage: {
-           url: 'https://cldup.com/7NLZklp8zS.png',
-           height: 25,
-           width: 25
-         },
-         id: 'marker2'
-       }]
+       // annotations: [{
+       //   latitude: 40.72052634,
+       //   longitude:  -73.97686958312988,
+       //   title: 'This is marker 1',
+       //   subtitle: 'It has a rightCalloutAccessory too',
+       //   rightCalloutAccessory: {
+       //       url: 'https://cldup.com/9Lp0EaBw5s.png',
+       //       height: 25,
+       //       width: 25
+       //   },
+       //   annotationImage: {
+       //     url: 'https://cldup.com/CnRLZem9k9.png',
+       //     height: 25,
+       //     width: 25
+       //   },
+       //   id: 'marker1'
+       // },{
+       //   latitude: 40.714541341726175,
+       //   longitude:  -74.00579452514648,
+       //   title: 'Important!',
+       //   subtitle: 'Neat, this is a custom annotation image',
+       //   annotationImage: {
+       //     url: 'https://cldup.com/7NLZklp8zS.png',
+       //     height: 25,
+       //     width: 25
+       //   },
+       //   id: 'marker2'
+       // }]
      };
   },
   onRegionChange(location) {
@@ -69,31 +70,6 @@ var Example = React.createClass({
     StatusBarIOS.setHidden(true);
     return (
       <View style={styles.container}>
-        <Text style={styles.text} onPress={() => this.setDirectionAnimated(mapRef, 0)}>
-          Set direction to 0
-        </Text>
-        <Text style={styles.text} onPress={() => this.setZoomLevelAnimated(mapRef, 6)}>
-          Zoom out to zoom level 6
-        </Text>
-        <Text style={styles.text} onPress={() => this.setCenterCoordinateAnimated(mapRef, 48.8589, 2.3447)}>
-          Go to Paris at current zoom level {parseInt(this.state.currentZoom)}
-        </Text>
-        <Text style={styles.text} onPress={() => this.setCenterCoordinateZoomLevelAnimated(mapRef, 35.68829, 139.77492, 14)}>
-          Go to Tokyo at fixed zoom level 14
-        </Text>
-        <Text style={styles.text} onPress={() => this.addAnnotations(mapRef, [{
-          latitude: 40.73312,
-          longitude:  -73.989,
-          title: 'This is a new marker'
-          }])}>
-          Add new marker
-        </Text>
-        <Text style={styles.text} onPress={() => this.selectAnnotationAnimated(mapRef, 0)}>
-          Open first popup
-        </Text>
-        <Text style={styles.text} onPress={() => this.removeAnnotation(mapRef, 0)}>
-          Remove first annotation
-        </Text>
         <MapboxGLMap
           style={styles.map}
           direction={0}
@@ -103,7 +79,7 @@ var Example = React.createClass({
           showsUserLocation={true}
           ref={mapRef}
           accessToken={mapRef}
-          styleURL={'asset://styles/mapbox-streets-v7.json'}
+          styleURL={'asset://styles/satellite-v7.json'}
           centerCoordinate={this.state.center}
           userLocationVisible={true}
           zoomLevel={this.state.zoom}
@@ -121,7 +97,8 @@ var Example = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    paddingTop: 64,
   },
   map: {
     flex: 5

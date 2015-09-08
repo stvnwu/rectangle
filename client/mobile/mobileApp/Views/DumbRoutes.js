@@ -15,6 +15,8 @@ var QRCamera = require('./QRCamera');
 var Search = require('./Search');
 var TabBar = require('./TabBar');
 var New = require('./New');
+var Newer = require('./Newer');
+var Default = require('./Default');
 
 var {
   AppRegistry,
@@ -94,8 +96,9 @@ var DumbRoutes = React.createClass({
               <Text style={styles.buttonText}>Search</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
-                  underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Index</Text>
+                  underlayColor='#99d9f4'
+                  onPress={this._defaultHandler.bind(this)}>
+              <Text style={styles.buttonText}>Default</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'>
@@ -115,7 +118,8 @@ var DumbRoutes = React.createClass({
               <Text style={styles.buttonText}>New</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
-                  underlayColor='#99d9f4'>
+                  underlayColor='#99d9f4'
+                  onPress={this._newerHandler.bind(this)}>
               <Text style={styles.buttonText}>Newer</Text>
             </TouchableHighlight>
           </View>
@@ -209,7 +213,19 @@ var DumbRoutes = React.createClass({
               title: '',
               component: New
       });
-    },
+  },
+  _newerHandler: function(){
+      this.props.navigator.push({
+              title: '',
+              component: Newer
+      });
+  },
+  _defaultHandler: function(){
+      this.props.navigator.push({
+              title: '',
+              component: Default
+      });
+  },
 
 });
 
@@ -239,11 +255,11 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    paddingTop: 64,
   },
   wrapper: {
     flex: 1,
     flexDirection: 'column',
+    paddingTop: 64,
   },
 });
 

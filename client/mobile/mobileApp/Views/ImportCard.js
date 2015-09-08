@@ -64,7 +64,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'orange',
-    paddingTop: 64,
   },
   containerBox: {
     flex: 1,

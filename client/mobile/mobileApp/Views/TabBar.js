@@ -1,14 +1,15 @@
 'use strict';
 
 var React = require('react-native');
-var Profile = require('./Profile');
+// var New = require('./New');
+var Search = require('./Search');
 var QR = require('./QR');
 var Camera = require('./Camera');
-var Search = require('./Search');
 var Map = require('./Map');
+var Profile = require('./Profile');
+var Icon = require("react-native-vector-icons/FontAwesome");
 
 var {
-  AppRegistry,
   Component,
   StyleSheet,
   TabBarIOS,
@@ -20,7 +21,7 @@ class TabBar extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        selectedTab: 'map'
+        selectedTab: 'search'
       };
     }
   render(){
@@ -28,14 +29,14 @@ class TabBar extends Component {
     <TabBarIOS selectedTab={this.state.selectedTab}>
 
       <TabBarIOS.Item
-        selected={this.state.selectedTab === 'profile'}
-        systemIcon='featured'
+        selected={this.state.selectedTab === 'search'}
+        systemIcon='search'
         onPress={() => {
               this.setState({
-                  selectedTab: 'profile',
+                  selectedTab: 'search',
               });
         }}>
-        <Profile/>
+          <Search/>
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
@@ -46,7 +47,7 @@ class TabBar extends Component {
                   selectedTab: 'qr',
               });
         }}>
-        <QR/>
+          <QR/>
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
@@ -57,18 +58,7 @@ class TabBar extends Component {
                   selectedTab: 'camera',
               });
         }}>
-        <Camera/>
-      </TabBarIOS.Item>
-
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'search'}
-        systemIcon='search'
-        onPress={() => {
-              this.setState({
-                  selectedTab: 'search',
-              });
-        }}>
-        <Search/>
+          <Camera/>
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
@@ -80,6 +70,17 @@ class TabBar extends Component {
             });
         }}>
           <Map/>
+      </TabBarIOS.Item>
+
+      <TabBarIOS.Item
+        selected={this.state.selectedTab === 'profile'}
+        systemIcon='featured'
+        onPress={() => {
+              this.setState({
+                  selectedTab: 'profile',
+              });
+        }}>
+          <Profile/>
       </TabBarIOS.Item>
 
     </TabBarIOS>

@@ -1,6 +1,9 @@
 'use strict';
 
 var React = require('react-native');
+var Signup = require('./Signup');
+var Login = require('./Login');
+var Icon = require('react-native-icons');
 
 var {
   AppRegistry,
@@ -19,8 +22,7 @@ var Fields = React.createClass({
     return (
 
       <View style={styles.container}>
-        <ScrollView
-          style={styles.wrapper}>
+        <ScrollView style={styles.wrapper}>
             <TextInput
                 autoFocus={true}
                 style={styles.prompt}
@@ -32,7 +34,23 @@ var Fields = React.createClass({
                <Text style={styles.titleText}>
                   Submit
                </Text>
-             </TouchableHighlight>
+            </TouchableHighlight>
+
+        
+          <View style={styles.containerBox}>
+            <View style={styles.prompt}>
+              <Text style={styles.titleText}>
+                hi
+              </Text>
+            </View>
+            <View style={styles.prompt2}>
+              <Text style={styles.titleText}>
+                hi
+              </Text>
+            </View>
+          </View>
+
+          {spacer}
         </ScrollView>
       </View>
     );
