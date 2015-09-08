@@ -42,10 +42,12 @@ var QR = React.createClass({
   getURl: function(){
     AsyncStorage.getItem('cardEmail')
       .then((email) => {
-        console.log('successfully got card email:', url + email, 'QR.js', 45);
-        return url + email;
+        url = 'https://tranquil-earth-7083.herokuapp.com/qr/getQR?cardEmail=' + email;
+        console.log('successfully got card email:', url, 'QR.js', 45);
+        return url;
       })
-
+      
+    return url;
   }
 });
 
