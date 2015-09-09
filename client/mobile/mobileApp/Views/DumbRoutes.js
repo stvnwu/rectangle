@@ -139,21 +139,20 @@ var DumbRoutes = React.createClass({
                   onPress={this._newerHandler.bind(this)}>
               <Text style={styles.buttonText}>Newer</Text>
             </TouchableHighlight>
+          </View>
 
-            </View>
-
-            <View style={styles.buttonRow}>
-              <TouchableHighlight style={styles.button}
-                    underlayColor='#99d9f4'
-                    onPress={this._logoutHandler.bind(this)}>
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableHighlight>
-              <TouchableHighlight style={styles.button}
-                    underlayColor='#99d9f4'
-                    onPress={this._allCardsHandler.bind(this)}>
-                <Text style={styles.buttonText}>all cards</Text>
-              </TouchableHighlight>
-            </View>
+          <View style={styles.buttonRow}>
+            <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._logoutHandler.bind(this)}>
+              <Text style={styles.buttonText}>Logout</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._allCardsHandler.bind(this)}>
+              <Text style={styles.buttonText}>all cards</Text>
+            </TouchableHighlight>
+          </View>
 
         </View>
       </View>  
