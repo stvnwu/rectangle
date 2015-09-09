@@ -9,50 +9,30 @@ var {
 } = React;
 
 var CameraPage = React.createClass({
-  getInitialState() {
+  getInitialState: function() {
     return {
       cameraType: Camera.constants.Type.back
     }
   },
 
-  render() {
+  render: function() {
 
     return (
+      <Text style={styles.welcome}>
+        Scan the QR to connect!
+      </Text>
       <Camera
         ref="cam"
         style={styles.container}
-        onBarCodeRead={this._onBarCodeRead}
+        onBarCodeRead={(event)=> this._onBarCodeRead(event)}
         type={this.state.cameraType}
       >
-        <Text style={styles.welcome}>
-          Welcome!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, make sure to{'\n'}
-          run not on a simulator.
-        </Text>
-        <TouchableHighlight onPress={this._switchCamera}>
-          <Text>The old switcheroo</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._takePicture}>
-          <Text>Take Picture</Text>
-        </TouchableHighlight>
       </Camera>
     );
   },
-  _onBarCodeRead(e) {
-    console.log(e);
-  },
-  _switchCamera() {
-    var state = this.state;
-    state.cameraType = state.cameraType === Camera.constants.Type.back
-      ? Camera.constants.Type.front : Camera.constants.Type.back;
-    this.setState(state);
-  },
-  _takePicture() {
-    this.refs.cam.capture(function(err, data) {
-      console.log(err, data);
-    });
+  _onBarCodeRead: function(data) {
+    console.log(data,'<----------------CAM DATA');
+    
   }
 });
 
