@@ -28,11 +28,6 @@ var {
 
 var TabBarItemIOS = TabBarIOS.Item;
 
-var BrandColors = {
-  Facebook: '#3b5998',
-  Twitter: '#55acee'
-};
-
 var Default = React.createClass({
   getInitialState: function () {
     return {
@@ -135,9 +130,6 @@ var Default = React.createClass({
     );
   },
 });
-
-
-
 
 var styles = StyleSheet.create({
 
