@@ -11,7 +11,7 @@ var Map = require('./Map');
 var PhotoLibrary = require('./PhotoLibrary');
 var Profile = require('./Profile');
 var QR = require('./QR');
-var QRCamera = require('./QRCamera');
+var SideBar = require('./SideBar');
 var Search = require('./Search');
 var TabBar = require('./TabBar');
 var New = require('./New');
@@ -214,10 +214,10 @@ var DumbRoutes = React.createClass({
             component: QR
           });
   },
-  _qrCameraHandler: function(){
+  _sideBarHandler: function(){
     this.props.navigator.push({
             title: '',
-            component: QRCamera
+            component: SideBar
           });
   },
   _searchHandler: function(){
