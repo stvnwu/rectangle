@@ -82,9 +82,11 @@ var Profile = React.createClass({
                 onChange={(event) => 
                   this.updateProp(event.nativeEvent.text,'lastName')
               }/>
-            <Text style={styles.textInput}>
-                testing: {this.state.card.cardEmail}
-              </Text>
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.email || 'Email'}
+                editable={false}
+              />
             <TextInput
                 style={styles.textInput}
                 placeholder={this.state.card.phone || 'Phone'}
