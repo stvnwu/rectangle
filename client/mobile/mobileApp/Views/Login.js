@@ -27,6 +27,11 @@ var obj = {
 };
 
 var Login = React.createClass({
+  /**
+   * Method to be run upon initialization
+   * returns a state object with:
+   * isLoading, errorText, emailInputStyle, passwordInptuStyle
+  */
   getInitialState: function() {
     return {
       isLoading: false,
@@ -35,6 +40,10 @@ var Login = React.createClass({
       passwordInputStyle: styles.textInput,
     };
   },
+  /**
+   * Method to render a view with email and password fields
+   * along with a send and a redirect button
+  */
   render: function(){
     var spacer = <View style={styles.spacer}/>;
     var spinner = this.state.isLoading ?
@@ -63,6 +72,14 @@ var Login = React.createClass({
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'password')
               }/>
+          <TouchableHighlight
+            style={styles.redirectButton}
+            onPress={() => this.otherAuth()}
+            underlayColor='orange'>
+            <Text style = {styles.redirectButtonText}>
+              Sign up instead!
+            </Text>
+          </TouchableHighlight>
           <View style={styles.footer}>
             <View style={styles.moveRight}>
             </View>
@@ -81,6 +98,21 @@ var Login = React.createClass({
       </View>
       );
     },
+    /**
+     * Method to redirec the user to the other auth page
+    */
+    otherAuth: function() {
+      var Signup = require('./Signup');
+      this.props.navigator.replace({
+        title: '',
+        component: Signup
+      });
+    },
+    /**
+     * Method that updates the response object on changes
+     * @param {string} 'text': the text that is updated
+     * @param {string} 'prop': the property that is updated
+    */
     updateProp: function(text,prop) {
       reqBody[prop] = text;
       obj.body = JSON.stringify(reqBody);
@@ -90,6 +122,10 @@ var Login = React.createClass({
         };
       });
     },
+    /**
+     * Method that handles the HTTP response with validation and AsyncStorage
+     * @param {object} 'response': the response from the HTTP request
+    */
     _responseHandler: function (response) {
       //save it to localstorage
       if(response.message){
@@ -127,6 +163,9 @@ var Login = React.createClass({
         };
       });
     },
+    /**
+     * Method that creates the HTTP request to the server
+    */
     onSend: function() {
       this.setState((state) => {
         return {
@@ -145,6 +184,7 @@ var Login = React.createClass({
         });
     }
 });
+
 var styles = StyleSheet.create({
   button: {
     flex: 1,
@@ -181,6 +221,22 @@ var styles = StyleSheet.create({
   },
   moveRight: {
     flex: 2,
+  },
+  redirectButton: {
+    flex: 1,
+    margin: 5,
+    padding: 5,
+    backgroundColor: '#ffffff',
+    borderColor: '#1abc9c',
+    borderWidth: 1,
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  redirectButtonText: {
+    fontSize: 12,
+    color: '#1abc9c',
+    alignSelf: 'center'
   },
   spacer:{
     paddingTop: 250,
@@ -224,5 +280,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = Login;
-
-

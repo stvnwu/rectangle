@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Default = require('./Default');
+var Login = require('./Login');
 
 var {
   ActivityIndicatorIOS,
@@ -27,6 +28,12 @@ var obj = {
 }
 
 var Signup =  React.createClass({
+  /**
+   * Method to be run upon initialization
+   * returns a state object with:
+   * isLoading, errorText, firstNameInputStyle, lastNameInputStyle, 
+   * emailInput Style, passwordInptuStyle
+  */
   getInitialState: function() {
     return {
       isLoading: false,
@@ -37,6 +44,10 @@ var Signup =  React.createClass({
       passwordInputStyle: styles.textInput,
     };
   },
+  /**
+   * Method to render a view with name, email, and password fields
+   * along with a send and a redirect button
+  */
   render: function(){
     var spacer = <View style={styles.spacer}/>;
     var spinner = this.state.isLoading ?
@@ -78,6 +89,14 @@ var Signup =  React.createClass({
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'password')
               }/>
+          <TouchableHighlight
+            style={styles.redirectButton}
+            onPress={() => this.otherAuth()}
+            underlayColor='orange'>
+            <Text style = {styles.redirectButtonText}>
+              Sign in instead!
+            </Text>
+          </TouchableHighlight>
           <View style={styles.footer}>
             <View style={styles.moveRight}>
             </View>
@@ -96,6 +115,20 @@ var Signup =  React.createClass({
       </View>
     );
   },
+  /**
+   * Method to redirec the user to the other auth page
+  */
+  otherAuth: function() {
+    this.props.navigator.replace({
+      title: '',
+      component: Login
+    });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
   updateProp: function(text,prop) {
     reqBody[prop] = text;
     obj.body = JSON.stringify(reqBody);
@@ -105,6 +138,10 @@ var Signup =  React.createClass({
       };
     });
   },
+  /**
+   * Method that handles the HTTP response with validation and AsyncStorage
+   * @param {object} 'response': the response from the HTTP request
+  */
   _responseHandler: function(response){
     if(response.message){
       AsyncStorage.setItem('userEmail', response.message)
@@ -125,6 +162,9 @@ var Signup =  React.createClass({
       };
     });
   },
+  /**
+   * Method that creates the HTTP request to the server
+  */
   onSend: function() {
     console.log(reqBody,'heeeey!')
     if(reqBody.firstName === '' || reqBody.lastName === '' || reqBody.email === '' || reqBody.password === ''){
@@ -250,6 +290,22 @@ var styles = StyleSheet.create({
   },
   moveRight: {
     flex: 2,
+  },
+  redirectButton: {
+    flex: 1,
+    margin: 5,
+    padding: 5,
+    backgroundColor: '#ffffff',
+    borderColor: '#1abc9c',
+    borderWidth: 1,
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  redirectButtonText: {
+    fontSize: 12,
+    color: '#1abc9c',
+    alignSelf: 'center'
   },
   spacer:{
     paddingTop: 250,
