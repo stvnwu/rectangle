@@ -13,9 +13,17 @@ var {
 } = React;
 
 var window = Dimensions.get('window');
-var uri = 'http://pickaface.net/includes/themes/clean/img/slide2.png';
 
 class Menu extends Component {
+  // need to figure out how to push to navigator
+  // for classical instantiation 
+
+  _profileHandler(){
+    this.props.navigator.push({
+      title: '',
+      component: Profile
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -33,20 +41,12 @@ class Menu extends Component {
             
             <Text style={styles.text}>Log Out</Text>
 
-          
-
           </View>
         </ScrollView>
       </View>
     );
   }
 
-  _profileHandler(){
-    this.props.navigator.push({
-      title: '',
-      component: Profile
-    });
-  }
 }
 
 var styles = StyleSheet.create({
@@ -62,6 +62,7 @@ var styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '300',
     paddingTop: 5,
+    color: '#1abc9c',
   },
 });
 

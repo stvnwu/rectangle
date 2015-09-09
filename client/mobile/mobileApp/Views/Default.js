@@ -1,11 +1,8 @@
-/**
- * React Native app demonstrating react-native-icons
- * https://github.com/corymsmith/react-native-icons
- */
 'use strict';
 
 var React = require('react-native');
-
+var SideMenu = require('react-native-side-menu');
+var Menu = require('./SideBar');
 
 var Search = require('./Search');
 var QR = require('./QR');
@@ -13,13 +10,14 @@ var Camera = require('./Camera');
 var Map = require('./Map');
 var Profile = require('./Profile');
 
-
 var {
+  Component,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
+  View,
 } = React;
 
 var {

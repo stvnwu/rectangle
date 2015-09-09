@@ -12,18 +12,7 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 50,
-    backgroundColor: 'red',
-    borderRadius: 20,
-  },
-  button2: {
-    position: 'absolute',
-    bottom: 20,
-    backgroundColor: 'red',
-    borderRadius: 20,
-  },
+  
   caption: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -107,13 +96,6 @@ class Simple extends Component {
             Cmd+Control+Z for dev menu
           </Text>
         </View>
-        <Button style={styles.button}>
-          Toggle menu
-        </Button>
-        <Button style={styles.button2}
-          onPress={this.handleOpenWithTouchToClose.bind(this)}>
-          Open menu (Overlay Closes)
-        </Button>
       </SideMenu>
     );
   }
