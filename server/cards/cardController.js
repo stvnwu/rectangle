@@ -25,6 +25,7 @@ var cardRoutes = {
                 lastName: req.body.lastName || card.get("lastName"),
                 company: req.body.company || card.get("company"),
                 phone: req.body.phone || card.get("phone"),
+                email: req.body.email || card.get("email"),
                 jobTitle: req.body.jobTitle || card.get("jobTitle")
               }).then(function (updatedCard) {
                 res.status(200).send({
