@@ -17,12 +17,19 @@ var Loading = React.createClass({
   },
 
   checkSession: function() {
+    console.log('checking session');
     return AsyncStorage.getItem('userEmail')
     .then((email) => {
       if (email) {
-        this._defaultHandler();
+        this.props.navigator.replace({
+          title: '',
+          component: Default
+        }); 
       } else {
-        this._authHandler();
+        this.props.navigator.push({
+          title: '',
+          component: Auth
+        });
       }
     });
   },
@@ -32,22 +39,6 @@ var Loading = React.createClass({
       <View style={styles.containerBox}>
       </View>
     </View>
-  },
-
-  _defaultHandler: function() {
-    console.log('your session is active ');
-    this.props.navigator.push({
-      title: '',
-      component: Default
-    }); 
-  },
-
-  _authHandler: function() {
-    console.log('your session is inactive');
-    this.props.navigator.push({
-      title: '',
-      component: Auth
-    });
   },
 
 });
