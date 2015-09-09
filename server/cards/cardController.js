@@ -15,7 +15,7 @@ var cardRoutes = {
         if (user) {
           Cards.query({
             where: {
-              email: req.body.cardEmail
+              email: req.body.email
             }
           }).fetchOne().then(function (card) {
             if (card) {
@@ -40,7 +40,7 @@ var cardRoutes = {
                 phone: req.body.phone,
                 jobTitle: req.body.jobTitle,
                 userID: user.get("id"),
-                email: req.body.cardEmail,
+                email: req.body.email,
               }).save().then(function (newCard) {
                 console.log(85, newCard);
                 // res.end(JSON.stringify(newCard));

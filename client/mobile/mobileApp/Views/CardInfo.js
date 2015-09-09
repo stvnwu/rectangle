@@ -117,7 +117,7 @@ var CardInfo = React.createClass({
   onSend: function() {
     AsyncStorage.getItem('userEmail')
     .then((email) => {
-      this.updateProp(email, 'email');
+      this.updateProp(email, 'userEmail');
     })
     .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
     .then((response) => {
