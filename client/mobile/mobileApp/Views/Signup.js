@@ -1,8 +1,10 @@
 'use strict';
 
 var React = require('react-native');
+var Default = require('./Default');
 
 var {
+  ActivityIndicatorIOS,
   AppRegistry,
   AsyncStorage,
   Component,
@@ -14,20 +16,35 @@ var {
   View,
 } = React;
 
-var reqBody = {};
+var reqBody = {'firstName': '', 'lastName': '', 'email': '', 'password': ''};
 
 var obj = {  
   method: 'POST',
   headers: {
      'Content-Type': 'application/json',
    },
-  body: {}
+  body: JSON.stringify({'firstName': null, 'lastName': null, 'email': null, 'password': null})
 }
 
 var Signup =  React.createClass({
-  t: {t:'1'},
+  getInitialState: function() {
+    return {
+      isLoading: false,
+      errorText: '',
+      firstNameInputStyle: styles.textInput,
+      lastNameInputStyle: styles.textInput,
+      emailInputStyle: styles.textInput,
+      passwordInputStyle: styles.textInput,
+    };
+  },
   render: function(){
     var spacer = <View style={styles.spacer}/>;
+    var spinner = this.state.isLoading ?
+      ( <ActivityIndicatorIOS
+          hidden='true'
+          size='large'
+          color='#ffffff'/> ) :
+      ( <View/>);
     return (
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
@@ -36,26 +53,26 @@ var Signup =  React.createClass({
           </View>
           <TextInput
               autoFocus={true}
-              style={styles.textInput}
+              style={this.state.firstNameInputStyle}
               placeholder='Name'
                onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'firstName')
               }/>
           <TextInput
-              style={styles.textInput}
+              style={this.state.lastNameInputStyle}
               placeholder='Last'
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'lastName')
               }/>
           <TextInput
-              style={styles.textInput}
+              style={this.state.emailInputStyle}
               keyboardType='email-address'
               placeholder='Email'
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'email')
               }/>
           <TextInput
-              style={styles.textInput}
+              style={this.state.passwordInputStyle}
               placeholder='Password'
               secureTextEntry={true}
               onChange={(event) => 
@@ -65,23 +82,20 @@ var Signup =  React.createClass({
             <View style={styles.moveRight}>
             </View>
             <TouchableHighlight style={styles.button}
-                 onPress={this.onSend}
+                 onPress={() => this.onSend()}
                  underlayColor='orange'>
                <Text style={styles.buttonText}>
                   Send
                </Text>
              </TouchableHighlight>
           </View>
-        {spacer}
+          <Text>{this.state.errorText}</Text>
+          {spinner}
+          {spacer}
         </ScrollView>
       </View>
     );
   },
-  
-  onInputChanged: function(event) {
-    this.setState({ input: event.nativeEvent.text });
-  },
-
   updateProp: function(text,prop) {
     reqBody[prop] = text;
     obj.body = JSON.stringify(reqBody);
@@ -91,25 +105,102 @@ var Signup =  React.createClass({
       };
     });
   },
-
-  onSend: function() {
-    fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
-    .then((res) => {
-      AsyncStorage.setItem('userEmail', res._bodyText)
+  _responseHandler: function(response){
+    if(response.message){
+      AsyncStorage.setItem('userEmail', response.message)
       .then(() => {
-        console.log('successfully saved user email:', res._bodyText, 'Signup.js', 97);
+        console.log('successfully saved user email:', response.message, 'Signup.js', 97);
+        this.props.navigator.replace({
+          title: '',
+          component: Default
+        });
       })
-      .then(() => {
-        return AsyncStorage.getItem('userEmail');
-      })
-      .then((email) => {
-        console.log('successfully retrieved user email:', email, 'Signup.js', 103);
-      });
-      return JSON.stringify(res.json());
-    })
-    .catch((err) => {
-      console.log(new Error(err));
+    } else if (response.error){
+      this.state.emailInputStyle = styles.wrongInput;
+      this.state.errorText = response.error;
+    }
+    this.setState((state) => {
+      return {
+        isLoading: false
+      };
     });
+  },
+  onSend: function() {
+    console.log(reqBody,'heeeey!')
+    if(reqBody.firstName === '' || reqBody.lastName === '' || reqBody.email === '' || reqBody.password === ''){
+      this.state.errorText = 'Please leave no blank fields';
+
+        if(reqBody.firstName === ''){
+          this.setState((state) => {
+            return {
+              firstNameInputStyle: styles.wrongInput
+            };
+          });
+        } else {
+          this.setState((state) => {
+            return {
+              firstNameInputStyle: styles.textInput
+            };
+          });
+        }
+        if(reqBody.lastName === ''){
+          this.setState((state) => {
+            return {
+              lastNameInputStyle: styles.wrongInput
+            };
+          });
+        } else {
+          this.setState((state) => {
+            return {
+              lastNameInputStyle: styles.textInput
+            };
+          });
+        }
+        if(reqBody.email === ''){
+          this.setState((state) => {
+            return {
+              emailInputStyle: styles.wrongInput
+            };
+          });
+        } else {
+          this.setState((state) => {
+            return {
+              emailInputStyle: styles.textInput
+            };
+          });
+        }
+        if(reqBody.password === ''){
+          this.setState((state) => {
+            return {
+              passwordInputStyle: styles.wrongInput
+            };
+          });
+        } else {
+          this.setState((state) => {
+            return {
+              passwordInputStyle: styles.textInput
+            };
+          });
+        }
+
+
+
+    } else {
+      this.setState((state) => {
+        return {
+          isLoading: true
+        };
+      });
+      fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
+      .then((res) => res.json())
+      .then((resJson) => {
+        this._responseHandler(resJson)
+        resJson
+      })
+      .catch((err) => {
+        console.log(new Error(err));
+      });
+    }
   }
 }); 
 
@@ -183,7 +274,18 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     flexDirection: 'column'
-  }
+  },
+   wrongInput:{
+    height: 36,
+    padding: 10,
+    margin: 15,
+    fontSize: 18,
+    borderWidth: 1.5,
+    borderColor: 'red',
+    borderRadius: 8,
+    backgroundColor: '#d6d7da',
+    color: '#1abc9c'
+  },
 });
 
 module.exports = Signup;
