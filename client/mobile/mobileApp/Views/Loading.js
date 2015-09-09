@@ -11,11 +11,19 @@ var {
 } = React;
 
 var Loading = React.createClass({
+  /**
+   * Method to be run upon initialization
+   * returns null (no state)
+  */
   getInitialState: function() {
     this.checkSession();
     return null;
   },
-
+  /**
+   * Method that checks the mobile session
+   * redirects based on the result
+   * nothing returned
+  */
   checkSession: function() {
     console.log('checking session');
     return AsyncStorage.getItem('userEmail')
@@ -33,7 +41,9 @@ var Loading = React.createClass({
       }
     });
   },
-
+  /**
+   * Method to render a blank view
+  */
   render: function() {
     return <View style={styles.container}>
       <View style={styles.containerBox}>

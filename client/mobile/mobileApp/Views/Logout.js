@@ -10,11 +10,19 @@ var {
 } = React;
 
 var Logout = React.createClass({
+  /**
+   * Method to be run upon initialization
+   * returns null (no state)
+  */
   getInitialState: function() {
     this.logOut();
     return null;
   },
-
+  /**
+   * Method to log the user out and
+   * redirect to Auth page
+   * nothing returned
+  */
   logOut: function() {
     AsyncStorage.removeItem('userEmail')
     .then((userEmail) => {
@@ -30,7 +38,9 @@ var Logout = React.createClass({
       console.log(new Error(err));
     });
   },
-
+  /**
+   * Method to render a blank view
+  */
   render: function() {
     return <View style={styles.container}>
       <View style={styles.containerBox}>
