@@ -59,6 +59,7 @@ var Login = React.createClass({
           <TextInput
               style={this.state.passwordInputStyle}
               placeholder='Password'
+              secureTextEntry={true}
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'password')
               }/>
@@ -94,12 +95,12 @@ var Login = React.createClass({
       if(response.message){
         obj.body = JSON.stringify({'email': null, 'password': null});
         AsyncStorage.setItem('userEmail', reqBody.email)
-          .then(() => {
-            this.props.navigator.replace({
-              title: '',
-              component: Default
-            });
-          })
+        .then(() => {
+          this.props.navigator.replace({
+            title: '',
+            component: Default
+          });
+        })
       } else if(response.error === "password does not match"){
           //password incorrect
           this.state.passwordInputStyle = styles.wrongInput;

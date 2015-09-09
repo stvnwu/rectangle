@@ -53,7 +53,7 @@ var CardInfo = React.createClass({
               style={styles.textInput}
               placeholder='Email'
               onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'cardEmail')
+                this.updateProp(event.nativeEvent.text,'email')
               }/>
           <TextInput
               style={styles.textInput}
@@ -121,7 +121,7 @@ var CardInfo = React.createClass({
     })
     .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
     .then((response) => {
-      return AsyncStorage.setItem('cardEmail', reqBody['cardEmail']);
+      return AsyncStorage.setItem('cardEmail', reqBody['email']);
     })
     .then(() => {
       console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);

@@ -25,16 +25,27 @@ var obj = {
 }
 
 var Profile = React.createClass({
+  /**
+   * Method to be run upon initialization
+   * returns card: null (this intializes the state)
+  */
   getInitialState: function() {
     return {
       card: null
     };
   },
-
+  /**
+   * Method to be run when the compontent mounts
+   * calls getCardInfo and returns nothing
+  */
   componentDidMount: function() {
     this.getCardInfo();
   },
-
+  /**
+   * Method: retrieves cardEmail, gets
+   * the database information related,
+   * and populates profile fields with it
+  */
   getCardInfo: function() {
     AsyncStorage.getItem('cardEmail')
     .then((email) => {
@@ -47,15 +58,15 @@ var Profile = React.createClass({
     .then((response) => {
       var card = JSON.parse(response._bodyText).message;
       reqBody = card;
-      // this.render();
       this.setState({card: reqBody});
     })
     .done();
   },
-
+  /**
+   * Method to render profile view with photo and info fields
+  */
   render: function(){
     if (this.state.card) {
-      console.log('this should be the card', reqBody);
       var spacer = <View style={styles.spacer}/>;
       return (
         <View style={styles.container}>
@@ -127,6 +138,9 @@ var Profile = React.createClass({
     } else {
       return (
       <View style={styles.container}>
+        <Text style={styles.titleText}>
+          Loading profile...
+        </Text>
         <Text style={styles.titleText}>
           Loading profile...
         </Text>
