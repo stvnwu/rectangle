@@ -22,6 +22,7 @@ var Logout = require('./Logout');
 
 var {
   AppRegistry,
+  AsyncStorage,
   NavigatorIOS,
   ScrollView,
   StyleSheet,
@@ -32,6 +33,19 @@ var {
 
 var DumbRoutes = React.createClass({
   render: function() {
+    // always log useremail and card email, to check
+    AsyncStorage.getItem('userEmail')
+    .then((userEmail) => {
+      console.log('userEmail is', userEmail, 'DumbRoutes.js', 39);
+      return AsyncStorage.getItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      console.log('cardEmail is', cardEmail, 'DumbRoutes.js', 43);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
     return(
       <View style={styles.container}>
         <View style={styles.wrapper}>
