@@ -3,6 +3,7 @@
 var React = require('react-native');
 
 var {
+  AsyncStorage,
   Image,
   ScrollView,
   StyleSheet,
@@ -12,52 +13,173 @@ var {
   View, 
 } = React;
 
+var reqBody = {};
+var cardEmail;
+
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: {}
+}
+
 var Profile = React.createClass({
+  getInitialState: function() {
+    return {
+      card: null
+    };
+  },
+
+  componentDidMount: function() {
+    this.getCardInfo();
+  },
+
+  getCardInfo: function() {
+    AsyncStorage.getItem('cardEmail')
+    .then((email) => {
+      return fetch('https://tranquil-earth-7083.herokuapp.com/cards/getcard', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'cardEmail': email})
+      });
+    })
+    .then((response) => {
+      var card = JSON.parse(response._bodyText).message;
+      reqBody = card;
+      // this.render();
+      this.setState({card: reqBody});
+    })
+    .done();
+  },
+
   render: function(){
-    var spacer = <View style={styles.spacer}/>;
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.wrapper}>
-          <View style={styles.header}>
-            <Text style={styles.titleText}>Edit Profile</Text>
-          </View>
-          <Image 
-          style={styles.card_photo}
-          source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-          />
-          <TextInput
-              autoFocus={true}
-              style={styles.textInput}
-              placeholder='First Name'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Last Name'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Email'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Phone'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Company'/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Job Title'/>
-          <View style={styles.footer}>
-            <View style={styles.moveRight}>
+    if (this.state.card) {
+      console.log('this should be the card', reqBody);
+      var spacer = <View style={styles.spacer}/>;
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.wrapper}>
+            <View style={styles.header}>
+              <Text style={styles.titleText}>Edit Profile</Text>
             </View>
-            <TouchableHighlight 
-              style={styles.button}
-              underlayColor={'orange'}>
-              <Text style={styles.buttonText}>Save</Text>
-            </TouchableHighlight>
-          </View>
-        {spacer}
-        </ScrollView>
+            <Image 
+            style={styles.card_photo}
+            source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
+            />
+            <TextInput
+                autoFocus={true}
+                style={styles.textInput}
+                placeholder= 'First Name'
+                value={this.state.card.firstName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.lastName || 'Last Name'}
+                value={this.state.card.lastName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.email || 'Email'}
+                editable={false}
+              />
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.phone || 'Phone'}
+                value={this.state.card.phone}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'phone')
+              }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.company || 'Company'}
+                value={this.state.card.company}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'company')
+              }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder={this.state.card.jobTitle || 'Job Title'}
+                value={this.state.card.jobTitle}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'jobTitle')
+              }/>
+            <View style={styles.footer}>
+              <View style={styles.moveRight}>
+              </View>
+              <TouchableHighlight 
+                style={styles.button}
+                onPress={(event) =>
+                  this.onSend()
+                }
+                underlayColor={'orange'}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          {spacer}
+          </ScrollView>
+        </View>
+      );
+    } else {
+      return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>
+          Loading profile...
+        </Text>
       </View>
     );
+    }
   },
+  /**
+   * Method that updates the binded data whenever it is changed
+   * @param {event} 
+  */
+  onInputChanged: function(event) {
+    this.setState({ input: event.nativeEvent.text });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  /**
+   * Method that creates the HTTP request to the server
+   * and updates an existing card (in this case)
+  */
+  onSend: function() {
+    AsyncStorage.getItem('userEmail')
+    .then((userEmail) => {
+      this.updateProp(userEmail, 'userEmail');
+      return AsyncStorage.getItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      this.updateProp(cardEmail, 'email');
+    })
+    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
+    .then((response) => {
+      return AsyncStorage.setItem('cardEmail', reqBody['email']);
+    })
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  },
+
 });
 
 

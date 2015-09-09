@@ -9,13 +9,13 @@ var cardRoutes = {
     return new Promise(function (resolve, reject) {
       Users.query({
         where: {
-          email: req.body.email
+          email: req.body.userEmail
         }
       }).fetchOne().then(function (user) {
         if (user) {
           Cards.query({
             where: {
-              email: req.body.cardEmail
+              email: req.body.email
             }
           }).fetchOne().then(function (card) {
             if (card) {
@@ -25,6 +25,7 @@ var cardRoutes = {
                 lastName: req.body.lastName || card.get("lastName"),
                 company: req.body.company || card.get("company"),
                 phone: req.body.phone || card.get("phone"),
+                email: req.body.email || card.get("email"),
                 jobTitle: req.body.jobTitle || card.get("jobTitle")
               }).then(function (updatedCard) {
                 res.status(200).send({
@@ -40,7 +41,7 @@ var cardRoutes = {
                 phone: req.body.phone,
                 jobTitle: req.body.jobTitle,
                 userID: user.get("id"),
-                email: req.body.cardEmail,
+                email: req.body.email,
               }).save().then(function (newCard) {
                 console.log(85, newCard);
                 // res.end(JSON.stringify(newCard));

@@ -135,7 +135,7 @@ var Login = React.createClass({
       fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
         .then(response => response.json())
         .then((resJson) => {
-          console.log('response is:', typeof resJson, 'Login.js', 124);
+          console.log('response is:', typeof resJson, 'Login.js', 137);
           this._responseHandler(resJson);
           return resJson;
         })
