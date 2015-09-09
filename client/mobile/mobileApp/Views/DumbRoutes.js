@@ -17,6 +17,7 @@ var TabBar = require('./TabBar');
 var New = require('./New');
 var Newer = require('./Newer');
 var Default = require('./Default');
+var Loading = require('./Loading');
 
 var {
   AppRegistry,
@@ -109,8 +110,8 @@ var DumbRoutes = React.createClass({
           <View style={styles.buttonRow}>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
-                  onPress={this._tabBarHandler.bind(this)}>
-              <Text style={styles.buttonText}>TabBar</Text>
+                  onPress={this._loadingHandler.bind(this)}>
+              <Text style={styles.buttonText}>Loading</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.button}
                   underlayColor='#99d9f4'
@@ -202,10 +203,10 @@ var DumbRoutes = React.createClass({
           });
   },
 
-  _tabBarHandler: function(){
+  _loadingHandler: function(){
     this.props.navigator.push({
             title: '',
-            component: TabBar
+            component: Loading
     });
   },
   _newHandler: function(){
