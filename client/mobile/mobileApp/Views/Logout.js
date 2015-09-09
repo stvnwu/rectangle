@@ -2,7 +2,6 @@
 
 var React = require('react-native');
 var Auth = require('./Auth');
-var Default = require('./Default');
 
 var {
   AsyncStorage,
@@ -10,27 +9,25 @@ var {
   View,
 } = React;
 
-var Loading = React.createClass({
+var Logout = React.createClass({
   getInitialState: function() {
-    this.checkSession();
+    this.logOut();
     return null;
   },
 
-  checkSession: function() {
-    console.log('checking session');
-    return AsyncStorage.getItem('userEmail')
-    .then((email) => {
-      if (email) {
-        this.props.navigator.replace({
-          title: '',
-          component: Default
-        }); 
-      } else {
-        this.props.navigator.replace({
-          title: '',
-          component: Auth
-        });
-      }
+  logOut: function() {
+    AsyncStorage.removeItem('userEmail')
+    .then((userEmail) => {
+      return AsyncStorage.removeItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      this.props.navigator.replace({
+        title: '',
+        component: Auth
+      });
+    })
+    .catch((err) => {
+      console.log(new Error(err));
     });
   },
 
@@ -64,4 +61,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Loading;
+module.exports = Logout;
