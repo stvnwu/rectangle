@@ -54,6 +54,7 @@ describe('routing test', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
@@ -65,6 +66,7 @@ describe('routing test', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
@@ -87,8 +89,9 @@ describe('connecting to the database', function () {
         .end(function (err, res) {
           var resText = JSON.parse(res.text);
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
-            error: 'enter your email'
+            error: "enter your email"
           }));
+          expect(res.status).to.equal(400);
           done();
         });
     });
@@ -103,6 +106,7 @@ describe('connecting to the database', function () {
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
             error: "user doesn't exist"
           }));
+          expect(res.status).to.equal(400);
           done();
         });
     });
@@ -117,8 +121,9 @@ describe('connecting to the database', function () {
         .end(function (err, res) {
           var resText = JSON.parse(res.text);
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
-            error: 'enter your email'
+            error: "email is not provided/invalid"
           }));
+          expect(res.status).to.equal(400);
           done();
         });
     });
@@ -131,8 +136,9 @@ describe('connecting to the database', function () {
         .end(function (err, res) {
           var resText = JSON.parse(res.text);
           expect(JSON.stringify(resText)).to.equal(JSON.stringify({
-            error: "user doesn't exist"
+            error: "email does not match"
           }));
+          expect(res.status).to.equal(400);
           done();
         });
     });
@@ -146,6 +152,7 @@ describe('connecting to the database', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
@@ -157,6 +164,7 @@ describe('connecting to the database', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
@@ -168,6 +176,7 @@ describe('connecting to the database', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
@@ -179,8 +188,30 @@ describe('connecting to the database', function () {
       .expect(200)
       .end(function (err, res) {
         expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
         done();
       });
   });
 
+  it("connections get all connections post", function (done) {
+    api.get('/connections/getconnections/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        expect(res.status).to.equal(404);
+        done();
+      });
+  });
+
+  it("get qr codes from server", function (done) {
+    api.get('/qr/getQR/')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /svg+xml/)
+      .expect(200)
+      .end(function (err, res) {
+        expect(typeof res.body).to.equal("object");
+        done();
+      });
+  });
 });
