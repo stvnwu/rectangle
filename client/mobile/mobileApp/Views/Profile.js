@@ -14,6 +14,7 @@ var {
 } = React;
 
 var reqBody = {};
+var cardEmail;
 
 var obj = {  
   method: 'POST',
@@ -44,8 +45,8 @@ var Profile = React.createClass({
       });
     })
     .then((response) => {
-      var card = response._bodyText;
-      reqBody = JSON.parse(card);
+      var card = JSON.parse(response._bodyText).message;
+      reqBody = card;
       // this.render();
       this.setState({card: reqBody});
     })
@@ -81,13 +82,9 @@ var Profile = React.createClass({
                 onChange={(event) => 
                   this.updateProp(event.nativeEvent.text,'lastName')
               }/>
-            <TextInput
-                style={styles.textInput}
-                placeholder={this.state.card.email || 'Email'}
-                value={this.state.card.email}
-                onChange={(event) => 
-                  this.updateProp(event.nativeEvent.text,'email')
-              }/>
+            <Text style={styles.textInput}>
+                testing: {this.state.card.cardEmail}
+              </Text>
             <TextInput
                 style={styles.textInput}
                 placeholder={this.state.card.phone || 'Phone'}
