@@ -159,8 +159,12 @@ var Profile = React.createClass({
   */
   onSend: function() {
     AsyncStorage.getItem('userEmail')
-    .then((email) => {
-      this.updateProp(email, 'userEmail');
+    .then((userEmail) => {
+      this.updateProp(userEmail, 'userEmail');
+      return AsyncStorage.getItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      this.updateProp(cardEmail, 'email');
     })
     .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
     .then((response) => {
