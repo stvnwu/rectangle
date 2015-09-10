@@ -47,7 +47,6 @@ var CameraPage = React.createClass({
     );
   },
   _responseHandler: function(response){
-    this.state.readQr = true;
     var message = 'Correcto Mondo!';
     if(response.error){
       message = response.error;
@@ -64,6 +63,7 @@ var CameraPage = React.createClass({
   _onBarCodeRead: function(scan) {
     // console.log(scan,'<-----------SCAN')
     if(!this.state.readQr){ 
+      this.state.readQr = true;
       VibrationIOS.vibrate();
       AsyncStorage.getItem('userEmail')
       .then((userEmail)=>{
@@ -71,7 +71,6 @@ var CameraPage = React.createClass({
         reqBody.cardEmail = JSON.parse(scan.data).cardEmail;
 
         obj.body = JSON.stringify(reqBody);
-        console.log(obj,'<-----------REQBODY')
         fetch('https://tranquil-earth-7083.herokuapp.com/connections/createconnection', obj)  
           .then((res) => res.json())
           .then((resJson) => this._responseHandler(resJson))      
