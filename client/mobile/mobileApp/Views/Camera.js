@@ -2,57 +2,94 @@ var React = require('react-native');
 var Camera = require('react-native-camera');
 
 var {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
+  VibrationIOS,
   TouchableHighlight
 } = React;
 
+var reqBody = {'email': '', 'cardEmail': ''};
+
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: JSON.stringify({'userEmail': null, 'cardEmail': null})
+}
+
 var CameraPage = React.createClass({
-  getInitialState() {
+  getInitialState: function() {
     return {
-      cameraType: Camera.constants.Type.back
+      camMessage : styles.containerView,
+      cameraType: Camera.constants.Type.back,
+      promt: 'Scan the QR to connect!',
+      readQr: false
     }
   },
 
-  render() {
+  render: function() {
 
     return (
       <Camera
         ref="cam"
         style={styles.container}
-        onBarCodeRead={this._onBarCodeRead}
+        onBarCodeRead={(event)=> this._onBarCodeRead(event)}
         type={this.state.cameraType}
       >
+      <View style={this.state.camMessage}>
         <Text style={styles.welcome}>
-          Welcome!
+          {this.state.promt}
         </Text>
-        <Text style={styles.instructions}>
-          To get started, make sure to{'\n'}
-          run not on a simulator.
-        </Text>
-        <TouchableHighlight onPress={this._switchCamera}>
-          <Text>The old switcheroo</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._takePicture}>
-          <Text>Take Picture</Text>
-        </TouchableHighlight>
+      </View>
       </Camera>
     );
   },
-  _onBarCodeRead(e) {
-    console.log(e);
-  },
-  _switchCamera() {
-    var state = this.state;
-    state.cameraType = state.cameraType === Camera.constants.Type.back
-      ? Camera.constants.Type.front : Camera.constants.Type.back;
-    this.setState(state);
-  },
-  _takePicture() {
-    this.refs.cam.capture(function(err, data) {
-      console.log(err, data);
+  _responseHandler: function(response){
+    var message = 'Correcto Mondo!';
+    var messageColor;
+    if(response.error){
+      message = response.error;
+      messageColor = styles.containerWrong;
+
+    } else {
+      //shold redirect to cards page
+      messageColor = styles.containerCorrect;
+    }
+    this.setState((state) => {
+      return {
+        promt: message
+      };
     });
+    this.setState((state) => {
+      return {
+        camMessage: messageColor
+      };
+    });
+  },
+  _onBarCodeRead: function(scan) {
+    // console.log(scan,'<-----------SCAN')
+    if(!this.state.readQr){ 
+      this.state.readQr = true;
+      VibrationIOS.vibrate();
+      AsyncStorage.getItem('userEmail')
+      .then((userEmail)=>{
+        reqBody.email = userEmail;
+        reqBody.cardEmail = JSON.parse(scan.data).cardEmail;
+
+        obj.body = JSON.stringify(reqBody);
+        fetch('https://tranquil-earth-7083.herokuapp.com/connections/createconnection', obj)  
+          .then((res) => res.json())
+          .then((resJson) => this._responseHandler(resJson))      
+      })
+      .catch((err) => {
+        console.log(new Error(err));
+      });
+    }
+    
+    
   }
 });
 
@@ -64,6 +101,23 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
+  containerView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+  },
+  containerWrong: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  containerCorrect: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+  },
+
+
   welcome: {
     color: '#333333',
     fontSize: 20,
