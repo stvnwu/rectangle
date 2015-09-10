@@ -3,12 +3,11 @@ var SideMenu = require('react-native-side-menu');
 var Menu = require('./SideBar');
 
 var {
+  Component,
   StyleSheet,
   Text,
-  View,
-  Image,
   TouchableOpacity,
-  Component
+  View,
 } = React;
 
 var styles = StyleSheet.create({
