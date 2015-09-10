@@ -23,6 +23,7 @@ var obj = {
 var CameraPage = React.createClass({
   getInitialState: function() {
     return {
+      camMessage : styles.containerView,
       cameraType: Camera.constants.Type.back,
       promt: 'Scan the QR to connect!',
       readQr: false
@@ -38,7 +39,7 @@ var CameraPage = React.createClass({
         onBarCodeRead={(event)=> this._onBarCodeRead(event)}
         type={this.state.cameraType}
       >
-      <View style={styles.containerView}>
+      <View style={this.state.camMessage}>
         <Text style={styles.welcome}>
           {this.state.promt}
         </Text>
@@ -48,15 +49,24 @@ var CameraPage = React.createClass({
   },
   _responseHandler: function(response){
     var message = 'Correcto Mondo!';
+    var messageColor;
     if(response.error){
       message = response.error;
+      messageColor = styles.containerWrong;
+
     } else {
       //shold redirect to cards page
       message = response.message;
+      messageColor = styles.containerCorrect;
     }
     this.setState((state) => {
       return {
         promt: message
+      };
+    });
+    this.setState((state) => {
+      return {
+        camMessage: messageColor
       };
     });
   },
@@ -93,11 +103,21 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   containerView: {
-
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+  },
+  containerWrong: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'red',
   },
+  containerCorrect: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+  },
+
 
   welcome: {
     color: '#333333',
