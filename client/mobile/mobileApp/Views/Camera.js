@@ -56,7 +56,6 @@ var CameraPage = React.createClass({
 
     } else {
       //shold redirect to cards page
-      message = response.message;
       messageColor = styles.containerCorrect;
     }
     this.setState((state) => {
