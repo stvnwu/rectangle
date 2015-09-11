@@ -6,7 +6,6 @@ var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
 var Profile = require('./Profile');
-var Logout = require('./Logout');
 
 var {
   Component,
