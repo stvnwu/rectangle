@@ -6,6 +6,7 @@ var {
   AppRegistry,
   AsyncStorage,
   Component,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -17,11 +18,28 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop:65,
+    flex: 1,
+    backgroundColor: '#1B374A',
+  },
+  header: {
+    color: 'white',
+    fontSize: 24,
+    padding: 20,
+  },
+  headerC: {
+    backgroundColor: '#42D799',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column',
   },
   webView: {
     backgroundColor: 'black',
     height: 350,
+    flex: 4,
   },
 });
 
@@ -35,12 +53,17 @@ var QR = React.createClass({
   render: function() {
       return (
         <View style={styles.container}>
-          <WebView
-          automaticallyAdjustContentInsets={false}
-          style={styles.webView}
-          url={this.state.url}
-          startInLoadingState={true}
-        />
+          <ScrollView style={styles.wrapper}>
+            <View style={styles.headerC}>
+              <Text style={styles.header}>Connect [ ]</Text>
+            </View>
+            <WebView
+            automaticallyAdjustContentInsets={false}
+            style={styles.webView}
+            url={this.state.url}
+            startInLoadingState={true}
+            />
+        </ScrollView>
         </View>
         );
   },
