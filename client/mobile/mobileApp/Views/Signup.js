@@ -60,57 +60,71 @@ var Signup =  React.createClass({
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
           <View style={styles.header}>
-            <Text style={styles.titleText}>Sign Up</Text>
+            <Text style={styles.titleText}>Rectangle</Text>
           </View>
           <TextInput
-              autoFocus={true}
               style={this.state.firstNameInputStyle}
               placeholder='Name'
-               onChange={(event) => 
+              autoCapitalize={true}
+              autoCorrect={false}
+              clearButtonMode={'while-editing'}
+              onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'firstName')
               }/>
           <TextInput
               style={this.state.lastNameInputStyle}
               placeholder='Last'
+              autoCapitalize={true}
+              autoCorrect={false}
+              clearButtonMode={'while-editing'}
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'lastName')
               }/>
           <TextInput
               style={this.state.emailInputStyle}
+              autoCapitalize={false}
+              autoCorrect={false}
               keyboardType='email-address'
               placeholder='Email'
+              clearButtonMode={'while-editing'}
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'email')
               }/>
           <TextInput
               style={this.state.passwordInputStyle}
               placeholder='Password'
+              clearButtonMode={'while-editing'}
               secureTextEntry={true}
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'password')
               }/>
-          <TouchableHighlight
-            style={styles.redirectButton}
-            onPress={() => this.otherAuth()}
-            underlayColor='orange'>
-            <Text style = {styles.redirectButtonText}>
-              Sign in instead!
-            </Text>
-          </TouchableHighlight>
+          
           <View style={styles.footer}>
             <View style={styles.moveRight}>
             </View>
             <TouchableHighlight style={styles.button}
                  onPress={() => this.onSend()}
-                 underlayColor='orange'>
+                 underlayColor='rgba(255,255,255,0.1)'>
                <Text style={styles.buttonText}>
-                  Send
+                  Sign Up
+               </Text>
+             </TouchableHighlight>
+             
+             <TouchableHighlight
+               style={styles.redirectButton}
+               onPress={() => this.otherAuth()}
+               underlayColor='rgba(255,255,255,0.1)'>
+               <Text style = {styles.redirectButtonText}>
+                 Sign in instead!
                </Text>
              </TouchableHighlight>
           </View>
-          <Text>{this.state.errorText}</Text>
-          {spinner}
+          <View style={styles.errContainer}>
+            <Text style={styles.errorText}>{this.state.errorText}</Text>
+          </View>
           {spacer}
+          {spinner}
+          
         </ScrollView>
       </View>
     );
@@ -247,18 +261,17 @@ var Signup =  React.createClass({
 var styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: 10,
+    margin: 15,
     padding: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'rgba(255,255,255,0.3)',
     borderColor: '#1abc9c',
     borderWidth: 1,
-    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   buttonText: {
     fontSize: 18,
-    color: '#1abc9c',
+    color: '#ffffff',
     alignSelf: 'center'
   },
   container: {
@@ -275,9 +288,15 @@ var styles = StyleSheet.create({
     marginVertical: 0,
     overflow: 'hidden',
   },
+  errContainer: {
+    alignItems: 'center',
+  },
+  errorText: {
+    color:'#d5d5d5',
+  },
   footer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#1abc9c',
     justifyContent: 'flex-end'
   },
@@ -290,42 +309,41 @@ var styles = StyleSheet.create({
   },
   moveRight: {
     flex: 2,
+
   },
   redirectButton: {
     flex: 1,
-    margin: 5,
+    margin: 15,
     padding: 5,
-    backgroundColor: '#ffffff',
-    borderColor: '#1abc9c',
-    borderWidth: 1,
-    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   redirectButtonText: {
-    fontSize: 12,
-    color: '#1abc9c',
+    fontSize: 16,
+    color: '#ffffff',
     alignSelf: 'center'
   },
   spacer:{
-    paddingTop: 250,
+    paddingTop: 150,
     backgroundColor: '#1abc9c'
   },
   textInput: {
     height: 36,
-    padding: 10,
-    margin: 15,
+    paddingLeft: 10,
+    marginRight: 15,
+    marginLeft: 15,
     fontSize: 18,
-    borderWidth: 1,
+    borderWidth: 0.4,
     borderColor: '#d6d7da',
-    borderRadius: 8,
-    backgroundColor: '#d6d7da',
-    color: '#1abc9c'
+    // borderRadius: 2,
+    backgroundColor: '#ffffff',
+    color: '#404040'
   },
   titleText: {
     padding: 24,
     color: 'white',
     fontSize: 24,
+    fontWeight: '900'
   },
   wrapper: {
     flex: 1,
@@ -333,13 +351,14 @@ var styles = StyleSheet.create({
   },
    wrongInput:{
     height: 36,
-    padding: 10,
-    margin: 15,
+    paddingLeft: 10,
+    marginRight: 15,
+    marginLeft: 15,
     fontSize: 18,
-    borderWidth: 1.5,
+    borderWidth: 0.6,
     borderColor: 'red',
-    borderRadius: 8,
-    backgroundColor: '#d6d7da',
+    // borderRadius: 2,
+    backgroundColor: '#ffffff',
     color: '#1abc9c'
   },
 });
