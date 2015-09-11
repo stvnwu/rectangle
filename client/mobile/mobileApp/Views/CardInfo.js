@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Default = require('./Default');
 
 var {
   AppRegistry,
@@ -25,6 +26,57 @@ var obj = {
 }
 
 var CardInfo = React.createClass({
+  /**
+   * Method that updates the binded data whenever it is changed
+   * @param {event} 
+  */
+  onInputChanged: function(event) {
+    this.setState({ input: event.nativeEvent.text });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  /**
+   * Method that creates the HTTP request to the server
+  */
+  onSend: function() {
+    AsyncStorage.getItem('userEmail')
+    .then((email) => {
+      this.updateProp(email, 'userEmail');
+    })
+    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
+    .then((response) => {
+      return AsyncStorage.setItem('cardEmail', reqBody['email']);
+    })
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
+      this._defaultHandler.bind(this)();
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  }, 
+  /**
+   * Method that redirects to default upon HTTP request has 
+   * been sent
+  */
+  _defaultHandler: function(){
+    this.props.navigator.push({
+      title: '',
+      component: Default
+    })
+  },
   /**
    * Method, no parameters, renders the page with text inputs and a send button
   */
@@ -89,48 +141,7 @@ var CardInfo = React.createClass({
         </ScrollView>
       </View>
       );
-  },
-  /**
-   * Method that updates the binded data whenever it is changed
-   * @param {event} 
-  */
-  onInputChanged: function(event) {
-    this.setState({ input: event.nativeEvent.text });
-  },
-  /**
-   * Method that updates the response object on changes
-   * @param {string} 'text': the text that is updated
-   * @param {string} 'prop': the property that is updated
-  */
-  updateProp: function(text,prop) {
-    reqBody[prop] = text;
-    obj.body = JSON.stringify(reqBody);
-    this.setState((state) => {
-      return {
-        curText: text
-      };
-    });
-  },
-  /**
-   * Method that creates the HTTP request to the server
-  */
-  onSend: function() {
-    AsyncStorage.getItem('userEmail')
-    .then((email) => {
-      this.updateProp(email, 'userEmail');
-    })
-    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
-    .then((response) => {
-      return AsyncStorage.setItem('cardEmail', reqBody['email']);
-    })
-    .then(() => {
-      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
-    })
-    .catch((err) => {
-      console.log(new Error(err));
-    });
-  }, 
-
+  }
 });
 
 var styles = StyleSheet.create({
