@@ -1,10 +1,12 @@
 'use strict';
 
 var React = require('react-native');
+
 var Logout = require('./Logout');
 
 var {
   AsyncStorage,
+  Component,
   Image,
   ScrollView,
   StyleSheet,
@@ -25,29 +27,32 @@ var obj = {
   body: {}
 }
 
-var Profile = React.createClass({
+class Profile extends Component{
   /**
    * Method to be run upon initialization
    * returns card: null (this intializes the state)
   */
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this._logoutHandler = this._logoutHandler.bind(this);
+    this.state = {
       card: null
     };
-  },
+  }
+
   /**
    * Method to be run when the compontent mounts
    * calls getCardInfo and returns nothing
   */
-  componentDidMount: function() {
+  componentDidMount() {
     this.getCardInfo();
-  },
+  };
   /**
    * Method: retrieves cardEmail, gets
    * the database information related,
    * and populates profile fields with it
   */
-  getCardInfo: function() {
+  getCardInfo() {
     AsyncStorage.getItem('cardEmail')
     .then((email) => {
       return fetch('https://tranquil-earth-7083.herokuapp.com/cards/getcard', {
@@ -62,20 +67,76 @@ var Profile = React.createClass({
       this.setState({card: reqBody});
     })
     .done();
-  },
+  };
   /**
    * Method that routes to user log out
   */
-  _logoutHandler: function(){
-    this.props.navigator.push({
-      title: '',
-      component: Logout
+  _logoutHandler(){
+    AsyncStorage.removeItem('userEmail')
+    .then((userEmail) => {
+      return AsyncStorage.removeItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      var Auth = require('./Auth')
+      this.props.navigator.replace({
+        title: '',
+        component: Auth
+      });
+    })
+    .catch((err) => {
+      console.log(new Error(err));
     });
-  },
+  };
+  /**
+   * Method that updates the binded data whenever it is changed
+   * @param {event} 
+  */
+  onInputChanged(event) {
+    this.setState({ input: event.nativeEvent.text });
+  };
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  };
+  /**
+   * Method that creates the HTTP request to the server
+   * and updates an existing card (in this case)
+  */
+  onSend() {
+    AsyncStorage.getItem('userEmail')
+    .then((userEmail) => {
+      this.updateProp(userEmail, 'userEmail');
+      return AsyncStorage.getItem('cardEmail');
+    })
+    .then((cardEmail) => {
+      this.updateProp(cardEmail, 'email');
+    })
+    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
+    .then((response) => {
+      return AsyncStorage.setItem('cardEmail', reqBody['email']);
+    })
+    .then(() => {
+      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  };
+
   /**
    * Method to render profile view with photo and info fields
   */
-  render: function(){
+  render(){
     if (this.state.card) {
       var spacer = <View style={styles.spacer}/>;
       return (
@@ -85,7 +146,7 @@ var Profile = React.createClass({
               <Text style={styles.titleText}>Edit Profile</Text>
               <TouchableHighlight style={styles.button}
                     underlayColor='#99d9f4'
-                    onPress={this._logoutHandler.bind(this)}>
+                    onPress={this._logoutHandler}>
                 <Text style={styles.buttonText}>Logout</Text>
               </TouchableHighlight>
             </View>
@@ -162,54 +223,9 @@ var Profile = React.createClass({
       </View>
     );
     }
-  },
-  /**
-   * Method that updates the binded data whenever it is changed
-   * @param {event} 
-  */
-  onInputChanged: function(event) {
-    this.setState({ input: event.nativeEvent.text });
-  },
-  /**
-   * Method that updates the response object on changes
-   * @param {string} 'text': the text that is updated
-   * @param {string} 'prop': the property that is updated
-  */
-  updateProp: function(text,prop) {
-    reqBody[prop] = text;
-    obj.body = JSON.stringify(reqBody);
-    this.setState((state) => {
-      return {
-        curText: text
-      };
-    });
-  },
-  /**
-   * Method that creates the HTTP request to the server
-   * and updates an existing card (in this case)
-  */
-  onSend: function() {
-    AsyncStorage.getItem('userEmail')
-    .then((userEmail) => {
-      this.updateProp(userEmail, 'userEmail');
-      return AsyncStorage.getItem('cardEmail');
-    })
-    .then((cardEmail) => {
-      this.updateProp(cardEmail, 'email');
-    })
-    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/cards/createcard', obj))
-    .then((response) => {
-      return AsyncStorage.setItem('cardEmail', reqBody['email']);
-    })
-    .then(() => {
-      console.log('saved cardEmail to AsyncStorage', 'CardInfo.js', 131);
-    })
-    .catch((err) => {
-      console.log(new Error(err));
-    });
-  },
+  };
 
-});
+};
 
 
 var styles = StyleSheet.create({

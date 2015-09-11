@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Default = require('./Default');
+var CardInfo = require('./CardInfo');
 var Login = require('./Login');
 
 var {
@@ -35,6 +35,7 @@ var Signup =  React.createClass({
    * emailInput Style, passwordInptuStyle
   */
   getInitialState: function() {
+    this._cardInfoHandler = this._cardInfoHandler.bind(this);
     return {
       isLoading: false,
       errorText: '',
@@ -43,91 +44,6 @@ var Signup =  React.createClass({
       emailInputStyle: styles.textInput,
       passwordInputStyle: styles.textInput,
     };
-  },
-  /**
-   * Method to render a view with name, email, and password fields
-   * along with a send and a redirect button
-  */
-  render: function(){
-    var spacer = <View style={styles.spacer}/>;
-    var spinner = this.state.isLoading ?
-      ( <ActivityIndicatorIOS
-          hidden='true'
-          size='large'
-          color='#ffffff'/> ) :
-      ( <View/>);
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.wrapper}>
-          <View style={styles.header}>
-            <Text style={styles.titleText}>Rectangle</Text>
-          </View>
-          <TextInput
-              style={this.state.firstNameInputStyle}
-              placeholder='Name'
-              autoCapitalize={true}
-              autoCorrect={false}
-              clearButtonMode={'while-editing'}
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'firstName')
-              }/>
-          <TextInput
-              style={this.state.lastNameInputStyle}
-              placeholder='Last'
-              autoCapitalize={true}
-              autoCorrect={false}
-              clearButtonMode={'while-editing'}
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'lastName')
-              }/>
-          <TextInput
-              style={this.state.emailInputStyle}
-              autoCapitalize={false}
-              autoCorrect={false}
-              keyboardType='email-address'
-              placeholder='Email'
-              clearButtonMode={'while-editing'}
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'email')
-              }/>
-          <TextInput
-              style={this.state.passwordInputStyle}
-              placeholder='Password'
-              clearButtonMode={'while-editing'}
-              secureTextEntry={true}
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'password')
-              }/>
-          
-          <View style={styles.footer}>
-            <View style={styles.moveRight}>
-            </View>
-            <TouchableHighlight style={styles.button}
-                 onPress={() => this.onSend()}
-                 underlayColor='rgba(61,125,168,0.1)'>
-               <Text style={styles.buttonText}>
-                  Sign Up
-               </Text>
-             </TouchableHighlight>
-             
-             <TouchableHighlight
-               style={styles.redirectButton}
-               onPress={() => this.otherAuth()}
-               underlayColor='rgba(61,125,168,0.1)'>
-               <Text style = {styles.redirectButtonText}>
-                 Sign in instead!
-               </Text>
-             </TouchableHighlight>
-          </View>
-          <View style={styles.errContainer}>
-            <Text style={styles.errorText}>{this.state.errorText}</Text>
-              {spinner}
-          </View>
-          {spacer}
-          
-        </ScrollView>
-      </View>
-    );
   },
   /**
    * Method to redirec the user to the other auth page
@@ -161,10 +77,7 @@ var Signup =  React.createClass({
       AsyncStorage.setItem('userEmail', response.message)
       .then(() => {
         console.log('successfully saved user email:', response.message, 'Signup.js', 97);
-        this.props.navigator.replace({
-          title: '',
-          component: Default
-        });
+        this._cardInfoHandler();
       })
     } else if (response.error){
       this.state.emailInputStyle = styles.wrongInput;
@@ -255,7 +168,101 @@ var Signup =  React.createClass({
         console.log(new Error(err));
       });
     }
-  }
+  },
+  /**
+   * Method to redirect to CardInfo.js
+  */
+  _cardInfoHandler: function(){
+    this.props.navigator.push({
+      title: '',
+      component: CardInfo
+    });
+  },
+  /**
+   * Method to render a view with name, email, and password fields
+   * along with a send and a redirect button
+  */
+  render: function(){
+    var spacer = <View style={styles.spacer}/>;
+    var spinner = this.state.isLoading ?
+      ( <ActivityIndicatorIOS
+          hidden='true'
+          size='large'
+          color='#ffffff'/> ) :
+      ( <View/>);
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.header}>
+            <Text style={styles.titleText}>Rectangle</Text>
+          </View>
+          <TextInput
+              style={this.state.firstNameInputStyle}
+              placeholder='Name'
+              autoCapitalize={true}
+              autoCorrect={false}
+              clearButtonMode={'while-editing'}
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'firstName')
+              }/>
+          <TextInput
+              style={this.state.lastNameInputStyle}
+              placeholder='Last'
+              autoCapitalize={true}
+              autoCorrect={false}
+              clearButtonMode={'while-editing'}
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'lastName')
+              }/>
+          <TextInput
+              style={this.state.emailInputStyle}
+              autoCapitalize={false}
+              autoCorrect={false}
+              keyboardType='email-address'
+              placeholder='Email'
+              clearButtonMode={'while-editing'}
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'email')
+              }/>
+          <TextInput
+              style={this.state.passwordInputStyle}
+              placeholder='Password'
+              clearButtonMode={'while-editing'}
+              secureTextEntry={true}
+              onChange={(event) => 
+                this.updateProp(event.nativeEvent.text,'password')
+              }/>
+          
+          <View style={styles.footer}>
+            <View style={styles.moveRight}>
+            </View>
+            <TouchableHighlight style={styles.button}
+                 onPress={() => this.onSend()}
+                 underlayColor='rgba(61,125,168,0.1)'>
+               <Text style={styles.buttonText}>
+                  Sign Up
+               </Text>
+             </TouchableHighlight>
+             
+             <TouchableHighlight
+               style={styles.redirectButton}
+               onPress={() => this.otherAuth()}
+               underlayColor='rgba(61,125,168,0.1)'>
+               <Text style = {styles.redirectButtonText}>
+                 Sign in instead!
+               </Text>
+             </TouchableHighlight>
+          </View>
+          <View style={styles.errContainer}>
+            <Text style={styles.errorText}>{this.state.errorText}</Text>
+              {spinner}
+          </View>
+          {spacer}
+          
+        </ScrollView>
+      </View>
+    );
+  },
 }); 
 
 var styles = StyleSheet.create({
