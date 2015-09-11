@@ -104,7 +104,7 @@ var Signup =  React.createClass({
             </View>
             <TouchableHighlight style={styles.button}
                  onPress={() => this.onSend()}
-                 underlayColor='rgba(255,255,255,0.1)'>
+                 underlayColor='rgba(61,125,168,0.1)'>
                <Text style={styles.buttonText}>
                   Sign Up
                </Text>
@@ -113,7 +113,7 @@ var Signup =  React.createClass({
              <TouchableHighlight
                style={styles.redirectButton}
                onPress={() => this.otherAuth()}
-               underlayColor='rgba(255,255,255,0.1)'>
+               underlayColor='rgba(61,125,168,0.1)'>
                <Text style = {styles.redirectButtonText}>
                  Sign in instead!
                </Text>
@@ -121,9 +121,9 @@ var Signup =  React.createClass({
           </View>
           <View style={styles.errContainer}>
             <Text style={styles.errorText}>{this.state.errorText}</Text>
+              {spinner}
           </View>
           {spacer}
-          {spinner}
           
         </ScrollView>
       </View>
@@ -263,8 +263,8 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 15,
     padding: 10,
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    borderColor: '#1abc9c',
+    backgroundColor: 'rgba(61,125,168,0.3)',
+    borderColor: '#1B374A',
     borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center'
@@ -276,14 +276,14 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
   },
   containerBox: {
     flex: 1,
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -292,16 +292,17 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   errorText: {
+    paddingBottom:20,
     color:'#d5d5d5',
   },
   footer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     justifyContent: 'flex-end'
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -325,7 +326,7 @@ var styles = StyleSheet.create({
   },
   spacer:{
     paddingTop: 150,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   textInput: {
     height: 36,
@@ -359,7 +360,7 @@ var styles = StyleSheet.create({
     borderColor: 'red',
     // borderRadius: 2,
     backgroundColor: '#ffffff',
-    color: '#1abc9c'
+    color: '#404040'
   },
 });
 
