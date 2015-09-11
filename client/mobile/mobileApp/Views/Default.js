@@ -55,11 +55,7 @@ class Default extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <SideMenu
-          menu={<Menu />}
-          menuPosition='right'
-          touchToClose={this.state.touchToClose}
-          onChange={this.handleChange.bind(this)}>
+        
           <TabBarIOS
             selectedTab={this.state.selectedTab}
             tintColor={'#008888'}
@@ -148,7 +144,6 @@ class Default extends Component {
             </TabBarItemIOS>
             
           </TabBarIOS>
-        </SideMenu>
       </View>
 
 
