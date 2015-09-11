@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Logout = require('./Logout');
 
 var {
   AsyncStorage,
@@ -63,6 +64,15 @@ var Profile = React.createClass({
     .done();
   },
   /**
+   * Method that routes to user log out
+  */
+  _logoutHandler: function(){
+    this.props.navigator.push({
+      title: '',
+      component: Logout
+    });
+  },
+  /**
    * Method to render profile view with photo and info fields
   */
   render: function(){
@@ -73,6 +83,11 @@ var Profile = React.createClass({
           <ScrollView style={styles.wrapper}>
             <View style={styles.header}>
               <Text style={styles.titleText}>Edit Profile</Text>
+              <TouchableHighlight style={styles.button}
+                    underlayColor='#99d9f4'
+                    onPress={this._logoutHandler.bind(this)}>
+                <Text style={styles.buttonText}>Logout</Text>
+              </TouchableHighlight>
             </View>
             <Image 
             style={styles.card_photo}
@@ -210,7 +225,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 24,
     color: '#1abc9c',
     alignSelf: 'center'
   },
