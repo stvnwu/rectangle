@@ -4,7 +4,6 @@ var React = require('react-native');
 var SearchBar = require('react-native-search-bar');
 
 var {
-  Component,
   ListView,
   ScrollView,
   StyleSheet,
@@ -14,8 +13,8 @@ var {
   View,
 } = React;
 
-class Search extends Component {
-  render(){
+var Search = React.createClass({
+  render: function(){
     var spacer = <View style={styles.spacer}/>;
     return(
       <View style={styles.container}>
@@ -34,8 +33,8 @@ class Search extends Component {
         </ScrollView>
       </View>
     );
-  }
-};
+  },
+});
 
 var styles = StyleSheet.create({
   container: {
