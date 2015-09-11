@@ -2,8 +2,6 @@
 
 var React = require('react-native');
 var SearchBar = require('react-native-search-bar');
-var SideMenu = require('react-native-side-menu');
-var Menu = require('./SideBar');
 
 var {
   Component,
@@ -17,41 +15,10 @@ var {
 } = React;
 
 class Search extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      touchToClose: false,
-      selectedTab: 'home',
-      notifCount: 0,
-      presses: 0,
-    };
-  }
-
-  handleOpenWithTouchToClose() {
-    this.setState({
-      touchToClose: true,
-    });
-  }
-
-  handleChange(isOpen) {
-    if (!isOpen) {
-      this.setState({
-        touchToClose: false,
-      });
-    }
-  }
-
   render(){
     var spacer = <View style={styles.spacer}/>;
     return(
       <View style={styles.container}>
-        <SideMenu
-          menu={<Menu />}
-          menuPosition='right'
-          touchToClose={this.state.touchToClose}
-          onChange={this.handleChange.bind(this)}>
         <ScrollView style={styles.wrapper}>
           {spacer}
           <View style={styles.header}> 
@@ -65,7 +32,6 @@ class Search extends Component {
           <View style={styles.footer}>
           </View>
         </ScrollView>
-        </SideMenu>
       </View>
     );
   }

@@ -1,9 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var SideMenu = require('react-native-side-menu');
-var Menu = require('./SideBar');
-
 var Search = require('./Search');
 var QR = require('./QR');
 var Camera = require('./Camera');
@@ -145,8 +142,6 @@ class Default extends Component {
             
           </TabBarIOS>
       </View>
-
-
     );
   }
 }
