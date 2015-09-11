@@ -1,24 +1,25 @@
 'use strict'
 var React = require('react-native');
 
+var AllCards = require('./AllCards');
 var Auth = require('./Auth');
-var CardInfo = require('./CardInfo');
 var Camera = require('./Camera');
-var Signup = require('./Signup');
-var Login = require('./Login');
+var CardInfo = require('./CardInfo');
+var Default = require('./Default');
 var ImportCard = require('./ImportCard');
+var Loading = require('./Loading');
+var Login = require('./Login');
+var Logout = require('./Logout');
 var Map = require('./Map');
+var New = require('./New');
+var Newer = require('./Newer');
 var PhotoLibrary = require('./PhotoLibrary');
 var Profile = require('./Profile');
 var QR = require('./QR');
 var QRCamera = require('./QRCamera');
 var Search = require('./Search');
+var Signup = require('./Signup');
 var TabBar = require('./TabBar');
-var New = require('./New');
-var Newer = require('./Newer');
-var Default = require('./Default');
-var Loading = require('./Loading');
-var Logout = require('./Logout');
 
 var {
   AppRegistry,
@@ -138,15 +139,19 @@ var DumbRoutes = React.createClass({
                   onPress={this._newerHandler.bind(this)}>
               <Text style={styles.buttonText}>Newer</Text>
             </TouchableHighlight>
+          </View>
 
-            </View>
-
-            <View style={styles.buttonRow}>
-              <TouchableHighlight style={styles.button}
-                    underlayColor='#99d9f4'
-                    onPress={this._logoutHandler.bind(this)}>
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableHighlight>
+          <View style={styles.buttonRow}>
+            <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._logoutHandler.bind(this)}>
+              <Text style={styles.buttonText}>Logout</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._allCardsHandler.bind(this)}>
+              <Text style={styles.buttonText}>all cards</Text>
+            </TouchableHighlight>
           </View>
 
         </View>
@@ -255,6 +260,12 @@ var DumbRoutes = React.createClass({
     this.props.navigator.push({
       title: '',
       component: Logout
+    });
+  },
+  _allCardsHandler: function(){
+    this.props.navigator.push({
+      title: '',
+      component: AllCards
     });
   },
 
