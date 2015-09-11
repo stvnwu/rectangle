@@ -23,7 +23,6 @@ var Logout = require('./Logout');
 var {
   AppRegistry,
   AsyncStorage,
-  NavigatorIOS,
   ScrollView,
   StyleSheet,
   TouchableHighlight,

@@ -3,6 +3,7 @@ var Dimensions = require('Dimensions');
 var Profile = require('./Profile');
 
 var {
+  AsyncStorage,
   Component,
   Image,
   ScrollView,
@@ -14,16 +15,32 @@ var {
 
 var window = Dimensions.get('window');
 
-class Menu extends Component {
+class Menu extends Component{
   // need to figure out how to push to navigator
   // for classical instantiation 
 
   _profileHandler(){
+    this.props.menuActions.close();
     this.props.navigator.push({
       title: '',
       component: Profile
     });
   }
+
+  _logoutHandler(){
+    this.props.navigator.push({
+      title: '',
+      component: Profile
+    });
+  }
+
+  handlePress(e) {
+    this.props.menuActions.toggle();
+    if (this.props.onPress) {
+      this.props.onPress(e);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -35,11 +52,11 @@ class Menu extends Component {
               underlayColor={'orange'}
               style={styles.button}>
               <Text 
-              style={styles.text}>Settings</Text>
+              style={styles.text}>Profile</Text>
             </TouchableHighlight>
 
             <TouchableHighlight  
-              onPress={this._profileHandler.bind(this)}
+              onPress={this._logoutHandler.bind(this)}
               underlayColor={'orange'}
               style={styles.button}>
               <Text 
@@ -51,8 +68,7 @@ class Menu extends Component {
       </View>
     );
   }
-
-}
+};
 
 var styles = StyleSheet.create({
   button: {
