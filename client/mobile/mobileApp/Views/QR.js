@@ -13,7 +13,6 @@ var {
   WebView,
   View,
 } = React;
-var url = 'https://tranquil-earth-7083.herokuapp.com/qr/getQR?cardEmail='
 
 
 var styles = StyleSheet.create({
@@ -27,13 +26,19 @@ var styles = StyleSheet.create({
 });
 
 var QR = React.createClass({
+  getInitialState: function() {
+    this.getURl();
+    return {
+      url: ''
+    };
+  },
   render: function() {
       return (
         <View style={styles.container}>
           <WebView
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
-          url={this.getURl()}
+          url={this.state.url}
           startInLoadingState={true}
         />
         </View>
@@ -42,12 +47,15 @@ var QR = React.createClass({
   getURl: function(){
     AsyncStorage.getItem('cardEmail')
       .then((email) => {
-        url = 'https://tranquil-earth-7083.herokuapp.com/qr/getQR?cardEmail=' + email;
-        console.log('successfully got card email:', url, 'QR.js', 45);
-        return url;
+
+        this.setState((state) => {
+          return {
+            url: 'https://tranquil-earth-7083.herokuapp.com/qr/getQR?cardEmail=' + email
+          };
+        });
+        console.log('successfully got card email:', this.state.url, 'QR.js', 45);
+        return this.state.url;
       })
-      
-    return url;
   }
 });
 
