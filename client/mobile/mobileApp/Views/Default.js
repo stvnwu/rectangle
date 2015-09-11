@@ -1,7 +1,3 @@
-/**
- * React Native app demonstrating react-native-icons
- * https://github.com/corymsmith/react-native-icons
- */
 'use strict';
 
 var React = require('react-native');
@@ -10,8 +6,10 @@ var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
 var Profile = require('./Profile');
+var Logout = require('./Logout');
 
 var {
+  Component,
   StyleSheet,
   Text,
   View,
@@ -27,117 +25,116 @@ var {
 
 var TabBarItemIOS = TabBarIOS.Item;
 
-var BrandColors = {
-  Facebook: '#3b5998',
-  Twitter: '#55acee'
-};
 
-var Default = React.createClass({
-  getInitialState: function () {
-    return {
+class Default extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
       selectedTab: 'home',
       notifCount: 0,
-      presses: 0,
-      // rotation: Animated.Value(0)
+      presses: 0
     };
-  },
-  render: function () {
+  }
+
+  render(){
     return (
-      <TabBarIOS
-        selectedTab={this.state.selectedTab}
-        tintColor={'#008888'}
-        barTintColor={'#d6d7da'}>
+      <View style={styles.container}>
+        <TabBarIOS
+          selectedTab={this.state.selectedTab}
+          tintColor={'#008888'}
+          barTintColor={'#d6d7da'}>
 
 
-        <TabBarItemIOS
-          name="home"
-          iconName={'fontawesome|home'}
-          title={'Home'}
-          badgeValue={420}
-          iconSize={18}
-          accessibilityLabel="Home Tab"
-          selected={this.state.selectedTab === 'home'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'home',
-            });
-          }}>
-          <Search/>
-        </TabBarItemIOS>
-        
+          <TabBarItemIOS
+            name="home"
+            iconName={'fontawesome|home'}
+            title={'Home'}
+            iconSize={24}
+            accessibilityLabel="Home Tab"
+            selected={this.state.selectedTab === 'home'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'home',
+              });
+            }}>
+            <Search/>
+          </TabBarItemIOS>
+          
 
-        <TabBarItemIOS
-          name="articles"
-          iconName={'fontawesome|qrcode'}
-          title={'QR'}
-          iconSize={18}
-          accessibilityLabel="Articles Tab"
-          selected={this.state.selectedTab === 'articles'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'articles',
-            });
-          }}>
-          <QR/>
-        </TabBarItemIOS>
-        
+          <TabBarItemIOS
+            name="articles"
+            iconName={'fontawesome|qrcode'}
+            title={'QR'}
+            iconSize={24}
+            accessibilityLabel="Articles Tab"
+            selected={this.state.selectedTab === 'articles'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'articles',
+              });
+            }}>
+            <QR/>
+          </TabBarItemIOS>
+          
 
-        <TabBarItemIOS
-          name="messages"
-          iconName={'fontawesome|camera'}
-          title={'Scan'}
-          iconSize={18}
-          accessibilityLabel="Messages Tab"
-          selected={this.state.selectedTab === 'messages'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'messages',
-            });
-          }}>
-          <Camera/>
-        </TabBarItemIOS>
-
-
-        <TabBarItemIOS
-          name="settings"
-          iconName={'fontawesome|globe'}
-          title={'Map'}
-          iconSize={18}
-          accessibilityLabel="Settings Tab"
-          selected={this.state.selectedTab === 'settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'settings',
-            });
-          }}>
-          <Map/>
-        </TabBarItemIOS>
+          <TabBarItemIOS
+            name="messages"
+            iconName={'fontawesome|camera'}
+            title={'Scan'}
+            iconSize={20}
+            accessibilityLabel="Messages Tab"
+            selected={this.state.selectedTab === 'messages'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'messages',
+              });
+            }}>
+            <Camera/>
+          </TabBarItemIOS>
 
 
-        <TabBarItemIOS
-          name="profile"
-          iconName={'fontawesome|user'}
-          title={'Profile'}
-          badgeValue={69}
-          iconSize={18}
-          accessibilityLabel="Profile"
-          selected={this.state.selectedTab === 'profile'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'profile',
-            });
-          }}>
-          <Profile/>
-        </TabBarItemIOS>
-        
-      </TabBarIOS>
+          <TabBarItemIOS
+            name="profile"
+            iconName={'fontawesome|user'}
+            title={'Profile'}
+            iconSize={20}
+            accessibilityLabel="Profile"
+            selected={this.state.selectedTab === 'profile'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'profile',
+              });
+            }}>
+            <Profile/>
+          </TabBarItemIOS>
+
+
+          <TabBarItemIOS
+            name="settings"
+            iconName={'fontawesome|globe'}
+            title={'Map'}
+            iconSize={24}
+            accessibilityLabel="Settings Tab"
+            selected={this.state.selectedTab === 'settings'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'settings',
+              });
+            }}>
+            <Map/>
+          </TabBarItemIOS>
+          
+        </TabBarIOS>
+      </View>
     );
-  },
-});
+  }
+};
 
 
 var styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+  }
 });
 
 module.exports = Default;
