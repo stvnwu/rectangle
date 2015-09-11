@@ -69,7 +69,7 @@ class Default extends Component{
             selected={this.state.selectedTab === 'articles'}
             onPress={() => {
               this.setState({
-                selectedTab: 'articles',
+                selectedTab: 'articles'
               });
             }}>
             <QR/>
@@ -102,6 +102,7 @@ class Default extends Component{
             onPress={() => {
               this.setState({
                 selectedTab: 'profile',
+                
               });
             }}>
             <Profile/>

@@ -210,7 +210,10 @@ var DumbRoutes = React.createClass({
   _profileHandler: function(){
     this.props.navigator.push({
             title: '',
-            component: Profile
+            component: Profile,
+            passprops: {
+                navigator: this.props.navigator
+              }
           });
   },
   _qrHandler: function(){
@@ -253,7 +256,10 @@ var DumbRoutes = React.createClass({
   _defaultHandler: function(){
       this.props.navigator.push({
               title: '',
-              component: Default
+              component: Default,
+              passprops: {
+                navigator: this.props.navigator
+              }
       });
   },
   _logoutHandler: function(){
