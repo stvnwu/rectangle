@@ -109,6 +109,22 @@ class Default extends Component {
 
 
             <TabBarItemIOS
+              name="settings"
+              iconName={'fontawesome|globe'}
+              title={'Map'}
+              iconSize={18}
+              accessibilityLabel="Settings Tab"
+              selected={this.state.selectedTab === 'settings'}
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'settings',
+                });
+              }}>
+              <Map/>
+            </TabBarItemIOS>
+
+
+            <TabBarItemIOS
               name="profile"
               iconName={'fontawesome|user'}
               title={'Profile'}
@@ -123,23 +139,6 @@ class Default extends Component {
               }}>
               <Profile/>
             </TabBarItemIOS>
-
-
-            <TabBarItemIOS
-              name="settings"
-              iconName={'fontawesome|gear'}
-              title={'Settings'}
-              iconSize={18}
-              accessibilityLabel="Settings Tab"
-              selected={this.state.selectedTab === 'settings'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'settings',
-                });
-              }}>
-              <Map/>
-            </TabBarItemIOS>
-
             
           </TabBarIOS>
       </View>
