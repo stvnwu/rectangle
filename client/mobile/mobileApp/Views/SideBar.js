@@ -3,13 +3,13 @@ var Dimensions = require('Dimensions');
 var Profile = require('./Profile');
 
 var {
-  StyleSheet,
-  ScrollView,
-  View,
+  Component,
   Image,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableHighlight,
-  Component,
+  View,
 } = React;
 
 var window = Dimensions.get('window');
@@ -28,18 +28,23 @@ class Menu extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
-          <View style={styles.menu}>
-
-            <Text style={styles.text}>Settings</Text>
+          <View style={styles.menu}>   
 
             <TouchableHighlight  
               onPress={this._profileHandler.bind(this)}
-              underlayColor={'orange'}>
+              underlayColor={'orange'}
+              style={styles.button}>
               <Text 
-              style={styles.text}>Profile</Text>
+              style={styles.text}>Settings</Text>
             </TouchableHighlight>
-            
-            <Text style={styles.text}>Log Out</Text>
+
+            <TouchableHighlight  
+              onPress={this._profileHandler.bind(this)}
+              underlayColor={'orange'}
+              style={styles.button}>
+              <Text 
+              style={styles.text}>Log Out</Text>
+            </TouchableHighlight>
 
           </View>
         </ScrollView>
@@ -50,6 +55,9 @@ class Menu extends Component {
 }
 
 var styles = StyleSheet.create({
+  button: {
+
+  },
   menu: {
     flex: 1,
     width: window.width,
@@ -59,10 +67,11 @@ var styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   text: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: '300',
     paddingTop: 5,
     color: '#1abc9c',
+    textAlign: 'center'
   },
 });
 
