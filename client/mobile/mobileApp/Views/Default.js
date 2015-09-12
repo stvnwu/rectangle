@@ -61,15 +61,15 @@ class Default extends Component{
           
 
           <TabBarItemIOS
-            name="articles"
+            name="QR"
             iconName={'fontawesome|qrcode'}
             title={'QR'}
             iconSize={24}
-            accessibilityLabel="Articles Tab"
-            selected={this.state.selectedTab === 'articles'}
+            accessibilityLabel="QR Tab"
+            selected={this.state.selectedTab === 'QR'}
             onPress={() => {
               this.setState({
-                selectedTab: 'articles'
+                selectedTab: 'QR'
               });
             }}>
             <QR/>
@@ -77,15 +77,15 @@ class Default extends Component{
           
 
           <TabBarItemIOS
-            name="messages"
+            name="scan"
             iconName={'fontawesome|camera'}
             title={'Scan'}
             iconSize={20}
-            accessibilityLabel="Messages Tab"
-            selected={this.state.selectedTab === 'messages'}
+            accessibilityLabel="Scan Tab"
+            selected={this.state.selectedTab === 'scan'}
             onPress={() => {
               this.setState({
-                selectedTab: 'messages',
+                selectedTab: 'scan',
               });
             }}>
             <Camera/>
@@ -102,7 +102,7 @@ class Default extends Component{
             onPress={() => {
               this.setState({
                 selectedTab: 'profile',
-                
+                passprops: this.props
               });
             }}>
             <Profile/>
@@ -110,15 +110,15 @@ class Default extends Component{
 
 
           <TabBarItemIOS
-            name="settings"
+            name="Map"
             iconName={'fontawesome|globe'}
             title={'Map'}
             iconSize={24}
-            accessibilityLabel="Settings Tab"
-            selected={this.state.selectedTab === 'settings'}
+            accessibilityLabel="Map Tab"
+            selected={this.state.selectedTab === 'Map'}
             onPress={() => {
               this.setState({
-                selectedTab: 'settings',
+                selectedTab: 'Map',
               });
             }}>
             <Map/>
