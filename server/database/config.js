@@ -55,8 +55,8 @@ db.knex.schema.hasTable('connections').then(function(exists) {
       link.increments('id').primary(),
       link.string('createdWhere', 30),
       link.string('QR', 25),
-      link.integer('userID').references('users.id'),
-      link.integer('cardID').references('cards.id'),
+      link.integer('user_id').references('users.id'),
+      link.integer('card_id').references('cards.id'),
       link.timestamps()
     }).then(function (table) {
       console.log('created table', table);

@@ -29,10 +29,10 @@ var cardRoutes = {
                 jobTitle: req.body.jobTitle || card.get("jobTitle")
               }).then(function (updatedCard) {
                 res.status(200).send({
-                    message: updatedCard
-                  })
-                  // res.end(JSON.stringify(updatedCard));
-              })
+                  message: updatedCard
+                });
+                // res.end(JSON.stringify(updatedCard));
+              });
             } else {
               return new Card({
                 firstName: req.body.firstName,
@@ -47,7 +47,7 @@ var cardRoutes = {
                 // res.end(JSON.stringify(newCard));
                 res.status(200).send({
                   message: newCard
-                })
+                });
               }).catch(function (err) {
                 console.log(88, new Error(err));
                 // res.end(JSON.stringify(err));
@@ -62,7 +62,7 @@ var cardRoutes = {
             error: "user not logged in"
           });
         }
-      })
+      });
     });
   },
   getCard: function (req, res) {
@@ -75,9 +75,9 @@ var cardRoutes = {
         console.log(63, card);
         if (card) {
           res.status(200).send({
-              message: card
-            })
-            // res.end(JSON.stringify(card))
+            message: card
+          });
+          // res.end(JSON.stringify(card))
         } else {
           res.status(400).send({
             error: "no card found related to email"
@@ -91,5 +91,5 @@ var cardRoutes = {
       });
     });
   }
-}
+};
 module.exports = cardRoutes;

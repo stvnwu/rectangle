@@ -4,6 +4,7 @@
 
 var db = require('../config');
 var Card = require('../cards/card');
+var Connection = require('../connections/connection');
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
@@ -14,7 +15,8 @@ var User = db.Model.extend({
   tableName: 'users',
   hasTimestamps: true,
   cards: function() {
-    return this.hasMany(Card);
+    // return this.hasMany(Card);
+     return this.belongsToMany(Card).through(Connection);
   },
 
   /**

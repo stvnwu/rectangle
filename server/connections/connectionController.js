@@ -18,37 +18,38 @@ var connectionRoutes = {
         if (users.models.length > 0) {
           userID = users.models[0].get("id");
         }
+        console.log(21, userID);
         return Cards.query({
           where: {
             email: req.body.cardEmail
           }
         }).fetch().then(function (cards) {
           var cardID;
-          console.log(27, cards);
+          // console.log(27, cards);
           if (cards.models.length > 0) {
             cardID = cards.models[0].get("id");
           }
           return Connections.query({
             where: {
-              userID: userID,
-              cardID: cardID
+              user_id: userID,
+              card_id: cardID
             }
           }).fetch().then(function (connection) {
             if (connection.length < 1 && req.body.cardEmail !== req.body.email && userID && cardID) {
               return new Connection({
-                userID: userID,
-                cardID: cardID
+                user_id: userID,
+                card_id: cardID
               }).save().then(function (newConnection) {
                 // res.end(JSON.stringify(newConnection));
                 res.status(200).send({
                   message: newConnection
-                })
+                });
               }).catch(function (err) {
                 console.log(new Error(err));
                 res.status(500).send({
                   error: err
                 });
-              })
+              });
             } else if (!userID) {
               res.status(400).send({
                 error: "invalid user email"
@@ -66,9 +67,9 @@ var connectionRoutes = {
             res.status(400).send({
               error: "password/email does not match"
             });
-          })
-        })
-      })
+          });
+        });
+      });
     });
   },
   deleteConnection: function (req, res) {
@@ -89,8 +90,8 @@ var connectionRoutes = {
             var cardID = cards.models[0].get("id");
             return Connections.query({
               where: {
-                userID: userID,
-                cardID: cardID
+                user_id: userID,
+                card_id: cardID
               }
             }).fetch().then(function (con) {
               console.log(72, con);
@@ -98,72 +99,134 @@ var connectionRoutes = {
                 con.models[0].destroy().then(function (model) {
                   res.status(200).send({
                     message: "deleted"
-                  })
-                })
+                  });
+                });
               } else {
                 res.status(400).send({
                   error: "connection does not exist"
                 });
               }
-            })
+            });
           } else {
             res.status(400).send({
               error: "card does not exist"
             });
           }
-        })
-      })
-    });
-  },
-  getConnections: function (req, res) {
-    return new Promise(function (resolve, reject) {
-      return Users.query({
-        where: {
-          email: req.body.email
-        }
-      }).fetchOne().then(function (user) {
-        // console.log(104, user);
-        if (user) {
-          return Connections.query({
-            where: {
-              userID: user.get("id")
-            }
-          }).fetch().then(function (connections) {
-            var allCards = {};
-            var i = 0;
-            if (connections && connections.models.length > 0) {
-              connections.models.forEach(function (connection) {
-                var cardID = connection.get("cardID");
-                return Cards.query({
-                  where: {
-                    id: cardID
-                  }
-                }).fetchOne().then(function (card) {
-                  console.log(121, card);
-                  allCards[++i] = card;
-                }).then(function (card) {
-                  res.send(JSON.stringify(allCards));
-                }).catch(function (err) {
-                  console.log(126, err);
-                  res.end(JSON.stringify(err));
-                })
-              });
-            } else {
-              res.status(400).send({
-                error: "no connection exists"
-              });
-            }
-          }).catch(function (err) {
-            // res.status(400).send('user email not valid');
-          });
-        } else {
-          console.log(139, "no valid connection");
-          res.status(400).send({
-            error: "not a valid user email"
-          });
-        }
+        });
       });
     });
-  }
-}
+  },
+  // oldGetConnections: function (req, res) {
+  //   return new Promise(function (resolve, reject) {
+  //     return Users.query({
+  //       where: {
+  //         email: req.body.email
+  //       }
+  //     }).fetchOne().then(function (user) {
+  //       // console.log(104, user);
+  //       if (user) {
+  //         return Connections.query({
+  //           where: {
+  //             userID: user.get("id")
+  //           }
+  //         }).fetch().then(function (connections) {
+  //           var allCards = [];
+  //           var i = 0;
+  //           if (connections && connections.models.length > 0) {
+  //             connections.models.forEach(function (connection) {
+  //               var cardID = connection.get("cardID");
+  //               return Cards.query({
+  //                 where: {
+  //                   id: cardID
+  //                 }
+  //               }).fetchOne().then(function (card) {
+  //                 // console.log(121, card);
+  //                 // allCards[++i] = card;
+  //                 allCards.push(card);
+  //               }).then(function () {
+  //                 // console.log(146, allCards);
+  //               }).catch(function (err) {
+  //                 // console.log(126, err);
+  //                 res.end(JSON.stringify(err));
+  //               });
+  //             });
+  //           } else {
+  //             res.status(400).send({
+  //               error: "no connection exists"
+  //             });
+  //           }
+  //           console.log(157, allCards);
+  //           res.send(JSON.stringify(cards));
+  //           // return allCards;
+  //         }).then(function (cards) {
+  //           console.log(159, cards);
+  //           res.send(JSON.stringify(cards));
+  //         }).catch(function (err) {
+  //           // res.status(400).send('user email not valid');
+  //         });
+  //       } else {
+  //         console.log(139, "no valid connection");
+  //         res.status(400).send({
+  //           error: "not a valid user email"
+  //         });
+  //       }
+  //     });
+  //   });
+  // },
+  getConnections: function (req, res) {
+      console.log(177);
+      return new User({
+          email: req.body.email
+        }).fetch({
+          withRelated: ['cards']
+        })
+        .then(function (user) {
+          // console.log(179, data.related('cards'));
+          res.send(JSON.stringify(user.related('cards')));
+          console.log(179, user.related('cards'));
+        }).catch(function (err) {
+          res.status(500).send({
+            error: err
+          });
+        });
+    }
+    //cc: function (req, res) {
+    //  var user_id;
+    //  var card_id;
+    //  return new Promise(function (resolve, reject) {
+    //    return new User({email: req.body.email}).fetch()
+    //      .then(function (user) {
+    //        user_id = user.get('id');
+    //        return new Card({email: req.body.cardEmail}).fetch()
+    //      })
+    //      .then(function (card) {
+    //        card_id = card.get('id');
+    //        return new Connection({user_id: user_id, card_id: card_id}).fetch()
+    //      })
+    //      .then(function (connection) {
+    //        if (connection) {
+    //          res.status(400).send({
+    //            error: "connection already exists"
+    //          });
+    //          throw new Error('connection exists');
+    //        } else {
+    //          return connection.save()
+    //        }
+    //      })
+    //      .then(function (newConnection) {
+    //        // res.end(JSON.stringify(newConnection));
+    //        res.status(200).send({
+    //          message: newConnection
+    //        })
+    //      })
+    //      .catch(function (err) {
+    //        console.log(new Error(err));
+    //        res.status(500).send({
+    //          error: err
+    //        })
+    //      })
+    //  })
+    //}
+};
 module.exports = connectionRoutes;
+// connectionRoutes.gc();
