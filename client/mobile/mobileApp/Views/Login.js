@@ -41,6 +41,91 @@ var Login = React.createClass({
     };
   },
   /**
+   * Method to redirec the user to the other auth page
+  */
+  otherAuth: function() {
+    var Signup = require('./Signup');
+    this.props.navigator.replace({
+      title: '',
+      component: Signup
+    });
+  },
+  /**
+   * Method that updates the response object on changes
+   * @param {string} 'text': the text that is updated
+   * @param {string} 'prop': the property that is updated
+  */
+  updateProp: function(text,prop) {
+    reqBody[prop] = text;
+    obj.body = JSON.stringify(reqBody);
+    this.setState((state) => {
+      return {
+        curText: text
+      };
+    });
+  },
+  /**
+   * Method that handles the HTTP response with validation and AsyncStorage
+   * @param {object} 'response': the response from the HTTP request
+  */
+  _responseHandler: function (response) {
+    //save it to localstorage
+    if(response.message){
+      obj.body = JSON.stringify({'email': null, 'password': null});
+      AsyncStorage.multiSet([['userEmail', reqBody.email], ['cardEmail', response.message]])
+      .then(() => {
+        this.props.navigator.replace({
+          title: '',
+          component: Default
+        });
+      })
+    } else if(response.error === "password does not match"){
+        //password incorrect
+        this.state.passwordInputStyle = styles.wrongInput;
+        this.state.emailInputStyle = styles.textInput;
+        //tint input red
+        if(JSON.parse(obj.body).password === null){
+          this.state.errorText = 'Please enter a password';
+        } else {
+          this.state.errorText = 'incorrect password';
+        }
+        
+    } else {
+        //email does not exist in the db
+        this.state.emailInputStyle = styles.wrongInput;
+        if(JSON.parse(obj.body).email === null){
+          this.state.errorText = 'Please insert an email'
+        } else {
+          this.state.errorText = 'email is not registered'
+        }
+    }
+    this.setState((state) => {
+      return {
+        isLoading: false
+      };
+    });
+  },
+  /**
+   * Method that creates the HTTP request to the server
+  */
+  onSend: function() {
+    this.setState((state) => {
+      return {
+        isLoading: true
+      };
+    });
+    fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
+      .then(response => response.json())
+      .then((resJson) => {
+        console.log('response is:', typeof resJson, 'Login.js', 137);
+        this._responseHandler(resJson);
+        return resJson;
+      })
+      .catch((err) => {
+        console.log(new Error(err));
+      });
+  },
+  /**
    * Method to render a view with email and password fields
    * along with a send and a redirect button
   */
@@ -99,91 +184,6 @@ var Login = React.createClass({
         </ScrollView>
       </View>
       );
-    },
-    /**
-     * Method to redirec the user to the other auth page
-    */
-    otherAuth: function() {
-      var Signup = require('./Signup');
-      this.props.navigator.replace({
-        title: '',
-        component: Signup
-      });
-    },
-    /**
-     * Method that updates the response object on changes
-     * @param {string} 'text': the text that is updated
-     * @param {string} 'prop': the property that is updated
-    */
-    updateProp: function(text,prop) {
-      reqBody[prop] = text;
-      obj.body = JSON.stringify(reqBody);
-      this.setState((state) => {
-        return {
-          curText: text
-        };
-      });
-    },
-    /**
-     * Method that handles the HTTP response with validation and AsyncStorage
-     * @param {object} 'response': the response from the HTTP request
-    */
-    _responseHandler: function (response) {
-      //save it to localstorage
-      if(response.message){
-        obj.body = JSON.stringify({'email': null, 'password': null});
-        AsyncStorage.setItem('userEmail', reqBody.email)
-        .then(() => {
-          this.props.navigator.replace({
-            title: '',
-            component: Default
-          });
-        })
-      } else if(response.error === "password does not match"){
-          //password incorrect
-          this.state.passwordInputStyle = styles.wrongInput;
-          this.state.emailInputStyle = styles.textInput;
-          //tint input red
-          if(JSON.parse(obj.body).password === null){
-            this.state.errorText = 'Please enter a password';
-          } else {
-            this.state.errorText = 'incorrect password';
-          }
-          
-      } else {
-          //email does not exist in the db
-          this.state.emailInputStyle = styles.wrongInput;
-          if(JSON.parse(obj.body).email === null){
-            this.state.errorText = 'Please insert an email'
-          } else {
-            this.state.errorText = 'email is not registered'
-          }
-      }
-      this.setState((state) => {
-        return {
-          isLoading: false
-        };
-      });
-    },
-    /**
-     * Method that creates the HTTP request to the server
-    */
-    onSend: function() {
-      this.setState((state) => {
-        return {
-          isLoading: true
-        };
-      });
-      fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', obj)
-        .then(response => response.json())
-        .then((resJson) => {
-          console.log('response is:', typeof resJson, 'Login.js', 137);
-          this._responseHandler(resJson);
-          return resJson;
-        })
-        .catch((err) => {
-          console.log(new Error(err));
-        });
     }
 });
 
