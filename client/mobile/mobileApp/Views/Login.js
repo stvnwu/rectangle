@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Default = require('./Default');
+var CardInfo = require('./CardInfo');
 
 var {
   ActivityIndicatorIOS,
@@ -16,8 +17,10 @@ var {
   View,
 } = React;
 
+/**
+ * closure scope variables
+*/
 var reqBody = {'email': null, 'password': null};
-
 var obj = {  
   method: 'POST',
   headers: {
@@ -26,36 +29,27 @@ var obj = {
   body: JSON.stringify({'email': null, 'password': null})
 };
 
-var Login = React.createClass({
+class Login extends Component{
   /**
    * Method to be run upon initialization
-   * returns a state object with:
+   * creates a state object with:
    * isLoading, errorText, emailInputStyle, passwordInptuStyle
   */
-  getInitialState: function() {
-    return {
+  constructor(props){
+    super(props);
+    this.state = {
       isLoading: false,
       errorText: '',
       emailInputStyle: styles.textInput,
       passwordInputStyle: styles.textInput,
     };
-  },
-  /**
-   * Method to redirec the user to the other auth page
-  */
-  otherAuth: function() {
-    var Signup = require('./Signup');
-    this.props.navigator.replace({
-      title: '',
-      component: Signup
-    });
-  },
+  }
   /**
    * Method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
   */
-  updateProp: function(text,prop) {
+  updateProp(text, prop) {
     reqBody[prop] = text;
     obj.body = JSON.stringify(reqBody);
     this.setState((state) => {
@@ -63,14 +57,24 @@ var Login = React.createClass({
         curText: text
       };
     });
-  },
+  }
+  /**
+   * Method to redirec the user to the other auth page
+  */
+  _otherAuthHandler() {
+    var Signup = require('./Signup');
+    this.props.navigator.replace({
+      title: '',
+      component: Signup
+    });
+  }
   /**
    * Method that handles the HTTP response with validation and AsyncStorage
    * @param {object} 'response': the response from the HTTP request
   */
-  _responseHandler: function (response) {
+  _responseHandler(response) {
     //save it to localstorage
-    if(response.message){
+    if (response.message) {
       obj.body = JSON.stringify({'email': null, 'password': null});
       AsyncStorage.multiSet([['userEmail', reqBody.email], ['cardEmail', response.message]])
       .then(() => {
@@ -78,12 +82,20 @@ var Login = React.createClass({
           title: '',
           component: Default
         });
-      })
-    } else if(response.error === "password does not match"){
-        //password incorrect
+      });
+    } else if (response.redirect) {
+      AsyncStorage.setItem('userEmail', reqBody.email)
+      .then(() => {
+        this.props.navigator.replace({
+          title: '',
+          component: CardInfo
+        });
+      });
+    } else if (response.error === "password does not match") {
+        // password incorrect
         this.state.passwordInputStyle = styles.wrongInput;
         this.state.emailInputStyle = styles.textInput;
-        //tint input red
+        // provide visual feedback: tint input red
         if(JSON.parse(obj.body).password === null){
           this.state.errorText = 'Please enter a password';
         } else {
@@ -91,7 +103,7 @@ var Login = React.createClass({
         }
         
     } else {
-        //email does not exist in the db
+        // email does not exist in the db
         this.state.emailInputStyle = styles.wrongInput;
         if(JSON.parse(obj.body).email === null){
           this.state.errorText = 'Please insert an email'
@@ -99,16 +111,17 @@ var Login = React.createClass({
           this.state.errorText = 'email is not registered'
         }
     }
+    // no matter what, we're done loading
     this.setState((state) => {
       return {
         isLoading: false
       };
     });
-  },
+  }
   /**
    * Method that creates the HTTP request to the server
   */
-  onSend: function() {
+  _sendRequest() {
     this.setState((state) => {
       return {
         isLoading: true
@@ -124,12 +137,12 @@ var Login = React.createClass({
       .catch((err) => {
         console.log(new Error(err));
       });
-  },
+  }
   /**
    * Method to render a view with email and password fields
    * along with a send and a redirect button
   */
-  render: function(){
+  render(){
     var spacer = <View style={styles.spacer}/>;
     var spinner = this.state.isLoading ?
       ( <ActivityIndicatorIOS
@@ -164,12 +177,12 @@ var Login = React.createClass({
               style={styles.button}
               underlayColor={'rgba(61,125,168,0.1)'}
               onPress={(event) => 
-                this.onSend()}>
+                this._sendRequest()}>
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableHighlight>
           <TouchableHighlight
             style={styles.redirectButton}
-            onPress={() => this.otherAuth()}
+            onPress={() => this._otherAuthHandler()}
             underlayColor='rgba(61,125,168,0.1)'>
             <Text style = {styles.redirectButtonText}>
               Sign up instead!
@@ -185,7 +198,7 @@ var Login = React.createClass({
       </View>
       );
     }
-});
+};
 
 var styles = StyleSheet.create({
   button: {

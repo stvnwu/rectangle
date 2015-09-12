@@ -17,8 +17,10 @@ var {
   View,
 } = React;
 
+/**
+ * closure scope variables
+*/
 var reqBody = {'firstName': '', 'lastName': '', 'email': '', 'password': ''};
-
 var obj = {  
   method: 'POST',
   headers: {
@@ -46,15 +48,6 @@ class Signup extends Component{
     };
   }
   /**
-   * Method to redirec the user to the other auth page
-  */
-  otherAuthHandler() {
-    this.props.navigator.replace({
-      title: '',
-      component: Login
-    });
-  }
-  /**
    * Method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
@@ -66,6 +59,15 @@ class Signup extends Component{
       return {
         curText: text
       };
+    });
+  }
+  /**
+   * Method to redirec the user to the other auth page
+  */
+  _otherAuthHandler() {
+    this.props.navigator.replace({
+      title: '',
+      component: Login
     });
   }
   /**
@@ -260,7 +262,7 @@ class Signup extends Component{
              
              <TouchableHighlight
                style={styles.redirectButton}
-               onPress={() => this._otherAuthHandler()}
+               onPress={() => this.__otherAuthHandler()}
                underlayColor='rgba(61,125,168,0.1)'>
                <Text style = {styles.redirectButtonText}>
                  Sign in instead!
