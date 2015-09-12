@@ -45,13 +45,6 @@ var AllCards = React.createClass({
     };
   },
   /**
-   * Method to be run when the compontent mounts
-   * calls getCardInfo and returns nothing
-  */
-  componentDidMount: function() {
-    this.getCards();
-  },
-  /**
    * Method that creates the HTTP request to the server
   */
   getCards: function() {
@@ -122,25 +115,8 @@ var AllCards = React.createClass({
       )
     }
   },
-  _comHandler: function(){},
 });
 
-// <View style={styles.containerName}>
-//   <Text style={styles.textName}>Name: {card.firstName} Last: {card.lasttName}</Text>
-  // <Text style={styles.textDetails}>Title:{card.jobTitle}</Text>
-  // <Text style={styles.textDetails}>Company: {card.company}</Text>
-//   <View style={styles.containerContact}>
-//     <Text style={styles.textContact}>Email: {card.email}</Text>
-//   </View>
-//    <View style={styles.containerContact}>
-    // <Text style={styles.textDetails}>Company: {card.id}</Text>
-//     <Text style={styles.textContact}>Phone: {card.phone}</Text>
-//   </View>
-  
-//   <View style={styles.containerContact}>
-//     <Text style={styles.textContact}>Created at: {card.created_at}</Text>
-//   </View>
-// </View>
 
 var styles = StyleSheet.create({
   posIn: {
@@ -155,40 +131,10 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1B374A',
   },
-  containerBox: {
-    flex: 1,
-    borderRadius: 3,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    backgroundColor: '#1B374A',
-    margin: 0,
-    marginVertical: 0,
-    overflow: 'hidden',
-  },
   containerCard: {
     flex: 1,
     backgroundColor: 'blue',
-    // margin: 5,
-    // flexDirection: 'row',
-    // justifyContent: 'center',
     justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  containerContact: {
-    flex: 1,
-    backgroundColor: 'white',
-    margin: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  containerDetails: {
-    flex: 3,
-    backgroundColor: 'green',
-    margin: 2,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   containerName: {
     flex: 2,
@@ -198,29 +144,9 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  footer: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#1B374A',
-    justifyContent: 'flex-end'
-  },
-  header: {
-    backgroundColor: '#1B374A',
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
-  },
-  moveRight: {
-    flex: 2,
-  },
-  spacer:{
-    paddingTop: 250,
-    backgroundColor: 'red'
   },
   textName: {
     padding: 4,
@@ -233,11 +159,6 @@ var styles = StyleSheet.create({
     padding: 4,
     color: 'black',
     fontSize: 18,
-  },
-  textContact: {
-    padding: 4,
-    color: 'black',
-    fontSize: 12,
   },
   titleText: {
     padding: 24,
