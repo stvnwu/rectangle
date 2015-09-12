@@ -78,7 +78,7 @@ class Profile extends Component{
     })
     .then((cardEmail) => {
       var Auth = require('./Auth')
-      this.props.navigator.replace({
+      this.props.navigator.push({
         title: '',
         component: Auth
       });

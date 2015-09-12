@@ -74,8 +74,16 @@ var Signup =  React.createClass({
   */
   _responseHandler: function(response){
     if(response.message){
-      AsyncStorage.setItem('userEmail', response.message)
+      AsyncStorage.multiSet([
+        ['userEmail', reqBody.email], 
+        ['firstName', reqBody.firstName],
+        ['lastName', reqBody.lastName]
+        ])
       .then(() => {
+        return AsyncStorage.getAllKeys();
+      })
+      .then((keys) => {
+        console.log('keys line 86: ', keys);
         console.log('successfully saved user email:', response.message, 'Signup.js', 97);
         this._cardInfoHandler();
       })
