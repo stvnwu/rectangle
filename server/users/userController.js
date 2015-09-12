@@ -1,4 +1,5 @@
 var User = require('../database/users/user.js');
+var Card = require('../database/cards/card.js');
 var Users = require('../database/users/users.js');
 var Promise = require("bluebird");
 
@@ -19,6 +20,7 @@ var userRoutes = {
         })
         .fetch()
         .then(function (user) {
+          var userID = user.get("id");
           if (!user) {
             //Sending a 400 response code for wrong email/password requests
             // HERE we would redirect to signup
@@ -35,9 +37,22 @@ var userRoutes = {
                     error: "password does not match"
                   });
                 } else {
-                  res.status(200).send({
-                    message: "password matches"
-                  });
+                  console.log(39, userID);
+                  return Card.query({
+                    where: {
+                      userID: userID
+                    }
+                  }).fetch().then(function (card) {
+                    if (card) {
+                      res.status(200).send({
+                        message: card.get("email")
+                      });
+                    } else {
+                      res.status(200).send({
+                        redirect: "no card email"
+                      });
+                    }
+                  })
                 }
               }).catch(function (err) {
                 console.log(err);
