@@ -37,7 +37,7 @@ var userRoutes = {
                 } else {
                   res.status(200).send({
                     message: "password matches"
-                  })
+                  });
                 }
               }).catch(function (err) {
                 console.log(err);
@@ -46,8 +46,8 @@ var userRoutes = {
                 });
               });
           }
-        })
-    })
+        });
+    });
     console.log("all routes");
     res.json({
       message: "user get message"
@@ -85,22 +85,22 @@ var userRoutes = {
             // }));
             res.status(200).send({
               message: newUser.get("email")
-            })
+            });
           }).catch(function (err) {
             console.log(new Error(err));
             res.status(500).send({
               error: err
             });
-          })
+          });
         } else {
           console.log(51, req.body);
           res.status(400).send({
             error: "email is not provided/invalid"
           });
         }
-      })
+      });
     });
   }
-}
+};
 
 module.exports = userRoutes;
