@@ -49,7 +49,7 @@ var userRoutes = {
                       });
                     } else {
                       res.status(200).send({
-                        message: "no card email"
+                        redirect: "no card email"
                       });
                     }
                   })
