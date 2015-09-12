@@ -159,12 +159,17 @@ class Login extends Component{
           <TextInput
               autoFocus={true}
               style={this.state.emailInputStyle}
+              autoCapitalize={false}
+              autoCorrect={false}
+              keyboardType='email-address'
+              clearButtonMode={'while-editing'}
               placeholder='Email'
               onChange={(event) => 
                 this.updateProp(event.nativeEvent.text,'email')
               }/>
           <TextInput
               style={this.state.passwordInputStyle}
+              clearButtonMode={'while-editing'}
               placeholder='Password'
               secureTextEntry={true}
               onChange={(event) => 
