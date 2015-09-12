@@ -132,9 +132,13 @@ var styles = StyleSheet.create({
     backgroundColor: '#1B374A',
   },
   containerCard: {
+
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
+    marginTop: 15,
+    marginLeft: 15,
+    marginRight: 15,
   },
   containerName: {
     flex: 2,
@@ -149,21 +153,22 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   textName: {
-    padding: 4,
-    color: 'black',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2.5,
+    paddingTop: 2.5,
+    color: 'rgba(240,255,255)',
     fontSize: 30,
     fontWeight:'700',
-    backgroundColor: 'green'
+    backgroundColor: 'rgba(76,176,202)'
   },
   textDetails: {
-    padding: 4,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2.5,
+    paddingTop: 2.5,
     color: 'black',
     fontSize: 18,
-  },
-  titleText: {
-    padding: 24,
-    color: 'white',
-    fontSize: 20,
   },
   wrapper: {
     flex: 1
