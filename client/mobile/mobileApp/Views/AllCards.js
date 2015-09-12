@@ -22,7 +22,6 @@ var obj = {
   body: {}
 }
 
-var cards = [];
 
 
 var AllCards = React.createClass({
@@ -36,6 +35,7 @@ var AllCards = React.createClass({
     });
     
     return {
+      cards: [],
       dataBlob: {},
       dataSource: ds,
       loaded: false,
@@ -56,72 +56,44 @@ var AllCards = React.createClass({
     .then((email) => {
       reqBody.email = email;
       obj.body = JSON.stringify(reqBody);
-      console.log(obj);
-    })
-    .then(() => fetch('https://tranquil-earth-7083.herokuapp.com/connections/getconnections', obj)) // check this
-    .then((response) => {
-      var cardsObj = JSON.parse(response._bodyText);
-      for (var card in cardsObj) {
-        cards.push(cardsObj[card]);
-      }
-      console.log('CARDSSSSSSSSS', cards);
-      this.setState({
-        dataBlob: cards
-      });
     })
     .then(() => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.state.dataBlob),
-        loaded: true
-      });
-    })
+      fetch('https://tranquil-earth-7083.herokuapp.com/connections/getconnections', obj)
+      .then((response) => response.json())
+      .then((cardsObj) => {
+        for (var card in cardsObj) {
+          this.state.cards.push(cardsObj[card]);
+        }
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.cards),
+          loaded: true
+        });
+      })
+    }) 
     .catch((err) => {
       console.log(new Error(err));
     })
-    .done();
   }, 
   /**
    * Method, no parameters, renders the page with a scrollView of cards
   */
   render: function(){
     var spacer = <View style={styles.spacer}/>;
-
-    if (!this.state.loaded) {
       return (
         <View style={styles.container}>
           <ListView 
           dataSource={this.state.dataSource}
           renderRow={this.renderCard}
           style={styles.wrapper}>
-
-            <View style={styles.header}>
-              <Text style={styles.titleText}>Loading...</Text>
-            </View>
-
-          {spacer}
-          </ListView>
-        </View>
-      );
-
-    } else {
-      return (
-        <View style={styles.container}>
-          <ListView 
-          dataSource={this.state.dataSource}
-          renderRow={this.renderCard}
-          style={styles.wrapper}>
-
             <View style={styles.header}>
               <Text style={styles.titleText}>The cards you have been given:</Text>
             </View>
-
             {this.renderCard()}
-
           {spacer}
           </ListView>
         </View>
       );
-    }
+    
   },
 
   renderCard: function(card) {
@@ -139,12 +111,15 @@ var AllCards = React.createClass({
             <Text style={styles.textDetails}>{card.company}</Text>
             <View style={styles.containerContact}>
               <Text style={styles.textContact}>{card.email}</Text>
+              
+            </View>
+             <View style={styles.containerContact}>
               <Text style={styles.textContact}>{card.phone}</Text>
             </View>
+            
             <View style={styles.containerContact}>
               <Text style={styles.textContact}>{card.created_at}</Text>
             </View>
-
           </View>
 
         </View>
@@ -157,14 +132,14 @@ var AllCards = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
   },
   containerBox: {
     flex: 1,
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -204,11 +179,11 @@ var styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     justifyContent: 'flex-end'
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -223,7 +198,7 @@ var styles = StyleSheet.create({
   },
   spacer:{
     paddingTop: 250,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   textName: {
     padding: 4,
