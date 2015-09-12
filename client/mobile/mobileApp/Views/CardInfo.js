@@ -25,20 +25,47 @@ var obj = {
   body: {}
 }
 
-var CardInfo = React.createClass({
+class CardInfo extends Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      loaded: false
+    };
+  };
+
+  componentDidMount(){
+    this.getCardInfo();
+  };
+
+  getCardInfo(){
+    AsyncStorage.multiGet(['firstName', 'lastName', 'userEmail'])
+    .then((values) => {
+      var card = {
+        firstName: values[0][1],
+        lastName: values[1][1],
+        email: values[2][1]
+      };
+      reqBody = card;
+      this.setState({
+        loaded: true,
+        card: reqBody
+      });
+    })
+  };
   /**
    * Method that updates the binded data whenever it is changed
    * @param {event} 
   */
-  onInputChanged: function(event) {
+  onInputChanged(event) {
     this.setState({ input: event.nativeEvent.text });
-  },
+  };
   /**
    * Method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
   */
-  updateProp: function(text,prop) {
+  updateProp(text,prop) {
     reqBody[prop] = text;
     obj.body = JSON.stringify(reqBody);
     this.setState((state) => {
@@ -46,11 +73,11 @@ var CardInfo = React.createClass({
         curText: text
       };
     });
-  },
+  };
   /**
    * Method that creates the HTTP request to the server
   */
-  onSend: function() {
+  onSend() {
     AsyncStorage.getItem('userEmail')
     .then((email) => {
       this.updateProp(email, 'userEmail');
@@ -66,83 +93,101 @@ var CardInfo = React.createClass({
     .catch((err) => {
       console.log(new Error(err));
     });
-  }, 
+  };
   /**
    * Method that redirects to default upon HTTP request has 
    * been sent
   */
-  _defaultHandler: function(){
+  _defaultHandler(){
     this.props.navigator.push({
       title: '',
       component: Default
     })
-  },
+  };
+  /**
+   * Method that returns an intermediate loading page
+  */
+  _renderLoading(){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>Loading your card</Text>
+      </View>
+    );
+  }
   /**
    * Method, no parameters, renders the page with text inputs and a send button
   */
-  render: function(){
+  render(){
     var spacer = <View style={styles.spacer}/>;
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.wrapper}>
-          <View style={styles.header}>
-            <Text style={styles.titleText}>Enter your information</Text>
-          </View>
-          <TextInput
-              autoFocus={true}
-              style={styles.textInput}
-              placeholder='First Name'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'firstName')
-              }/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Last Name'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'lastName')
-              }/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Email'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'email')
-              }/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Phone'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'phone')
-              }/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Company'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'company')
-              }/>
-          <TextInput
-              style={styles.textInput}
-              placeholder='Job Title'
-              onChange={(event) => 
-                this.updateProp(event.nativeEvent.text,'jobTitle')
-              }/>
-          <View style={styles.footer}>
-            <View style={styles.moveRight}>
+
+    if(this.state.loaded){
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.wrapper}>
+            <View style={styles.header}>
+              <Text style={styles.titleText}>Enter your information</Text>
             </View>
-            <TouchableHighlight 
-              style={styles.button}
-              onPress={(event) =>
-                this.onSend()
-              }
-              underlayColor={'orange'}>
-              <Text style={styles.buttonText}>Next</Text>
-            </TouchableHighlight>
-          </View>
-        {spacer}
-        </ScrollView>
-      </View>
+            <TextInput
+                autoFocus={true}
+                style={styles.textInput}
+                placeholder='First Name'
+                value={this.state.card.firstName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'firstName')
+                }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Last Name'
+                value={this.state.card.lastName}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'lastName')
+                }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Email'
+                value={this.state.card.email}
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'email')
+                }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Phone'
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'phone')
+                }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Company'
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'company')
+                }/>
+            <TextInput
+                style={styles.textInput}
+                placeholder='Job Title'
+                onChange={(event) => 
+                  this.updateProp(event.nativeEvent.text,'jobTitle')
+                }/>
+            <View style={styles.footer}>
+              <View style={styles.moveRight}>
+              </View>
+              <TouchableHighlight 
+                style={styles.button}
+                onPress={(event) =>
+                  this.onSend()
+                }
+                underlayColor={'orange'}>
+                <Text style={styles.buttonText}>Next</Text>
+              </TouchableHighlight>
+            </View>
+          {spacer}
+          </ScrollView>
+        </View>
       );
-  }
-});
+    } else {
+      return this._renderLoading();
+    }
+  };
+};
 
 var styles = StyleSheet.create({
   button: {
