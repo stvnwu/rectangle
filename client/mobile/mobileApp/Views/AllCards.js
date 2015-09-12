@@ -100,36 +100,49 @@ var AllCards = React.createClass({
     if (card) {
       return (
         <View style={styles.containerCard}>
+          <Text style={styles.textName}>Name: {card.firstName} Last: {card.lasttName}</Text>
+          <View style={styles.posIn2}>
+            <View style={styles.posIn}>
+              <Text style={styles.textDetails}>Title:{card.jobTitle}</Text>
+              <Text style={styles.textDetails}>Company: {card.company}</Text>
+            </View>
+            <View style={styles.posIn}>
+              <Text style={styles.textContact}>Email: {card.email}</Text>
+              <Text style={styles.textContact}>Phone: {card.phone}</Text>
+            </View>
 
-          <View style={styles.containerName}>
-            <Text style={styles.textName}>{card.firstName}</Text>
-            <Text style={styles.textName}>{card.lastName}</Text>
           </View>
-
-          <View style={styles.containerDetails}>
-            <Text style={styles.textDetails}>{card.jobTitle}</Text>
-            <Text style={styles.textDetails}>{card.company}</Text>
-            <View style={styles.containerContact}>
-              <Text style={styles.textContact}>{card.email}</Text>
-              
-            </View>
-             <View style={styles.containerContact}>
-              <Text style={styles.textContact}>{card.phone}</Text>
-            </View>
-            
-            <View style={styles.containerContact}>
-              <Text style={styles.textContact}>{card.created_at}</Text>
-            </View>
-          </View>
-
         </View>
       )
     }
   },
-
 });
 
+// <View style={styles.containerName}>
+//   <Text style={styles.textName}>Name: {card.firstName} Last: {card.lasttName}</Text>
+  // <Text style={styles.textDetails}>Title:{card.jobTitle}</Text>
+  // <Text style={styles.textDetails}>Company: {card.company}</Text>
+//   <View style={styles.containerContact}>
+//     <Text style={styles.textContact}>Email: {card.email}</Text>
+//   </View>
+//    <View style={styles.containerContact}>
+//     <Text style={styles.textContact}>Phone: {card.phone}</Text>
+//   </View>
+  
+//   <View style={styles.containerContact}>
+//     <Text style={styles.textContact}>Created at: {card.created_at}</Text>
+//   </View>
+// </View>
+
 var styles = StyleSheet.create({
+  posIn: {
+    flex: 2,
+  },
+  posIn2: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#1B374A',
@@ -147,10 +160,11 @@ var styles = StyleSheet.create({
   containerCard: {
     flex: 1,
     backgroundColor: 'blue',
-    margin: 5,
-    flexDirection: 'row',
+    // margin: 5,
+    // flexDirection: 'row',
+    // justifyContent: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   containerContact: {
     flex: 1,
@@ -169,7 +183,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerName: {
-    flex: 1,
+    flex: 2,
     backgroundColor: 'gray',
     margin: 2,
     flexDirection: 'column',
@@ -203,7 +217,9 @@ var styles = StyleSheet.create({
   textName: {
     padding: 4,
     color: 'black',
-    fontSize: 12,
+    fontSize: 18,
+    fontWeight:'700',
+    backgroundColor: 'green'
   },
   textDetails: {
     padding: 4,
