@@ -1,8 +1,10 @@
 'use strict';
 
 var React = require('react-native');
+var Communications = require('react-native-communications');
 
 var {
+  ActivityIndicatorIOS,
   AsyncStorage,
   ListView,
   ScrollView,
@@ -33,6 +35,7 @@ var AllCards = React.createClass({
     var ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
+    this.getCards();
     
     return {
       cards: [],
@@ -61,9 +64,7 @@ var AllCards = React.createClass({
       fetch('https://tranquil-earth-7083.herokuapp.com/connections/getconnections', obj)
       .then((response) => response.json())
       .then((cardsObj) => {
-        for (var card in cardsObj) {
-          this.state.cards.push(cardsObj[card]);
-        }
+        this.state.cards = cardsObj;
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(this.state.cards),
           loaded: true
@@ -78,19 +79,22 @@ var AllCards = React.createClass({
    * Method, no parameters, renders the page with a scrollView of cards
   */
   render: function(){
-    var spacer = <View style={styles.spacer}/>;
-      return (
-        <View style={styles.container}>
-          <ListView 
+    var loader = !this.state.loaded ?
+      (  <ScrollView style={styles.wrapper}>
+        <ActivityIndicatorIOS
+          hidden='true'
+          size='large'
+          color='#ffffff'/> 
+          </ScrollView>) :
+      (<ListView 
           dataSource={this.state.dataSource}
           renderRow={this.renderCard}
           style={styles.wrapper}>
-            <View style={styles.header}>
-              <Text style={styles.titleText}>The cards you have been given:</Text>
-            </View>
             {this.renderCard()}
-          {spacer}
-          </ListView>
+          </ListView>);
+      return (
+        <View style={styles.container}>
+        {loader}
         </View>
       );
     
@@ -100,15 +104,17 @@ var AllCards = React.createClass({
     if (card) {
       return (
         <View style={styles.containerCard}>
-          <Text style={styles.textName}>Name: {card.firstName} Last: {card.lasttName}</Text>
+          <Text style={styles.textName}>{card.firstName} {card.lastName}</Text>
           <View style={styles.posIn2}>
             <View style={styles.posIn}>
-              <Text style={styles.textDetails}>Title:{card.jobTitle}</Text>
+              <Text style={styles.textDetails}>{card.jobTitle}</Text>
               <Text style={styles.textDetails}>Company: {card.company}</Text>
-            </View>
-            <View style={styles.posIn}>
-              <Text style={styles.textContact}>Email: {card.email}</Text>
-              <Text style={styles.textContact}>Phone: {card.phone}</Text>
+              <Text style={styles.textDetails}
+                    onPress={() => Communications.email([card.email], null,null,null,null)}>{card.email}</Text>
+              <Text style={styles.textDetails} 
+                    onPress={() => Communications.phonecall(card.phone, true)}>
+                    {card.phone}
+              </Text>
             </View>
 
           </View>
@@ -116,6 +122,7 @@ var AllCards = React.createClass({
       )
     }
   },
+  _comHandler: function(){},
 });
 
 // <View style={styles.containerName}>
@@ -126,6 +133,7 @@ var AllCards = React.createClass({
 //     <Text style={styles.textContact}>Email: {card.email}</Text>
 //   </View>
 //    <View style={styles.containerContact}>
+    // <Text style={styles.textDetails}>Company: {card.id}</Text>
 //     <Text style={styles.textContact}>Phone: {card.phone}</Text>
 //   </View>
   
@@ -136,7 +144,7 @@ var AllCards = React.createClass({
 
 var styles = StyleSheet.create({
   posIn: {
-    flex: 2,
+    flex: 1,
   },
   posIn2: {
     flex: 1,
@@ -212,19 +220,19 @@ var styles = StyleSheet.create({
   },
   spacer:{
     paddingTop: 250,
-    backgroundColor: '#1B374A'
+    backgroundColor: 'red'
   },
   textName: {
     padding: 4,
     color: 'black',
-    fontSize: 18,
+    fontSize: 30,
     fontWeight:'700',
     backgroundColor: 'green'
   },
   textDetails: {
     padding: 4,
     color: 'black',
-    fontSize: 12,
+    fontSize: 18,
   },
   textContact: {
     padding: 4,
@@ -237,8 +245,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
   },
   wrapper: {
-    flex: 1,
-    flexDirection: 'column'
+    flex: 1
   }
 });
 
