@@ -17,8 +17,10 @@ var {
   View,
 } = React;
 
+/**
+ * closure scope variables
+*/
 var reqBody = {'firstName': '', 'lastName': '', 'email': '', 'password': ''};
-
 var obj = {  
   method: 'POST',
   headers: {
@@ -27,16 +29,16 @@ var obj = {
   body: JSON.stringify({'firstName': null, 'lastName': null, 'email': null, 'password': null})
 }
 
-var Signup =  React.createClass({
+class Signup extends Component{
   /**
    * Method to be run upon initialization
-   * returns a state object with:
+   * creates a state object with:
    * isLoading, errorText, firstNameInputStyle, lastNameInputStyle, 
    * emailInput Style, passwordInptuStyle
   */
-  getInitialState: function() {
-    this._cardInfoHandler = this._cardInfoHandler.bind(this);
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       isLoading: false,
       errorText: '',
       firstNameInputStyle: styles.textInput,
@@ -44,22 +46,13 @@ var Signup =  React.createClass({
       emailInputStyle: styles.textInput,
       passwordInputStyle: styles.textInput,
     };
-  },
-  /**
-   * Method to redirec the user to the other auth page
-  */
-  otherAuth: function() {
-    this.props.navigator.replace({
-      title: '',
-      component: Login
-    });
-  },
+  }
   /**
    * Method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
   */
-  updateProp: function(text,prop) {
+  updateProp(text,prop) {
     reqBody[prop] = text;
     obj.body = JSON.stringify(reqBody);
     this.setState((state) => {
@@ -67,12 +60,21 @@ var Signup =  React.createClass({
         curText: text
       };
     });
-  },
+  }
+  /**
+   * Method to redirec the user to the other auth page
+  */
+  _otherAuthHandler() {
+    this.props.navigator.replace({
+      title: '',
+      component: Login
+    });
+  }
   /**
    * Method that handles the HTTP response with validation and AsyncStorage
    * @param {object} 'response': the response from the HTTP request
   */
-  _responseHandler: function(response){
+  _responseHandler(response){
     if(response.message){
       AsyncStorage.multiSet([
         ['userEmail', reqBody.email], 
@@ -96,101 +98,107 @@ var Signup =  React.createClass({
         isLoading: false
       };
     });
-  },
+  }
   /**
    * Method that creates the HTTP request to the server
+   * no parameters
+   * nothing returned
   */
-  onSend: function() {
-    console.log(reqBody,'heeeey!')
+  _sendRequest() {
+    this.setState((state) => {
+      return {
+        isLoading: true
+      };
+    });
+    fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
+    .then((res) => res.json())
+    .then((resJson) => {
+      this._responseHandler(resJson)
+      resJson
+    })
+    .catch((err) => {
+      console.log(new Error(err));
+    });
+  }
+  /**
+   * Method to check for empty user input and respond with visual feedback
+   * no parameters
+   * nothing returned
+  */
+  _validations() {
     if(reqBody.firstName === '' || reqBody.lastName === '' || reqBody.email === '' || reqBody.password === ''){
       this.state.errorText = 'Please leave no blank fields';
 
-        if(reqBody.firstName === ''){
-          this.setState((state) => {
-            return {
-              firstNameInputStyle: styles.wrongInput
-            };
-          });
-        } else {
-          this.setState((state) => {
-            return {
-              firstNameInputStyle: styles.textInput
-            };
-          });
-        }
-        if(reqBody.lastName === ''){
-          this.setState((state) => {
-            return {
-              lastNameInputStyle: styles.wrongInput
-            };
-          });
-        } else {
-          this.setState((state) => {
-            return {
-              lastNameInputStyle: styles.textInput
-            };
-          });
-        }
-        if(reqBody.email === ''){
-          this.setState((state) => {
-            return {
-              emailInputStyle: styles.wrongInput
-            };
-          });
-        } else {
-          this.setState((state) => {
-            return {
-              emailInputStyle: styles.textInput
-            };
-          });
-        }
-        if(reqBody.password === ''){
-          this.setState((state) => {
-            return {
-              passwordInputStyle: styles.wrongInput
-            };
-          });
-        } else {
-          this.setState((state) => {
-            return {
-              passwordInputStyle: styles.textInput
-            };
-          });
-        }
-
-
-
+      if(reqBody.firstName === ''){
+        this.setState((state) => {
+          return {
+            firstNameInputStyle: styles.wrongInput
+          };
+        });
+      } else {
+        this.setState((state) => {
+          return {
+            firstNameInputStyle: styles.textInput
+          };
+        });
+      }
+      if(reqBody.lastName === ''){
+        this.setState((state) => {
+          return {
+            lastNameInputStyle: styles.wrongInput
+          };
+        });
+      } else {
+        this.setState((state) => {
+          return {
+            lastNameInputStyle: styles.textInput
+          };
+        });
+      }
+      if(reqBody.email === ''){
+        this.setState((state) => {
+          return {
+            emailInputStyle: styles.wrongInput
+          };
+        });
+      } else {
+        this.setState((state) => {
+          return {
+            emailInputStyle: styles.textInput
+          };
+        });
+      }
+      if(reqBody.password === ''){
+        this.setState((state) => {
+          return {
+            passwordInputStyle: styles.wrongInput
+          };
+        });
+      } else {
+        this.setState((state) => {
+          return {
+            passwordInputStyle: styles.textInput
+          };
+        });
+      }
     } else {
-      this.setState((state) => {
-        return {
-          isLoading: true
-        };
-      });
-      fetch('https://tranquil-earth-7083.herokuapp.com/users/signup', obj)  
-      .then((res) => res.json())
-      .then((resJson) => {
-        this._responseHandler(resJson)
-        resJson
-      })
-      .catch((err) => {
-        console.log(new Error(err));
-      });
+      this._sendRequest();
     }
-  },
+  }
   /**
    * Method to redirect to CardInfo.js
   */
-  _cardInfoHandler: function(){
+  _cardInfoHandler(){
     this.props.navigator.push({
       title: '',
       component: CardInfo
     });
-  },
+  }
   /**
    * Method to render a view with name, email, and password fields
    * along with a send and a redirect button
   */
-  render: function(){
+  render(){
     var spacer = <View style={styles.spacer}/>;
     var spinner = this.state.isLoading ?
       ( <ActivityIndicatorIOS
@@ -245,7 +253,7 @@ var Signup =  React.createClass({
             <View style={styles.moveRight}>
             </View>
             <TouchableHighlight style={styles.button}
-                 onPress={() => this.onSend()}
+                 onPress={() => this._validations()}
                  underlayColor='rgba(61,125,168,0.1)'>
                <Text style={styles.buttonText}>
                   Sign Up
@@ -254,7 +262,7 @@ var Signup =  React.createClass({
              
              <TouchableHighlight
                style={styles.redirectButton}
-               onPress={() => this.otherAuth()}
+               onPress={() => this.__otherAuthHandler()}
                underlayColor='rgba(61,125,168,0.1)'>
                <Text style = {styles.redirectButtonText}>
                  Sign in instead!
@@ -270,9 +278,12 @@ var Signup =  React.createClass({
         </ScrollView>
       </View>
     );
-  },
-}); 
+  }
+}; 
 
+/**
+ * React Native style sheet clone
+*/
 var styles = StyleSheet.create({
   button: {
     flex: 1,

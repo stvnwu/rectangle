@@ -5,30 +5,28 @@ var Auth = require('./Auth');
 
 var {
   AsyncStorage,
+  Component,
   StyleSheet,
   View,
 } = React;
 
-var Logout = React.createClass({
+class Logout extends Component{
   /**
    * Method to be run upon initialization
-   * returns null (no state)
+   * doesn't create anything in the state
   */
-  getInitialState: function() {
-    this.logOut();
-    return null;
-  },
+  constructor(props) {
+    super(props);
+    this._logOut();
+  }
   /**
    * Method to log the user out and
    * redirect to Auth page
    * nothing returned
   */
-  logOut: function() {
-    AsyncStorage.removeItem('userEmail')
-    .then((userEmail) => {
-      return AsyncStorage.removeItem('cardEmail');
-    })
-    .then((cardEmail) => {
+  _logOut() {
+    AsyncStorage.multiRemove(['userEmail', 'firstName', 'lastName', 'cardEmail'])
+    .then(() => {
       this.props.navigator.replace({
         title: '',
         component: Auth
@@ -37,18 +35,18 @@ var Logout = React.createClass({
     .catch((err) => {
       console.log(new Error(err));
     });
-  },
+  }
   /**
    * Method to render a blank view
   */
-  render: function() {
+  render() {
     return <View style={styles.container}>
       <View style={styles.containerBox}>
       </View>
     </View>
-  },
+  }
 
-});
+};
 
 var styles = StyleSheet.create({
   container: {
