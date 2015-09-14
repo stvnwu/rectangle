@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Communications = require('react-native-communications');
+var SearchBar = require('react-native-search-bar');
 
 var {
   ActivityIndicatorIOS,
@@ -83,18 +84,26 @@ var AllCards = React.createClass({
           dataSource={this.state.dataSource}
           renderRow={this.renderCard}
           style={styles.wrapper}>
-            {this.renderCard()}
+
           </ListView>);
       return (
         <View style={styles.container}>
-        {loader}
+          <ScrollView style={styles.searchContainer}/>
+            <SearchBar placeholder={'Search'}
+            onChangeText={(event)=>this.searchQuery(event)}
+                       
+                       />
+            <View style={styles.wrapper}>
+
+              {loader}
+            </View>
+
         </View>
       );
     
   },
 
   renderCard: function(card) {
-    if (card) {
       return (
         <View style={styles.containerCard}>
           <Text style={styles.textName}>{card.firstName} {card.lastName}</Text>
@@ -113,12 +122,37 @@ var AllCards = React.createClass({
           </View>
         </View>
       )
+    
+  },
+  searchQuery: function(query) {
+    var temp = [];
+    var regex;
+    if(query === ''){
+      temp = this.state.cards;
+    } else {
+      query = '\\b' + query;
+      regex = new RegExp(query);
+      this.state.cards.forEach(function(card){
+        if(regex.test(card.firstName) || regex.test(card.lastName)|| regex.test(card.phone)|| regex.test(card.email)|| regex.test(card.company)|| regex.test(card.jobTitle)){
+          temp.push(card);
+        }
+      });
     }
+
+    var ds = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
+    this.setState({
+          dataSource: ds.cloneWithRows(temp)
+        });
   },
 });
 
 
 var styles = StyleSheet.create({
+  searchContainer:{
+    flex:1,
+  },
   posIn: {
     flex: 1,
   },
@@ -129,6 +163,7 @@ var styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#1B374A',
   },
   containerCard: {
@@ -136,7 +171,8 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
-    marginTop: 15,
+    marginTop: -50,
+    marginBottom: 65,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -171,7 +207,7 @@ var styles = StyleSheet.create({
     fontSize: 18,
   },
   wrapper: {
-    flex: 1
+    flex: 9
   }
 });
 
