@@ -23,7 +23,7 @@ var Auth = React.createClass({
         <View style={styles.wrapper}>
           <View style={styles.containerBox}>
             <View style={styles.header}>
-              <Text style={styles.titleText}>WorkWhere</Text>
+              <Text style={styles.titleText}>Rectangle</Text>
             </View>
             {spacer}
             <View style={styles.footer}>
@@ -31,7 +31,7 @@ var Auth = React.createClass({
                 <TouchableHighlight  
                   style={styles.button}
                   onPress={this._signUpHandler.bind(this)}
-                  underlayColor={'orange'}>
+                  underlayColor={'rgba(61,125,168,0.1)'}>
                   <Text 
                   style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
@@ -40,7 +40,7 @@ var Auth = React.createClass({
                 <TouchableHighlight 
                   style={styles.button}
                   onPress={this._loginHandler.bind(this)}
-                  underlayColor={'orange'}>
+                  underlayColor={'rgba(61,125,168,0.1)'}>
                   <Text 
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
@@ -73,16 +73,16 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     padding: 10,
-    backgroundColor: '#ffffff',
-    borderColor: '#1abc9c',
+    backgroundColor: 'rgba(61,125,168,0.3)',
+    borderColor: '#1B374A',
     borderWidth: 1,
-    borderRadius: 8,
+    // borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   buttonText: {
     fontSize: 18,
-    color: '#1abc9c',
+    color: '#ffffff',
     alignSelf: 'center'
   },
   container: {
@@ -94,7 +94,7 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -105,7 +105,7 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -113,11 +113,12 @@ var styles = StyleSheet.create({
   },
   spacer:{
     flex: 1,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   titleText: {
     color: 'white',
     fontSize: 24,
+    fontWeight:'900'
   },
   wrapper: {
     flex: 1,

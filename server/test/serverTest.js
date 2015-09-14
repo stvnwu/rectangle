@@ -128,21 +128,12 @@ describe('connecting to the database', function () {
         });
     });
 
-    it('should not signin a user if email is empty', function (done) {
-      api.post('users/signin/')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end(function (err, res) {
-          var resText = JSON.parse(res.text);
-          expect(JSON.stringify(resText)).to.equal(JSON.stringify({
-            error: "email does not match"
-          }));
-          expect(res.status).to.equal(400);
-          done();
-        });
+    it("should not signin a user if email is empty", function (done) {
+      api.get('/users/signin')
+        .set('Accept', 'text/html')
+        .expect('Content-Type', /html/)
+        .expect(404, done)
     });
-
   }
 
   it("cards routing get/post", function (done) {
