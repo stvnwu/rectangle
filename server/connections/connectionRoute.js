@@ -4,6 +4,6 @@ module.exports = function (app) {
   app.post('/createconnection', connectionController.createConnection);
   app.delete('/deleteconnection', connectionController.deleteConnection);
   app.post('/getconnections', connectionController.getConnections);
-  // app.post('/gc', connectionController.gc);
+  app.post('/getlocations', connectionController.getLocations);
   // app.post('/cc', connectionController.cc);
 };
