@@ -84,12 +84,15 @@ var AllCards = React.createClass({
           dataSource={this.state.dataSource}
           renderRow={this.renderCard}
           style={styles.wrapper}>
-            {this.renderCard()}
+
           </ListView>);
       return (
         <View style={styles.container}>
           <ScrollView style={styles.searchContainer}/>
-            <SearchBar placeholder={'Search'}/>
+            <SearchBar placeholder={'Search'}
+            onChangeText={(event)=>this.searchQuery(event)}
+                       
+                       />
             <View style={styles.wrapper}>
 
               {loader}
@@ -101,7 +104,6 @@ var AllCards = React.createClass({
   },
 
   renderCard: function(card) {
-    if (card) {
       return (
         <View style={styles.containerCard}>
           <Text style={styles.textName}>{card.firstName} {card.lastName}</Text>
@@ -120,7 +122,29 @@ var AllCards = React.createClass({
           </View>
         </View>
       )
+    
+  },
+  searchQuery: function(query) {
+    var temp = [];
+    var regex;
+    if(query === ''){
+      temp = this.state.cards;
+    } else {
+      query = '\\b' + query;
+      regex = new RegExp(query);
+      this.state.cards.forEach(function(card){
+        if(regex.test(card.firstName) || regex.test(card.lastName)|| regex.test(card.phone)|| regex.test(card.email)|| regex.test(card.company)|| regex.test(card.jobTitle)){
+          temp.push(card);
+        }
+      });
     }
+
+    var ds = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
+    this.setState({
+          dataSource: ds.cloneWithRows(temp)
+        });
   },
 });
 
