@@ -70,15 +70,18 @@ var CameraPage = React.createClass({
     });
   },
   _onBarCodeRead: function(scan) {
-    // console.log(scan,'<-----------SCAN')
-    if(!this.state.readQr){ 
+    var location = {};
+    if(!this.state.readQr){
+      navigator.geolocation.getCurrentPosition(res => {
+        reqBody.longitude = JSON.stringify(res.coords.longitude);
+        reqBody.latitude = JSON.stringify(res.coords.latitude);
+      });
       this.state.readQr = true;
       VibrationIOS.vibrate();
       AsyncStorage.getItem('userEmail')
       .then((userEmail)=>{
         reqBody.email = userEmail;
         reqBody.cardEmail = JSON.parse(scan.data).cardEmail;
-
         obj.body = JSON.stringify(reqBody);
         fetch('https://tranquil-earth-7083.herokuapp.com/connections/createconnection', obj)  
           .then((res) => res.json())
