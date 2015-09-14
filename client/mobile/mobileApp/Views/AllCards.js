@@ -2,6 +2,8 @@
 
 var React = require('react-native');
 var Communications = require('react-native-communications');
+var SearchBar = require('react-native-search-bar');
+var ScrollableMixin = require('react-native-scrollable-mixin');
 
 var {
   ActivityIndicatorIOS,
@@ -87,7 +89,13 @@ var AllCards = React.createClass({
           </ListView>);
       return (
         <View style={styles.container}>
-        {loader}
+          <ScrollView style={styles.searchContainer}/>
+            <SearchBar placeholder={'Search'}/>
+            <View style={styles.wrapper}>
+
+              {loader}
+            </View>
+
         </View>
       );
     
@@ -119,6 +127,9 @@ var AllCards = React.createClass({
 
 
 var styles = StyleSheet.create({
+  searchContainer:{
+    flex:1,
+  },
   posIn: {
     flex: 1,
   },
@@ -129,6 +140,7 @@ var styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#1B374A',
   },
   containerCard: {
@@ -136,7 +148,8 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
-    marginTop: 15,
+    marginTop: -50,
+    marginBottom: 65,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -171,7 +184,7 @@ var styles = StyleSheet.create({
     fontSize: 18,
   },
   wrapper: {
-    flex: 1
+    flex: 9
   }
 });
 
