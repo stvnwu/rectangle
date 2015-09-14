@@ -3,7 +3,6 @@
 var React = require('react-native');
 var Communications = require('react-native-communications');
 var SearchBar = require('react-native-search-bar');
-var ScrollableMixin = require('react-native-scrollable-mixin');
 
 var {
   ActivityIndicatorIOS,
