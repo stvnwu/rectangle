@@ -82,7 +82,7 @@ var CameraPage = React.createClass({
       .then((userEmail)=>{
         reqBody.email = userEmail;
         reqBody.cardEmail = JSON.parse(scan.data).cardEmail;
-        console.log(reqBody)
+        obj.body = JSON.stringify(reqBody);
         fetch('https://tranquil-earth-7083.herokuapp.com/connections/createconnection', obj)  
           .then((res) => res.json())
           .then((resJson) => this._responseHandler(resJson))      
