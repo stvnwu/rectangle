@@ -226,10 +226,10 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1B374A',
   },
-   errContainer: {
+  errContainer: {
     alignItems: 'center',
   },
-    errorText: {
+  errorText: {
     paddingBottom:20,
     color:'#d5d5d5',
   },
@@ -253,10 +253,6 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 15,
     padding: 5,
-    // backgroundColor: '#ffffff',
-    // borderColor: '#1B374A',
-    // borderWidth: 1,
-    // borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
@@ -277,19 +273,6 @@ var styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 0.4,
     borderColor: '#d6d7da',
-    // borderRadius: 8,
-    backgroundColor: '#ffffff',
-    color: '#404040'
-  },
-  wrongInput:{
-    height: 36,
-    paddingLeft: 10,
-    marginRight: 15,
-    marginLeft: 15,
-    fontSize: 18,
-    borderWidth: 0.6,
-    borderColor: 'red',
-    // borderRadius: 8,
     backgroundColor: '#ffffff',
     color: '#404040'
   },
@@ -303,10 +286,17 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
-  test:{
-    flex:1,
-    overflow:"hidden"
-  }
+  wrongInput:{
+    height: 36,
+    paddingLeft: 10,
+    marginRight: 15,
+    marginLeft: 15,
+    fontSize: 18,
+    borderWidth: 0.6,
+    borderColor: 'red',
+    backgroundColor: '#ffffff',
+    color: '#404040'
+  },
 });
 
 module.exports = Login;
