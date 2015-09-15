@@ -31,7 +31,7 @@ var obj = {
 
 class Login extends Component{
   /**
-   * Method to be run upon initialization
+   * @method to be run upon initialization
    * creates a state object with:
    * isLoading, errorText, emailInputStyle, passwordInptuStyle
   */
@@ -45,7 +45,7 @@ class Login extends Component{
     };
   }
   /**
-   * Method that updates the response object on changes
+   * @method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
   */
@@ -59,7 +59,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method to redirec the user to the other auth page
+   * @method to redirec the user to the other auth page
   */
   _otherAuthHandler() {
     var Signup = require('./Signup');
@@ -69,7 +69,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method that handles the HTTP response with validation and AsyncStorage
+   * @method that handles the HTTP response with validation and AsyncStorage
    * @param {object} 'response': the response from the HTTP request
   */
   _responseHandler(response) {
@@ -119,7 +119,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method that creates the HTTP request to the server
+   * @method that creates the HTTP request to the server
   */
   _sendRequest() {
     this.setState((state) => {
@@ -139,7 +139,7 @@ class Login extends Component{
       });
   }
   /**
-   * Method to render a view with email and password fields
+   * @method to render a view with email and password fields
    * along with a send and a redirect button
   */
   render(){
