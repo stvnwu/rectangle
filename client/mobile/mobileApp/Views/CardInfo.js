@@ -125,7 +125,7 @@ class CardInfo extends Component{
         <View style={styles.container}>
           <ScrollView style={styles.wrapper}>
             <View style={styles.header}>
-              <Text style={styles.titleText}>Enter your information</Text>
+              <Text style={styles.titleText}>Make your Business Card</Text>
             </View>
             <TextInput
                 autoFocus={true}
@@ -175,7 +175,7 @@ class CardInfo extends Component{
                 onPress={(event) =>
                   this.onSend()
                 }
-                underlayColor={'orange'}>
+                underlayColor={'rgba(61,125,168,0.1)'}>
                 <Text style={styles.buttonText}>Next</Text>
               </TouchableHighlight>
             </View>
@@ -192,42 +192,41 @@ class CardInfo extends Component{
 var styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: 10,
+    margin: 15,
     padding: 10,
-    backgroundColor: '#ffffff',
-    borderColor: '#1abc9c',
+    backgroundColor: 'rgba(61,125,168,0.3)',
+    borderColor: '#1B374A',
     borderWidth: 1,
-    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   buttonText: {
     fontSize: 18,
-    color: '#1abc9c',
+    color: '#ffffff',
     alignSelf: 'center'
   },
   container: {
     flex: 1,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
   },
   containerBox: {
     flex: 1,
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
   },
   footer: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#1abc9c',
+    flexDirection: 'column',
+    backgroundColor: '#1B374A',
     justifyContent: 'flex-end'
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -238,23 +237,24 @@ var styles = StyleSheet.create({
   },
   spacer:{
     paddingTop: 250,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   textInput: {
     height: 36,
     padding: 10,
-    margin: 15,
+    marginRight: 15,
+    marginLeft: 15,
     fontSize: 18,
-    borderWidth: 1,
+    borderWidth: 0.4,
     borderColor: '#d6d7da',
-    borderRadius: 8,
-    backgroundColor: '#d6d7da',
-    color: '#1abc9c'
+    backgroundColor: '#ffffff',
+    color: '#404040'
   },
   titleText: {
     padding: 24,
     color: 'white',
     fontSize: 24,
+    fontWeight:'700'
   },
   wrapper: {
     flex: 1,

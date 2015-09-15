@@ -54,6 +54,8 @@ db.knex.schema.hasTable('connections').then(function(exists) {
     db.knex.schema.createTable('connections', function (link) {
       link.increments('id').primary(),
       link.string('createdWhere', 30),
+      link.string('longitude', 50),
+      link.string('latitude', 50),
       link.string('QR', 25),
       link.integer('user_id').references('users.id'),
       link.integer('card_id').references('cards.id'),
