@@ -111,6 +111,7 @@ describe('connecting to the database', function () {
         });
     });
 
+
   } else {
 
     it('should not add users to the database when email is empty using POST', function (done) {
@@ -132,6 +133,14 @@ describe('connecting to the database', function () {
       api.get('/users/signin')
         .set('Accept', 'text/html')
         .expect('Content-Type', /html/)
+        .expect(404, done)
+    });
+
+    it('should get locations for all connections', function (done) {
+      api.post('connections/getlocations')
+        .set('Accept', 'text/html')
+        .expect('Content-Type', /html/)
+        .expect("Cannot POST /connections/getlocations\n")
         .expect(404, done)
     });
   }
