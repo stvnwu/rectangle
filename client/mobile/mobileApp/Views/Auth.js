@@ -15,8 +15,19 @@ var {
   View,
 } = React;
 
-var Auth = React.createClass({
-  render: function(){
+class Auth extends Component{
+  /**
+   * @method to be run upon initialization
+   * does not create a specific state object
+  */
+  constructor(props) {
+    super(props);
+  }
+
+  /**
+   * @method to render a view with login/signup buttons
+  */
+  render(){
     var spacer=<View style={styles.spacer}/>;
     return (
       <View style={styles.container}>
@@ -51,22 +62,28 @@ var Auth = React.createClass({
         </View>
       </View>
     );
-  },
+  }
 
-  _signUpHandler: function(){
+  /**
+   * @method that adds the Signup view to the stack
+  */
+  _signUpHandler(){
     this.props.navigator.push({
       title: '',
       component: Signup
     });
-  },
+  }
 
-  _loginHandler: function(){
+  /**
+   * @method that adds the Login view to the stack
+  */
+  _loginHandler(){
     this.props.navigator.push({
       title: '',
       component: Login
     });
   }
-});
+};
 
 var styles = StyleSheet.create({
   button: {
@@ -76,7 +93,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
     borderWidth: 1,
-    // borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },

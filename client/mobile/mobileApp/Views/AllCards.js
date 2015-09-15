@@ -7,6 +7,7 @@ var SearchBar = require('react-native-search-bar');
 var {
   ActivityIndicatorIOS,
   AsyncStorage,
+  Component,
   ListView,
   ScrollView,
   StyleSheet,
@@ -15,8 +16,10 @@ var {
   View,
 } = React;
 
+/**
+ * closure scope variables for the HTTP request
+*/
 var reqBody = {};
-
 var obj = {  
   method: 'POST',
   headers: {
@@ -25,106 +28,60 @@ var obj = {
   body: {}
 }
 
-
-
-var AllCards = React.createClass({
+class AllCards extends Component{
   /**
-   * Method to be run upon initialization
-   * returns card: null (this intializes the state)
+   * @method to be run upon initialization
+   * initializes the state to with an object with:
+   * cards, dataBlob, dataSource, and loaded
   */
-  getInitialState: function() {
+  constructor(props) {
+    super(props);
     var ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
-    this.getCards();
+
+    this._getCards();
     
-    return {
+    this.state = {
       cards: [],
       dataBlob: {},
       dataSource: ds,
       loaded: false,
     };
-  },
+  }
+
   /**
    * Method that creates the HTTP request to the server
   */
-  getCards: function() {
+  _getCards() {
     AsyncStorage.getItem('userEmail')
     .then((email) => {
       reqBody.email = email;
       obj.body = JSON.stringify(reqBody);
     })
     .then(() => {
-      fetch('https://tranquil-earth-7083.herokuapp.com/connections/getconnections', obj)
-      .then((response) => response.json())
-      .then((cardsObj) => {
-        this.state.cards = cardsObj;
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(this.state.cards),
-          loaded: true
-        });
-      })
+      return fetch('https://tranquil-earth-7083.herokuapp.com/connections/getconnections', obj)
     }) 
+    .then((response) => response.json())
+    .then((cardsObj) => {
+      this.state.cards = cardsObj;
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.state.cards),
+        loaded: true
+      });
+    })
     .catch((err) => {
       console.log(new Error(err));
-    })
-  }, 
+    });
+  }
+
   /**
-   * Method, no parameters, renders the page with a scrollView of cards
+   * @method to search all the cards and display only the cards
+   * that match the regex of the search (resets the listView dataSource)
+   * @param {string} 'query' is the query typed into the search bar
+   * which will make up the regex the function uses
   */
-  render: function(){
-    var loader = !this.state.loaded ?
-      (  <ScrollView style={styles.wrapper}>
-        <ActivityIndicatorIOS
-          hidden='true'
-          size='large'
-          color='#ffffff'/> 
-          </ScrollView>) :
-      (<ListView 
-          dataSource={this.state.dataSource}
-          renderRow={this.renderCard}
-          style={styles.wrapper}>
-
-          </ListView>);
-      return (
-        <View style={styles.container}>
-          <ScrollView style={styles.searchContainer}/>
-            <SearchBar placeholder={'Search'}
-            onChangeText={(event)=>this.searchQuery(event)}
-                       
-                       />
-            <View style={styles.wrapper}>
-
-              {loader}
-            </View>
-
-        </View>
-      );
-    
-  },
-
-  renderCard: function(card) {
-      return (
-        <View style={styles.containerCard}>
-          <Text style={styles.textName}>{card.firstName} {card.lastName}</Text>
-          <View style={styles.posIn2}>
-            <View style={styles.posIn}>
-              <Text style={styles.textDetails}>{card.jobTitle}</Text>
-              <Text style={styles.textDetails}>Company: {card.company}</Text>
-              <Text style={styles.textDetails}
-                    onPress={() => Communications.email([card.email], null,null,null,null)}>{card.email}</Text>
-              <Text style={styles.textDetails} 
-                    onPress={() => Communications.phonecall(card.phone, true)}>
-                    {card.phone}
-              </Text>
-            </View>
-
-          </View>
-        </View>
-      )
-    
-  },
-  searchQuery: function(query) {
+  _searchQuery(query) {
     var temp = [];
     var regex;
     if(query === ''){
@@ -142,11 +99,70 @@ var AllCards = React.createClass({
     var ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
+
     this.setState({
-          dataSource: ds.cloneWithRows(temp)
-        });
-  },
-});
+      dataSource: ds.cloneWithRows(temp)
+    });
+  }
+
+  /**
+   * @method to render the page with a listView of cards
+   * no parameters
+  */
+  render(){
+    var loader = !this.state.loaded ?
+      (  <ScrollView style={styles.wrapper}>
+        <ActivityIndicatorIOS
+          hidden='true'
+          size='large'
+          color='#ffffff'/> 
+          </ScrollView>) :
+      (<ListView 
+          dataSource={this.state.dataSource}
+          renderRow={this._renderCard}
+          style={styles.wrapper}>
+
+          </ListView>);
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.searchContainer}/>
+            <SearchBar placeholder={'Search'}
+            onChangeText={(event)=>this._searchQuery(event)}/>
+            <View style={styles.wrapper}>
+
+              {loader}
+            </View>
+
+        </View>
+      ); 
+  }
+
+  /**
+   * @method to render a card in the listView of cards
+   * @param {object} 'card' is an object passed to 
+   * this function from the listView dataSource/renderRows
+  */
+  _renderCard(card) {
+    return (
+      <View style={styles.containerCard}>
+        <Text style={styles.textName}>{card.firstName} {card.lastName}</Text>
+        <View style={styles.posIn2}>
+          <View style={styles.posIn}>
+            <Text style={styles.textDetails}>{card.jobTitle}</Text>
+            <Text style={styles.textDetails}>Company: {card.company}</Text>
+            <Text style={styles.textDetails}
+                  onPress={() => Communications.email([card.email], null,null,null,null)}>{card.email}</Text>
+            <Text style={styles.textDetails} 
+                  onPress={() => Communications.phonecall(card.phone, true)}>
+                  {card.phone}
+            </Text>
+          </View>
+
+        </View>
+      </View>
+    )
+  }
+};
 
 
 var styles = StyleSheet.create({

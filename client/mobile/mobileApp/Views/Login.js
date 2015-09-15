@@ -31,7 +31,7 @@ var obj = {
 
 class Login extends Component{
   /**
-   * Method to be run upon initialization
+   * @method to be run upon initialization
    * creates a state object with:
    * isLoading, errorText, emailInputStyle, passwordInptuStyle
   */
@@ -45,7 +45,7 @@ class Login extends Component{
     };
   }
   /**
-   * Method that updates the response object on changes
+   * @method that updates the response object on changes
    * @param {string} 'text': the text that is updated
    * @param {string} 'prop': the property that is updated
   */
@@ -59,7 +59,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method to redirec the user to the other auth page
+   * @method to redirec the user to the other auth page
   */
   _otherAuthHandler() {
     var Signup = require('./Signup');
@@ -69,7 +69,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method that handles the HTTP response with validation and AsyncStorage
+   * @method that handles the HTTP response with validation and AsyncStorage
    * @param {object} 'response': the response from the HTTP request
   */
   _responseHandler(response) {
@@ -119,7 +119,7 @@ class Login extends Component{
     });
   }
   /**
-   * Method that creates the HTTP request to the server
+   * @method that creates the HTTP request to the server
   */
   _sendRequest() {
     this.setState((state) => {
@@ -139,7 +139,7 @@ class Login extends Component{
       });
   }
   /**
-   * Method to render a view with email and password fields
+   * @method to render a view with email and password fields
    * along with a send and a redirect button
   */
   render(){
@@ -226,10 +226,10 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1B374A',
   },
-   errContainer: {
+  errContainer: {
     alignItems: 'center',
   },
-    errorText: {
+  errorText: {
     paddingBottom:20,
     color:'#d5d5d5',
   },
@@ -253,10 +253,6 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 15,
     padding: 5,
-    // backgroundColor: '#ffffff',
-    // borderColor: '#1B374A',
-    // borderWidth: 1,
-    // borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
@@ -277,19 +273,6 @@ var styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 0.4,
     borderColor: '#d6d7da',
-    // borderRadius: 8,
-    backgroundColor: '#ffffff',
-    color: '#404040'
-  },
-  wrongInput:{
-    height: 36,
-    paddingLeft: 10,
-    marginRight: 15,
-    marginLeft: 15,
-    fontSize: 18,
-    borderWidth: 0.6,
-    borderColor: 'red',
-    // borderRadius: 8,
     backgroundColor: '#ffffff',
     color: '#404040'
   },
@@ -303,10 +286,17 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
-  test:{
-    flex:1,
-    overflow:"hidden"
-  }
+  wrongInput:{
+    height: 36,
+    paddingLeft: 10,
+    marginRight: 15,
+    marginLeft: 15,
+    fontSize: 18,
+    borderWidth: 0.6,
+    borderColor: 'red',
+    backgroundColor: '#ffffff',
+    color: '#404040'
+  },
 });
 
 module.exports = Login;
