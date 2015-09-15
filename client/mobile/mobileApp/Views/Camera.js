@@ -1,5 +1,8 @@
+'use strict';
+
 var React = require('react-native');
 var Camera = require('react-native-camera');
+var AllCards = require('./AllCards');
 
 var {
   AsyncStorage,
@@ -53,10 +56,19 @@ var CameraPage = React.createClass({
     if(response.error){
       message = response.error;
       messageColor = styles.containerWrong;
+      //shold redirect to Error message page
+      this.props.navigator.replace({
+      title: '',
+      component: AllCards
+    });
 
     } else {
-      //shold redirect to cards page
+      //shold redirect to Correct message page
       messageColor = styles.containerCorrect;
+      this.props.navigator.replace({
+      title: '',
+      component: AllCards
+    });
     }
     this.setState((state) => {
       return {
