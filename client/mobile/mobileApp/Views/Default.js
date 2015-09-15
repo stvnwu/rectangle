@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Auth = require('./Auth');
+var AllCards = require('./AllCards');
 var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
@@ -70,13 +70,13 @@ class Default extends Component{
                   selectedTab: 'home'
                 });
                 this.refs.AllCardsRef.replace({
-                  title: 'Product Kitty',
-                  component: Auth
+                  title: 'rectangle',
+                  component: AllCards
                 });
               } else if (this.state.selectedTab === 'home') {
                 this.refs.AllCardsRef.replace({
-                  title: 'Product Kitty',
-                  component: Auth
+                  title: 'rectangle',
+                  component: AllCards
                 });
               }
             }}>
@@ -99,7 +99,7 @@ class Default extends Component{
 
               } else if (this.state.selectedTab === 'QR') {
                 this.refs.QRRef.replace({
-                  title: 'Product Kitty',
+                  title: 'rectangle',
                   component: QR
                 });
               }
@@ -122,7 +122,7 @@ class Default extends Component{
                 });
               } else if (this.state.selectedTab === 'scan') {
                 this.refs.CameraRef.replace({
-                  title: 'Product Kitty',
+                  title: 'rectangle',
                   component: Camera
                 });
               }
@@ -145,7 +145,7 @@ class Default extends Component{
                 });
               } else if (this.state.selectedTab === 'profile') {
                 this.refs.ProfileRef.replace({
-                  title: 'Product Kitty',
+                  title: 'rectangle',
                   component: Profile
                 });
               }
@@ -168,7 +168,7 @@ class Default extends Component{
                 });
               } else if (this.state.selectedTab === 'Map') {
                 this.refs.MapRef.replace({
-                  title: 'Product Kitty',
+                  title: 'rectangle',
                   component: Map
                 });
               }
@@ -187,12 +187,12 @@ class Default extends Component{
         renderScene={this.renderScene}
         ref='AllCardsRef'
         style={styles.container}
-        tintColor='#D6573D'
+        tintColor='#1B374A'
         barTintColor='#FFFFFD'
-        titleTextColor='#D6573D'
+        titleTextColor='#1B374A'
         initialRoute={{
-          title: 'Product Kitty',
-          component: Auth
+          title: 'rectangle',
+          component: AllCards
         }}/>
         )
   }
@@ -202,11 +202,11 @@ class Default extends Component{
         renderScene={this.renderScene}
         ref='QRRef'
         style={styles.container}
-        tintColor='#D6573D'
+        tintColor='#1B374A'
         barTintColor='#FFFFFD'
-        titleTextColor='#D6573D'
+        titleTextColor='#1B374A'
         initialRoute={{
-          title: 'Product Kitty',
+          title: 'rectangle',
           component: QR
         }}/>
         )
@@ -217,13 +217,14 @@ class Default extends Component{
           renderScene={this.renderScene}
           ref='CameraRef'
           style={styles.container}
-          tintColor='#D6573D'
+          tintColor='#1B374A'
           barTintColor='#FFFFFD'
-          titleTextColor='#D6573D'
+          titleTextColor='#1B374A'
           initialRoute={{
-            title: 'Product Kitty',
+            title: 'rectangle',
             component: Camera
           }}/>
+
           )
     }
   renderMap(){
@@ -232,11 +233,11 @@ class Default extends Component{
         renderScene={this.renderScene}
         ref='MapRef'
         style={styles.container}
-        tintColor='#D6573D'
+        tintColor='#1B374A'
         barTintColor='#FFFFFD'
-        titleTextColor='#D6573D'
+        titleTextColor='#1B374A'
         initialRoute={{
-          title: 'Product Kitty',
+          title: 'rectangle',
           component: Map
         }}/>
         )
@@ -247,11 +248,11 @@ class Default extends Component{
         renderScene={this.renderScene}
         ref='ProfileRef'
         style={styles.container}
-        tintColor='#D6573D'
+        tintColor='#1B374A'
         barTintColor='#FFFFFD'
-        titleTextColor='#D6573D'
+        titleTextColor='#1B374A'
         initialRoute={{
-          title: 'Product Kitty',
+          title: 'rectangle',
           component: Profile
         }}/>
         )
