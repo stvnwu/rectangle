@@ -262,7 +262,7 @@ class Signup extends Component{
              
              <TouchableHighlight
                style={styles.redirectButton}
-               onPress={() => this.__otherAuthHandler()}
+               onPress={() => this._otherAuthHandler()}
                underlayColor='rgba(61,125,168,0.1)'>
                <Text style = {styles.redirectButtonText}>
                  Sign in instead!
