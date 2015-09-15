@@ -1,6 +1,6 @@
 'use strict'
 var React = require('react-native');
-var Default = require('./Views/Default')
+var Auth = require('./Views/Auth')
 
 var {
   AppRegistry,
@@ -32,7 +32,7 @@ var mobileApp = React.createClass({
         navigationBarHidden={true}
         initialRoute={{
           title: '',
-          component: Default
+          component: Auth
         }}
         itemWrapperStyle={styles.itemWrapper}
         barTintColor='#d6d7da'
