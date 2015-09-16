@@ -20,6 +20,8 @@ var QRCamera = require('./QRCamera');
 var Search = require('./Search');
 var Signup = require('./Signup');
 var TabBar = require('./TabBar');
+var ScanError = require('./ScanError');
+var ScanCorrect = require('./ScanCorrect');
 
 var {
   AppRegistry,
@@ -152,6 +154,17 @@ var DumbRoutes = React.createClass({
                   onPress={this._allCardsHandler.bind(this)}>
               <Text style={styles.buttonText}>all cards</Text>
             </TouchableHighlight>
+
+             <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._scanCorrectHandler.bind(this)}>
+              <Text style={styles.buttonText}>Scan Correct</Text>
+            </TouchableHighlight>
+             <TouchableHighlight style={styles.button}
+                  underlayColor='#99d9f4'
+                  onPress={this._scanErrorHandler.bind(this)}>
+              <Text style={styles.buttonText}>Scan Error</Text>
+            </TouchableHighlight>
           </View>
 
         </View>
@@ -159,6 +172,18 @@ var DumbRoutes = React.createClass({
     );
   },
   //here I added the event handler
+    _scanErrorHandler: function(){
+    this.props.navigator.push({
+            title: '',
+            component:ScanError 
+          });
+  },
+    _scanCorrectHandler: function(){
+    this.props.navigator.push({
+            title: '',
+            component:ScanCorrect 
+          });
+  },
   _signUpHandler: function(){
     this.props.navigator.push({
             title: '',
