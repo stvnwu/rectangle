@@ -153,6 +153,8 @@ var MapRegionInput = React.createClass({
 var MapViewExample = React.createClass({
 
   getInitialState() {
+    this._getCardInfo();
+    this._getConnections();
     return {
       mapRegion: null,
       mapRegionInput: null,
@@ -164,9 +166,7 @@ var MapViewExample = React.createClass({
   },
 
   componentDidMount: function() {
-    this._getCardInfo();
-    this._getConnections();
-    this._getAnnotations();
+    // this._getAnnotations();
   },
 
   _getCardInfo: function() {
@@ -179,19 +179,19 @@ var MapViewExample = React.createClass({
   },
 
   _getConnections: function() {
-    AsyncStorage.get('userEmail')
-    .then(function(userEmail) {
+    AsyncStorage.getItem('userEmail')
+    .then((userEmail) => {
       obj.body = JSON.stringify({'email': userEmail});
       return obj;
     })
-    .then(function(reqObj) {
-      return fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', reqObj)
+    .then((reqObj) => {
+      return fetch('https://tranquil-earth-7083.herokuapp.com/connections/getlocations', reqObj)
     })
-    .then(function(response) {
+    .then((response) => {
       this.setState({
         connections: JSON.parse(response._bodyText)
       });
-      console.log('this is the staet, Map.js, line 194', this.state);
+      console.log('this is the state, Map.js, line 194', this.state);
     });
   },
 
@@ -218,13 +218,8 @@ var MapViewExample = React.createClass({
     );
   },
 
-  _getAnnotations() {
-    console.log('region in _getAnnotations function:', region, 'Maps.js', 172);
+  _getAnnotations(region) {
     return [{
-      longitude: region.longitude,
-      latitude: region.latitude,
-      title: 'You Are Here',
-    },{
       longitude: region.longitude+5,
       latitude: region.latitude+5,
       title: 'You Are Here',
@@ -268,14 +263,12 @@ var MapViewExample = React.createClass({
   },
 
   _onRegionChange(region) {
-    console.log('region in _onRegionChange function:', region, 'Maps.js', 181);
     this.setState({
       mapRegionInput: region,
     });
   },
 
   _onRegionChangeComplete(region) {
-    console.log('region in )onRegionChangeComplete function:', region, 'Maps.js', 188);
     if (this.state.isFirstLoad) {
       this.setState({
         mapRegionInput: region,
@@ -286,7 +279,6 @@ var MapViewExample = React.createClass({
   },
 
   _onRegionInputChanged(region) {
-    console.log('region in _onRegionInputChanged function:', region, 'Maps.js', 199);
     this.setState({
       mapRegion: region,
       mapRegionInput: region,
