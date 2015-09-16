@@ -1,48 +1,43 @@
 'use strict'
 var React = require('react-native');
-var DumbRoutes = require('./Views/DumbRoutes')
+var Auth = require('./Views/Auth')
 
 var {
   AppRegistry,
-  NavigatorIOS,
+  Navigator,
   StyleSheet,
   View,
 } = React;
 
 var mobileApp = React.createClass({
 
-  getInitialState: function(){
-    return {
-      openExternalExample: (null: ?React.Component),
-    };
-  },
+  renderScene: function(route, navigator) {
+      var Component = route.component;
+      return (
+        <View style={styles.container}>
+          <Component
+            route={route}
+            navigator={navigator}
+            topNavigator={navigator} />
+        </View>
+        )
+    },
 
   render: function(){
-    if (this.state.openExternalExample) {
-      var Example = this.state.openExternalExample;
-      return (
-        <Example
-          onExampleExit={() => {
-            this.setState({ openExternalExample: null, });
-          }}
-        />
-      );
-    }
     return (
-      <NavigatorIOS
-        style={styles.container}
+      <Navigator
+        sceneStyle={styles.container}
+        ref={(navigator) => { this.navigator = navigator; }}
+        renderScene={this.renderScene}
+        navigationBarHidden={true}
         initialRoute={{
           title: '',
-          component: DumbRoutes,
-          passProps: {
-            onExternalExampleRequested: (example) => {
-              this.setState({ openExternalExample: example, });
-            },
-          }
+          component: Auth
         }}
         itemWrapperStyle={styles.itemWrapper}
         barTintColor='#d6d7da'
         tintColor="#008888"
+
       />
     );
   }
