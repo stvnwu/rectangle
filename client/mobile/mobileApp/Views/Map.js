@@ -158,6 +158,7 @@ var MapViewExample = React.createClass({
           onRegionChangeComplete={this._onRegionChangeComplete}
           region={this.state.mapRegion || undefined}
           annotations={this.state.annotations || undefined}
+          showsUserLocation={true}
         />
         <MapRegionInput
           onChange={this._onRegionInputChanged}
@@ -168,9 +169,10 @@ var MapViewExample = React.createClass({
   },
 
   _getAnnotations(region) {
+    console.log('region props!!!!!!!!', region);
     return [{
-      longitude: region.longitude+10,
-      latitude: region.latitude-10,
+      longitude: region.longitude-5,
+      latitude: region.latitude-5,
       title: 'You Are Here',
     }];
   },
@@ -232,21 +234,5 @@ var styles = StyleSheet.create({
     padding: 4,
   },
 });
-
-// exports.displayName = (undefined: ?string);
-// exports.title = '<MapView>';
-// exports.description = 'Base component to display maps';
-// exports.examples = [
-//   {
-//     title: 'Map',
-//     render(): ReactElement { return <MapViewExample />; }
-//   },
-//   {
-//     title: 'Map shows user location',
-//     render() {
-//       return  <MapView style={styles.map} showsUserLocation={true} />;
-//     }
-//   }
-// ];
 
 module.exports = MapViewExample;
