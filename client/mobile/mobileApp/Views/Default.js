@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var AllCards = require('./AllCards');
+var Search = require('./Search');
 var QR = require('./QR');
 var Camera = require('./Camera');
 var Map = require('./Map');
@@ -9,7 +9,6 @@ var Profile = require('./Profile');
 
 var {
   Component,
-  NavigatorIOS,
   StyleSheet,
   Text,
   View,
@@ -35,26 +34,14 @@ class Default extends Component{
       presses: 0
     };
   }
-  renderScene(route, navigator) {
-      var Component = route.component;
-      return (
-        <View style={styles.container}>
-          <Component
-            route={route}
-            navigator={navigator}
-            topNavigator={navigator} />
-        </View>
-        )
-    }
 
   render(){
     return (
       <View style={styles.container}>
         <TabBarIOS
-          
+          selectedTab={this.state.selectedTab}
           tintColor={'#008888'}
-          barTintColor={'#d6d7da'}
-          translucent={true}>
+          barTintColor={'#d6d7da'}>
 
 
           <TabBarItemIOS
@@ -64,23 +51,12 @@ class Default extends Component{
             iconSize={24}
             accessibilityLabel="Home Tab"
             selected={this.state.selectedTab === 'home'}
-            onPress={() =>{
-              if (this.state.selectedTab !== 'home'){
-                this.setState({
-                  selectedTab: 'home'
-                });
-                this.refs.AllCardsRef.replace({
-                  title: 'rectangle',
-                  component: AllCards
-                });
-              } else if (this.state.selectedTab === 'home') {
-                this.refs.AllCardsRef.replace({
-                  title: 'rectangle',
-                  component: AllCards
-                });
-              }
+            onPress={() => {
+              this.setState({
+                selectedTab: 'home',
+              });
             }}>
-            {this.renderAllCards()}
+            <Search/>
           </TabBarItemIOS>
           
 
@@ -91,20 +67,12 @@ class Default extends Component{
             iconSize={24}
             accessibilityLabel="QR Tab"
             selected={this.state.selectedTab === 'QR'}
-            onPress={() =>{
-              if (this.state.selectedTab !== 'QR'){
-                this.setState({
-                  selectedTab: 'QR'
-                });
-
-              } else if (this.state.selectedTab === 'QR') {
-                this.refs.QRRef.replace({
-                  title: 'rectangle',
-                  component: QR
-                });
-              }
+            onPress={() => {
+              this.setState({
+                selectedTab: 'QR'
+              });
             }}>
-            {this.renderQR()}
+            <QR/>
           </TabBarItemIOS>
           
 
@@ -115,19 +83,12 @@ class Default extends Component{
             iconSize={20}
             accessibilityLabel="Scan Tab"
             selected={this.state.selectedTab === 'scan'}
-            onPress={() =>{
-              if (this.state.selectedTab !== 'scan'){
-                this.setState({
-                  selectedTab: 'scan'
-                });
-              } else if (this.state.selectedTab === 'scan') {
-                this.refs.CameraRef.replace({
-                  title: 'rectangle',
-                  component: Camera
-                });
-              }
+            onPress={() => {
+              this.setState({
+                selectedTab: 'scan',
+              });
             }}>
-            {this.renderCamera()}
+            <Camera/>
           </TabBarItemIOS>
 
 
@@ -138,19 +99,13 @@ class Default extends Component{
             iconSize={20}
             accessibilityLabel="Profile"
             selected={this.state.selectedTab === 'profile'}
-            onPress={() =>{
-              if (this.state.selectedTab !== 'profile'){
-                this.setState({
-                  selectedTab: 'profile'
-                });
-              } else if (this.state.selectedTab === 'profile') {
-                this.refs.ProfileRef.replace({
-                  title: 'rectangle',
-                  component: Profile
-                });
-              }
+            onPress={() => {
+              this.setState({
+                selectedTab: 'profile',
+                passprops: this.props
+              });
             }}>
-            {this.renderProfile()}
+            <Profile/>
           </TabBarItemIOS>
 
 
@@ -161,103 +116,18 @@ class Default extends Component{
             iconSize={24}
             accessibilityLabel="Map Tab"
             selected={this.state.selectedTab === 'Map'}
-            onPress={() =>{
-              if (this.state.selectedTab !== 'Map'){
-                this.setState({
-                  selectedTab: 'Map'
-                });
-              } else if (this.state.selectedTab === 'Map') {
-                this.refs.MapRef.replace({
-                  title: 'rectangle',
-                  component: Map
-                });
-              }
+            onPress={() => {
+              this.setState({
+                selectedTab: 'Map',
+              });
             }}>
-            {this.renderMap()}
+            <Map/>
           </TabBarItemIOS>
           
         </TabBarIOS>
       </View>
     );
   }
-  renderAllCards(){
-    return (
-      <NavigatorIOS
-      navigationBarHidden={false}
-        renderScene={this.renderScene}
-        ref='AllCardsRef'
-        style={styles.container}
-        tintColor='#1B374A'
-        barTintColor='#FFFFFD'
-        titleTextColor='#1B374A'
-        initialRoute={{
-          title: 'rectangle',
-          component: AllCards
-        }}/>
-        )
-  }
-  renderQR(){
-    return (
-      <NavigatorIOS
-        renderScene={this.renderScene}
-        ref='QRRef'
-        style={styles.container}
-        tintColor='#1B374A'
-        barTintColor='#FFFFFD'
-        titleTextColor='#1B374A'
-        initialRoute={{
-          title: 'rectangle',
-          component: QR
-        }}/>
-        )
-  }
-  renderCamera(){
-      return (
-        <NavigatorIOS
-          renderScene={this.renderScene}
-          ref='CameraRef'
-          style={styles.container}
-          tintColor='#1B374A'
-          barTintColor='#FFFFFD'
-          titleTextColor='#1B374A'
-          initialRoute={{
-            title: 'rectangle',
-            component: Camera
-          }}/>
-
-          )
-    }
-  renderMap(){
-    return (
-      <NavigatorIOS
-        renderScene={this.renderScene}
-        ref='MapRef'
-        style={styles.container}
-        tintColor='#1B374A'
-        barTintColor='#FFFFFD'
-        titleTextColor='#1B374A'
-        initialRoute={{
-          title: 'rectangle',
-          component: Map
-        }}/>
-        )
-  }
-  renderProfile(){
-    return (
-      <NavigatorIOS
-        renderScene={this.renderScene}
-        ref='ProfileRef'
-        style={styles.container}
-        tintColor='#1B374A'
-        barTintColor='#FFFFFD'
-        titleTextColor='#1B374A'
-        initialRoute={{
-          title: 'rectangle',
-          component: Profile
-        }}/>
-        )
-  }
-
 };
 
 

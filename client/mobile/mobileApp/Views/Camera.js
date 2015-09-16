@@ -1,9 +1,5 @@
-'use strict';
-
 var React = require('react-native');
 var Camera = require('react-native-camera');
-var ScanCorrect = require('./ScanCorrect');
-var ScanError = require('./ScanError');
 
 var {
   AsyncStorage,
@@ -57,18 +53,10 @@ var CameraPage = React.createClass({
     if(response.error){
       message = response.error;
       messageColor = styles.containerWrong;
-      //shold send the error message to the ScanError page
-      this.props.navigator.replace({
-      title: '',
-      component: ScanError
-    });
 
     } else {
+      //shold redirect to cards page
       messageColor = styles.containerCorrect;
-      this.props.navigator.replace({
-      title: '',
-      component: ScanCorrect
-    });
     }
     this.setState((state) => {
       return {
