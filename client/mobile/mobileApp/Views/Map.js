@@ -5,10 +5,11 @@ var React = require('react-native');
 var {
   AppRegistry,
   MapView,
+  ScrollView,
+  StatusBarIOS,
   StyleSheet,
   Text,
   TextInput,
-  StatusBarIOS,
   View,
 } = React;
 
@@ -150,40 +151,52 @@ var MapViewExample = React.createClass({
   render() {
     var spacer=<View style={styles.spacer}/>;
     return (
-      <View>
+      <ScrollView styles={styles.wrapper}>
+        <View>
+          <MapView
+            style={styles.map}
+            onRegionChange={this._onRegionChange}
+            onRegionChangeComplete={this._onRegionChangeComplete}
+            region={this.state.mapRegion || undefined}
+            annotations={this.state.annotations || undefined}
+            showsUserLocation={true}
+          />
+          <MapRegionInput
+            onChange={this._onRegionInputChanged}
+            region={this.state.mapRegionInput || undefined}
+          />
+        </View>
         {spacer}
-        <MapView
-          style={styles.map}
-          onRegionChange={this._onRegionChange}
-          onRegionChangeComplete={this._onRegionChangeComplete}
-          region={this.state.mapRegion || undefined}
-          annotations={this.state.annotations || undefined}
-          showsUserLocation={true}
-        />
-        <MapRegionInput
-          onChange={this._onRegionInputChanged}
-          region={this.state.mapRegionInput || undefined}
-        />
-      </View>
+      </ScrollView>
     );
   },
 
   _getAnnotations(region) {
-    console.log('region props!!!!!!!!', region);
+    console.log('region in _getAnnotations function:', region, 'Maps.js', 172);
     return [{
-      longitude: region.longitude-5,
-      latitude: region.latitude-5,
+      longitude: region.longitude,
+      latitude: region.latitude,
+      title: 'You Are Here',
+    },{
+      longitude: region.longitude+5,
+      latitude: region.latitude+5,
+      title: 'You Are Here',
+    },{
+      longitude: -122.4082479999,
+      latitude: 37.78383,
       title: 'You Are Here',
     }];
   },
 
   _onRegionChange(region) {
+    console.log('region in _onRegionChange function:', region, 'Maps.js', 181);
     this.setState({
       mapRegionInput: region,
     });
   },
 
   _onRegionChangeComplete(region) {
+    console.log('region in )onRegionChangeComplete function:', region, 'Maps.js', 188);
     if (this.state.isFirstLoad) {
       this.setState({
         mapRegionInput: region,
@@ -194,6 +207,7 @@ var MapViewExample = React.createClass({
   },
 
   _onRegionInputChanged(region) {
+    console.log('region in _onRegionInputChanged function:', region, 'Maps.js', 199);
     this.setState({
       mapRegion: region,
       mapRegionInput: region,
@@ -232,6 +246,10 @@ var styles = StyleSheet.create({
     borderColor: '#aaaaaa',
     fontSize: 13,
     padding: 4,
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column'
   },
 });
 
