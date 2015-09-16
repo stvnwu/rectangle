@@ -4,6 +4,7 @@ var React = require('react-native');
 
 var {
   AppRegistry,
+  AsyncStorage,
   MapView,
   ScrollView,
   StatusBarIOS,
@@ -18,6 +19,18 @@ var regionText = {
   longitude: '0',
   latitudeDelta: '0',
   longitudeDelta: '0',
+};
+
+var mockData = [
+  {}
+];
+
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: null
 };
 
 var MapRegionInput = React.createClass({
@@ -41,10 +54,10 @@ var MapRegionInput = React.createClass({
     };
   },
 
-      //   navigator.geolocation.getCurrentPosition(res => {
-      //   reqBody.longitude = JSON.stringify(res.coords.longitude);
-      //   reqBody.latitude = JSON.stringify(res.coords.latitude);
-      // });
+  //   navigator.geolocation.getCurrentPosition(res => {
+  //   reqBody.longitude = JSON.stringify(res.coords.longitude);
+  //   reqBody.latitude = JSON.stringify(res.coords.latitude);
+  // });
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       region: nextProps.region || this.getInitialState().region
@@ -145,7 +158,41 @@ var MapViewExample = React.createClass({
       mapRegionInput: null,
       annotations: null,
       isFirstLoad: true,
+      cards: null,
+      connections: null
     };
+  },
+
+  componentDidMount: function() {
+    this._getCardInfo();
+    this._getConnections();
+    this._getAnnotations();
+  },
+
+  _getCardInfo: function() {
+    AsyncStorage.getItem('cards')
+    .then(function(cards) {
+      this.setState({
+        cards: JSON.parse(cards)
+      });
+    });
+  },
+
+  _getConnections: function() {
+    AsyncStorage.get('userEmail')
+    .then(function(userEmail) {
+      obj.body = JSON.stringify({'email': userEmail});
+      return obj;
+    })
+    .then(function(reqObj) {
+      return fetch('https://tranquil-earth-7083.herokuapp.com/users/signin', reqObj)
+    })
+    .then(function(response) {
+      this.setState({
+        connections: JSON.parse(response._bodyText)
+      });
+      console.log('this is the staet, Map.js, line 194', this.state);
+    });
   },
 
   render() {
@@ -171,7 +218,7 @@ var MapViewExample = React.createClass({
     );
   },
 
-  _getAnnotations(region) {
+  _getAnnotations() {
     console.log('region in _getAnnotations function:', region, 'Maps.js', 172);
     return [{
       longitude: region.longitude,
@@ -186,6 +233,38 @@ var MapViewExample = React.createClass({
       latitude: 37.78383,
       title: 'You Are Here',
     }];
+
+    // [{
+    //     "id": 2,
+    //     "createdWhere": null,
+    //     "longitude": "-11212.2312412342134213",
+    //     "latitude": "-11212.2312412342134213",
+    //     "QR": null,
+    //     "user_id": 2,
+    //     "card_id": 1,
+    //     "created_at": "2015-09-14T22:07:09.350Z",
+    //     "updated_at": "2015-09-14T22:07:09.350Z"
+    //   }, {
+    //     "id": 3,
+    //     "createdWhere": null,
+    //     "longitude": "-11212.2312412342134213",
+    //     "latitude": "-11212.2312412342134213",
+    //     "QR": null,
+    //     "user_id": 2,
+    //     "card_id": 2,
+    //     "created_at": "2015-09-14T23:12:35.345Z",
+    //     "updated_at": "2015-09-14T23:12:35.345Z"
+    //   }, {
+    //     "id": 4,
+    //     "createdWhere": null,
+    //     "longitude": "-56756456213",
+    //     "latitude": "-412342134213",
+    //     "QR": null,
+    //     "user_id": 2,
+    //     "card_id": 3,
+    //     "created_at": "2015-09-14T23:14:21.769Z",
+    //     "updated_at": "2015-09-14T23:14:21.769Z"
+    //   }]
   },
 
   _onRegionChange(region) {
