@@ -7,6 +7,7 @@ var {
   MapView,
   StyleSheet,
   Text,
+  TextInput,
   StatusBarIOS,
   View,
 } = React;
@@ -19,7 +20,6 @@ var regionText = {
 };
 
 var MapRegionInput = React.createClass({
-
   propTypes: {
     region: React.PropTypes.shape({
       latitude: React.PropTypes.number.isRequired,
@@ -29,7 +29,6 @@ var MapRegionInput = React.createClass({
     }),
     onChange: React.PropTypes.func.isRequired,
   },
-
   getInitialState: function() {
     return {
       region: {
@@ -40,15 +39,14 @@ var MapRegionInput = React.createClass({
       }
     };
   },
-
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       region: nextProps.region || this.getInitialState().region
     });
   },
-
   render: function() {
     var region = this.state.region || this.getInitialState().region;
+
     return (
       <View>
         <View style={styles.row}>
@@ -144,8 +142,10 @@ var MapViewExample = React.createClass({
   },
 
   render() {
+    var spacer=<View style={styles.spacer}/>;
     return (
       <View>
+        {spacer}
         <MapView
           style={styles.map}
           onRegionChange={this._onRegionChange}
@@ -196,8 +196,15 @@ var MapViewExample = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  changeButton: {
+    alignSelf: 'center',
+    marginTop: 5,
+    padding: 3,
+    borderWidth: 0.5,
+    borderColor: '#777777',
+  },
   map: {
-    height: 150,
+    height: 450,
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
@@ -205,6 +212,10 @@ var styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  spacer: {
+    flex: 1,
+    height: 60,
   },
   textInput: {
     width: 150,
@@ -214,29 +225,22 @@ var styles = StyleSheet.create({
     fontSize: 13,
     padding: 4,
   },
-  changeButton: {
-    alignSelf: 'center',
-    marginTop: 5,
-    padding: 3,
-    borderWidth: 0.5,
-    borderColor: '#777777',
-  },
 });
 
-exports.displayName = (undefined: ?string);
-exports.title = '<MapView>';
-exports.description = 'Base component to display maps';
-exports.examples = [
-  {
-    title: 'Map',
-    render(): ReactElement { return <MapViewExample />; }
-  },
-  {
-    title: 'Map shows user location',
-    render() {
-      return  <MapView style={styles.map} showsUserLocation={true} />;
-    }
-  }
-];
+// exports.displayName = (undefined: ?string);
+// exports.title = '<MapView>';
+// exports.description = 'Base component to display maps';
+// exports.examples = [
+//   {
+//     title: 'Map',
+//     render(): ReactElement { return <MapViewExample />; }
+//   },
+//   {
+//     title: 'Map shows user location',
+//     render() {
+//       return  <MapView style={styles.map} showsUserLocation={true} />;
+//     }
+//   }
+// ];
 
-module.exports = MapRegionInput;
+module.exports = MapViewExample;
