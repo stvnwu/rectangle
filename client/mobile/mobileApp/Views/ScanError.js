@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var Camera = require('./Camera');
-var Default = require('./Default');
+var AllCards = require('./AllCards');
 
 var {
   AppRegistry,
@@ -30,13 +30,8 @@ var Auth = React.createClass({
             {spacer}
             <View style={styles.footer}>
               <View >
-                <TouchableHighlight  
-                  style={styles.button}
-                  onPress={()=>this._cameraHandler()}
-                  underlayColor={'rgba(61,125,168,0.1)'}>
-                  <Text 
-                  style={styles.buttonText}>Try again</Text>
-                </TouchableHighlight>
+                
+                  <Text style={styles.buttonText}>Try again by clicking Scan</Text>
               </View>
               <View >
                 <TouchableHighlight 
@@ -55,17 +50,10 @@ var Auth = React.createClass({
     );
   },
 
-  _cameraHandler: function(){
-    this.props.navigator.push({
-      title: '',
-      component: Camera
-    });
-  },
-
   _defaultHandler: function(){
-    this.props.navigator.push({
-      title: '',
-      component: Default
+    this.props.navigator.replace({
+      title: 'rectangle',
+      component: AllCards
     });
   }
 });

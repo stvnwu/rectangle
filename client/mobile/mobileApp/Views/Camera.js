@@ -59,14 +59,14 @@ var CameraPage = React.createClass({
       messageColor = styles.containerWrong;
       //shold send the error message to the ScanError page
       this.props.navigator.replace({
-      title: '',
+      title: 'rectangle',
       component: ScanError
     });
 
     } else {
       messageColor = styles.containerCorrect;
       this.props.navigator.replace({
-      title: '',
+      title: 'rectangle',
       component: ScanCorrect
     });
     }

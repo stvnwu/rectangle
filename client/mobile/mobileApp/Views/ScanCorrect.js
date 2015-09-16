@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Default = require('./Default');
+var AllCards = require('./AllCards');
 var Camera = require('./Camera');
 
 var {
@@ -39,13 +39,9 @@ var Auth = React.createClass({
                 </TouchableHighlight>
               </View>
               <View >
-                <TouchableHighlight 
-                  style={styles.button}
-                  onPress={()=>this._cameraHandler()}
-                  underlayColor={'rgba(61,125,168,0.1)'}>
+
                   <Text 
-                  style={styles.buttonText}>Scan Another Connection</Text>
-                </TouchableHighlight>
+                  style={styles.buttonText}>Scan Another QR by clicking Scan Again</Text>
               </View>
               {spacer}
             </View>
@@ -57,14 +53,14 @@ var Auth = React.createClass({
 
   _defaultHandler: function(){
     this.props.navigator.push({
-      title: '',
-      component: Default
+      title: 'rectangle',
+      component: AllCards
     });
   },
 
   _cameraHandler: function(){
     this.props.navigator.push({
-      title: '',
+      title: 'rectangle',
       component: Camera
     });
   }

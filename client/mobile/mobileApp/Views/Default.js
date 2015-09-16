@@ -116,11 +116,11 @@ class Default extends Component{
             accessibilityLabel="Scan Tab"
             selected={this.state.selectedTab === 'scan'}
             onPress={() =>{
-              if (this.state.selectedTab !== 'scan'){
-                this.setState({
-                  selectedTab: 'scan'
-                });
-              } else if (this.state.selectedTab === 'scan') {
+              this.setState({
+                selectedTab: 'scan'
+              });
+
+              if (this.refs.CameraRef){
                 this.refs.CameraRef.replace({
                   title: 'rectangle',
                   component: Camera
