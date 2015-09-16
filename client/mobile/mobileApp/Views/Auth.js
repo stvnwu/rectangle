@@ -33,12 +33,13 @@ class Auth extends Component{
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <View style={styles.containerBox}>
-            <View style={styles.header}>
-              <Text style={styles.titleText}>Rectangle</Text>
-            </View>
             {spacer}
+            <View style={styles.header}>
+              <Text style={styles.titleText}>r e c t a n g l e</Text>
+            </View>
             <View style={styles.footer}>
-              <View >
+              <View style={styles.buttonRow}>
+                <View style={styles.buttonFiller}></View>
                 <TouchableHighlight  
                   style={styles.button}
                   onPress={this._signUpHandler.bind(this)}
@@ -46,8 +47,10 @@ class Auth extends Component{
                   <Text 
                   style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
+                <View style={styles.buttonFiller}></View>
               </View>
-              <View >
+              <View style={styles.buttonRow}>
+                <View style={styles.buttonFiller}></View>
                 <TouchableHighlight 
                   style={styles.button}
                   onPress={this._loginHandler.bind(this)}
@@ -55,6 +58,7 @@ class Auth extends Component{
                   <Text 
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
+                <View style={styles.buttonFiller}></View>
               </View>
               {spacer}
             </View>
@@ -87,14 +91,22 @@ class Auth extends Component{
 
 var styles = StyleSheet.create({
   button: {
-    flex: 1,
+    flex: 2,
     margin: 10,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
     borderWidth: 1,
+    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  buttonFiller: {
+    flex: 1,
   },
   buttonText: {
     fontSize: 18,
@@ -133,8 +145,8 @@ var styles = StyleSheet.create({
   },
   titleText: {
     color: 'white',
-    fontSize: 24,
-    fontWeight:'900'
+    fontSize: 32,
+    fontWeight: '400'
   },
   wrapper: {
     flex: 1,
