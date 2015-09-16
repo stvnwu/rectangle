@@ -125,7 +125,7 @@ class CardInfo extends Component{
         <View style={styles.container}>
           <ScrollView style={styles.wrapper}>
             <View style={styles.header}>
-              <Text style={styles.titleText}>Make your Business Card</Text>
+              <Text style={styles.titleText}>Create a business card</Text>
             </View>
             <TextInput
                 autoFocus={true}
@@ -197,6 +197,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
     borderWidth: 1,
+    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
@@ -253,8 +254,8 @@ var styles = StyleSheet.create({
   titleText: {
     padding: 24,
     color: 'white',
-    fontSize: 24,
-    fontWeight:'700'
+    fontSize: 32,
+    fontWeight: '400'
   },
   wrapper: {
     flex: 1,
