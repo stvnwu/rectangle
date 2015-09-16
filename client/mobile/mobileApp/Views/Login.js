@@ -154,7 +154,7 @@ class Login extends Component{
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
           <View style={styles.header}>
-            <Text style={styles.titleText}>Rectangle</Text>
+            <Text style={styles.titleText}>r e c t a n g l e</Text>
           </View>
           <TextInput
               autoFocus={true}
@@ -190,7 +190,7 @@ class Login extends Component{
             onPress={() => this._otherAuthHandler()}
             underlayColor='rgba(61,125,168,0.1)'>
             <Text style = {styles.redirectButtonText}>
-              Sign up instead!
+              New user?
             </Text>
           </TouchableHighlight>
           </View>
@@ -213,7 +213,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
     borderWidth: 1,
-    // borderRadius: 8,
+    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
@@ -279,8 +279,8 @@ var styles = StyleSheet.create({
   titleText: {
     padding: 24,
     color: 'white',
-    fontSize: 24,
-    fontWeight:'900'
+    fontSize: 32,
+    fontWeight: '400'
   },
   wrapper: {
     flex: 1,
