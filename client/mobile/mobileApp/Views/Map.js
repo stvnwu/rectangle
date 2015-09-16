@@ -1,111 +1,242 @@
 'use strict';
 
 var React = require('react-native');
-var MapboxGLMap = require('react-native-mapbox-gl');
-var mapRef = require('../config').map;
 
 var {
   AppRegistry,
+  MapView,
   StyleSheet,
   Text,
   StatusBarIOS,
   View,
 } = React;
 
-var Example = React.createClass({
-  mixins: [MapboxGLMap.Mixin],
-  getInitialState() {
+var regionText = {
+  latitude: '0',
+  longitude: '0',
+  latitudeDelta: '0',
+  longitudeDelta: '0',
+};
+
+var MapRegionInput = React.createClass({
+
+  propTypes: {
+    region: React.PropTypes.shape({
+      latitude: React.PropTypes.number.isRequired,
+      longitude: React.PropTypes.number.isRequired,
+      latitudeDelta: React.PropTypes.number.isRequired,
+      longitudeDelta: React.PropTypes.number.isRequired,
+    }),
+    onChange: React.PropTypes.func.isRequired,
+  },
+
+  getInitialState: function() {
     return {
-       center: {
-         latitude: 40.72052634,
-         longitude: -73.97686958312988
-       },
-       zoom: 11,
-       // annotations: [{
-       //   latitude: 40.72052634,
-       //   longitude:  -73.97686958312988,
-       //   title: 'This is marker 1',
-       //   subtitle: 'It has a rightCalloutAccessory too',
-       //   rightCalloutAccessory: {
-       //       url: 'https://cldup.com/9Lp0EaBw5s.png',
-       //       height: 25,
-       //       width: 25
-       //   },
-       //   annotationImage: {
-       //     url: 'https://cldup.com/CnRLZem9k9.png',
-       //     height: 25,
-       //     width: 25
-       //   },
-       //   id: 'marker1'
-       // },{
-       //   latitude: 40.714541341726175,
-       //   longitude:  -74.00579452514648,
-       //   title: 'Important!',
-       //   subtitle: 'Neat, this is a custom annotation image',
-       //   annotationImage: {
-       //     url: 'https://cldup.com/7NLZklp8zS.png',
-       //     height: 25,
-       //     width: 25
-       //   },
-       //   id: 'marker2'
-       // }]
-     };
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+      }
+    };
   },
-  onRegionChange(location) {
-    this.setState({ currentZoom: location.zoom });
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      region: nextProps.region || this.getInitialState().region
+    });
   },
-  onRegionWillChange(location) {
-    console.log(location);
-  },
-  onUpdateUserLocation(location) {
-    console.log(location);
-  },
-  onOpenAnnotation(annotation) {
-    console.log(annotation);
-  },
-  onRightAnnotationTapped(e) {
-    console.log(e);
-  },
+
   render: function() {
-    StatusBarIOS.setHidden(true);
+    var region = this.state.region || this.getInitialState().region;
     return (
-      <View style={styles.container}>
-        <MapboxGLMap
-          style={styles.map}
-          direction={0}
-          rotateEnabled={true}
-          scrollEnabled={true}
-          zoomEnabled={true}
-          showsUserLocation={true}
-          ref={mapRef}
-          accessToken={mapRef}
-          styleURL={'asset://styles/satellite-v7.json'}
-          centerCoordinate={this.state.center}
-          userLocationVisible={true}
-          zoomLevel={this.state.zoom}
-          onRegionChange={this.onRegionChange}
-          onRegionWillChange={this.onRegionWillChange}
-          annotations={this.state.annotations}
-          onOpenAnnotation={this.onOpenAnnotation}
-          onRightAnnotationTapped={this.onRightAnnotationTapped}
-          onUpdateUserLocation={this.onUpdateUserLocation} />
+      <View>
+        <View style={styles.row}>
+          <Text>
+            {'Latitude'}
+          </Text>
+          <TextInput
+            value={'' + region.latitude}
+            style={styles.textInput}
+            onChange={this._onChangeLatitude}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.row}>
+          <Text>
+            {'Longitude'}
+          </Text>
+          <TextInput
+            value={'' + region.longitude}
+            style={styles.textInput}
+            onChange={this._onChangeLongitude}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.row}>
+          <Text>
+            {'Latitude delta'}
+          </Text>
+          <TextInput
+            value={'' + region.latitudeDelta}
+            style={styles.textInput}
+            onChange={this._onChangeLatitudeDelta}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.row}>
+          <Text>
+            {'Longitude delta'}
+          </Text>
+          <TextInput
+            value={'' + region.longitudeDelta}
+            style={styles.textInput}
+            onChange={this._onChangeLongitudeDelta}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.changeButton}>
+          <Text onPress={this._change}>
+            {'Change'}
+          </Text>
+        </View>
       </View>
     );
-  }
+  },
+
+  _onChangeLatitude: function(e) {
+    regionText.latitude = e.nativeEvent.text;
+  },
+
+  _onChangeLongitude: function(e) {
+    regionText.longitude = e.nativeEvent.text;
+  },
+
+  _onChangeLatitudeDelta: function(e) {
+    regionText.latitudeDelta = e.nativeEvent.text;
+  },
+
+  _onChangeLongitudeDelta: function(e) {
+    regionText.longitudeDelta = e.nativeEvent.text;
+  },
+
+  _change: function() {
+    this.setState({
+      latitude: parseFloat(regionText.latitude),
+      longitude: parseFloat(regionText.longitude),
+      latitudeDelta: parseFloat(regionText.latitudeDelta),
+      longitudeDelta: parseFloat(regionText.longitudeDelta),
+    });
+    this.props.onChange(this.state.region);
+  },
+
+});
+
+var MapViewExample = React.createClass({
+
+  getInitialState() {
+    return {
+      mapRegion: null,
+      mapRegionInput: null,
+      annotations: null,
+      isFirstLoad: true,
+    };
+  },
+
+  render() {
+    return (
+      <View>
+        <MapView
+          style={styles.map}
+          onRegionChange={this._onRegionChange}
+          onRegionChangeComplete={this._onRegionChangeComplete}
+          region={this.state.mapRegion || undefined}
+          annotations={this.state.annotations || undefined}
+        />
+        <MapRegionInput
+          onChange={this._onRegionInputChanged}
+          region={this.state.mapRegionInput || undefined}
+        />
+      </View>
+    );
+  },
+
+  _getAnnotations(region) {
+    return [{
+      longitude: region.longitude,
+      latitude: region.latitude,
+      title: 'You Are Here',
+    }];
+  },
+
+  _onRegionChange(region) {
+    this.setState({
+      mapRegionInput: region,
+    });
+  },
+
+  _onRegionChangeComplete(region) {
+    if (this.state.isFirstLoad) {
+      this.setState({
+        mapRegionInput: region,
+        annotations: this._getAnnotations(region),
+        isFirstLoad: false,
+      });
+    }
+  },
+
+  _onRegionInputChanged(region) {
+    this.setState({
+      mapRegion: region,
+      mapRegionInput: region,
+      annotations: this._getAnnotations(region),
+    });
+  },
+
 });
 
 var styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 1,
-    paddingTop: 64,
-  },
   map: {
-    flex: 5
+    height: 150,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
-  text: {
-    padding: 2
-  }
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textInput: {
+    width: 150,
+    height: 20,
+    borderWidth: 0.5,
+    borderColor: '#aaaaaa',
+    fontSize: 13,
+    padding: 4,
+  },
+  changeButton: {
+    alignSelf: 'center',
+    marginTop: 5,
+    padding: 3,
+    borderWidth: 0.5,
+    borderColor: '#777777',
+  },
 });
 
-module.exports = Example;
+exports.displayName = (undefined: ?string);
+exports.title = '<MapView>';
+exports.description = 'Base component to display maps';
+exports.examples = [
+  {
+    title: 'Map',
+    render(): ReactElement { return <MapViewExample />; }
+  },
+  {
+    title: 'Map shows user location',
+    render() {
+      return  <MapView style={styles.map} showsUserLocation={true} />;
+    }
+  }
+];
+
+module.exports = MapRegionInput;
