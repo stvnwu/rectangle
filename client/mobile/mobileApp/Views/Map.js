@@ -18,6 +18,8 @@ var regionText = {
   latitudeDelta: '0',
   longitudeDelta: '0',
 };
+var longitude;
+var latitude;
 
 var MapRegionInput = React.createClass({
   propTypes: {
@@ -30,6 +32,12 @@ var MapRegionInput = React.createClass({
     onChange: React.PropTypes.func.isRequired,
   },
   getInitialState: function() {
+    navigator.geolocation.getCurrentPosition((res) => {
+      longitude = JSON.stringify(res.coords.longitude);
+      latitude = JSON.stringify(res.coords.latitude);
+      console.log('longitude and latitude:', longitude, latitude);
+    });
+
     return {
       region: {
         latitude: 0,
@@ -39,13 +47,23 @@ var MapRegionInput = React.createClass({
       }
     };
   },
+
+      //   navigator.geolocation.getCurrentPosition(res => {
+      //   reqBody.longitude = JSON.stringify(res.coords.longitude);
+      //   reqBody.latitude = JSON.stringify(res.coords.latitude);
+      // });
   componentWillReceiveProps: function(nextProps) {
     this.setState({
-      region: nextProps.region || this.getInitialState().region
+      region: {
+        longitude: longitude,
+        latitude: latitude,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+      }
     });
   },
   render: function() {
-    var region = this.state.region || this.getInitialState().region;
+    var region = this.state.region || this.state.region;
 
     return (
       <View>
