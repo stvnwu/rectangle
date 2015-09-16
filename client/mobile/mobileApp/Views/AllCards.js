@@ -3,6 +3,7 @@
 var React = require('react-native');
 var Communications = require('react-native-communications');
 var SearchBar = require('react-native-search-bar');
+var Device = require('react-native-device');
 
 var {
   ActivityIndicatorIOS,
@@ -27,6 +28,18 @@ var obj = {
    },
   body: {}
 }
+
+var deviceModel = function(){
+  var width = Device.width; 
+  var height = Device.height; 
+  var models = {
+    '414,736': 'IPHONE 6+',
+    '375,667': 'IPHONE 6',
+    '320,568': 'IPHONE 5',
+    '320,480': 'IPHONE 4',
+  }
+  return models[width + ',' + height];
+};
 
 class AllCards extends Component{
   /**
@@ -110,6 +123,7 @@ class AllCards extends Component{
    * no parameters
   */
   render(){
+    console.log(deviceModel(),"<======Model")
     var loader = !this.state.loaded ?
       (  <ScrollView style={styles.wrapper}>
         <ActivityIndicatorIOS
@@ -126,7 +140,7 @@ class AllCards extends Component{
       return (
         <View style={styles.container}>
           <ScrollView style={styles.searchContainer}/>
-            <SearchBar placeholder={'Search'}
+            <SearchBar placeholder={'Search'} style={styles[deviceModel()]}
             onChangeText={(event)=>this._searchQuery(event)}/>
             <View style={styles.wrapper}>
 
@@ -166,8 +180,29 @@ class AllCards extends Component{
 
 
 var styles = StyleSheet.create({
+    'IPHONE 6+': {
+      marginTop: -6,
+      height: 44,
+      width: 414,
+    },
+    'IPHONE 6':{
+      height: 44,
+      width: 375,
+    },
+    'IPHONE 5':{
+      marginTop: 13,
+      height: 44,
+      width: 320,
+    },
+    'IPHONE 4':{
+      marginTop: 22.9,
+      height: 44,
+      width: 320,
+    },
+
   searchContainer:{
     flex:1,
+
   },
   posIn: {
     flex: 1,
