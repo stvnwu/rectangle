@@ -144,16 +144,7 @@ class Profile extends Component{
           <ScrollView style={styles.wrapper}>
             <View style={styles.header}>
               <Text style={styles.titleText}>Edit Profile</Text>
-              <TouchableHighlight style={styles.button}
-                    underlayColor='#99d9f4'
-                    onPress={this._logoutHandler}>
-                <Text style={styles.buttonText}>Logout</Text>
-              </TouchableHighlight>
             </View>
-            <Image 
-            style={styles.card_photo}
-            source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-            />
             <TextInput
                 autoFocus={true}
                 style={styles.textInput}
@@ -233,33 +224,28 @@ var styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     padding: 10,
-    backgroundColor: '#ffffff',
-    borderColor: '#1abc9c',
+    backgroundColor: 'rgba(61,125,168,0.3)',
+    borderColor: '#1B374A',
     borderWidth: 1,
     borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: 24,
-    color: '#1abc9c',
+    fontSize: 18,
+    color: '#ffffff',
     alignSelf: 'center'
-  },
-  card_photo: {
-    width: 200,
-    height: 200,
-    alignSelf: 'center',    
   },
   container: {
     flex: 1,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
   },
   containerBox: {
     flex: 1,
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -267,11 +253,11 @@ var styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     justifyContent: 'flex-end'
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -282,7 +268,7 @@ var styles = StyleSheet.create({
   },
   spacer:{
     paddingTop: 250,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   textInput: {
     height: 36,
@@ -291,9 +277,8 @@ var styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 1,
     borderColor: '#d6d7da',
-    borderRadius: 8,
-    backgroundColor: '#d6d7da',
-    color: '#1abc9c'
+    backgroundColor: '#ffffff',
+    color: '#404040'
   },
   titleText: {
     padding: 24,
