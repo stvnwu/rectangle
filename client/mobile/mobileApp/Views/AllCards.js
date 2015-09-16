@@ -82,6 +82,8 @@ class AllCards extends Component{
         dataSource: this.state.dataSource.cloneWithRows(this.state.cards),
         loaded: true
       });
+      AsyncStorage.setItem('cards', JSON.stringify(cardsObj))
+        .then(()=> console.log('Cards stored'))
     })
     .catch((err) => {
       console.log(new Error(err));
