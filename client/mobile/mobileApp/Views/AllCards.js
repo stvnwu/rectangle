@@ -183,7 +183,6 @@ class AllCards extends Component{
 
 var styles = StyleSheet.create({
     'IPHONE 6+': {
-      marginTop: -6,
       height: 44,
       width: 414,
     },
@@ -192,18 +191,17 @@ var styles = StyleSheet.create({
       width: 375,
     },
     'IPHONE 5':{
-      marginTop: 13,
       height: 44,
       width: 320,
     },
     'IPHONE 4':{
-      marginTop: 22.9,
       height: 44,
       width: 320,
     },
 
   searchContainer:{
-    flex:1,
+
+    backgroundColor:'rgba(239,239,237)' 
 
   },
   posIn: {
@@ -224,8 +222,8 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
-    marginTop: -50,
-    marginBottom: 65,
+    // marginTop: -50,
+    marginBottom: 15,
     marginLeft: 15,
     marginRight: 15,
   },
