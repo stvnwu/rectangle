@@ -10,6 +10,8 @@ var Connections = require('../database/connections/connections.js');
 var Promise = require("bluebird");
 /**
  * @method: createConnection creates a connection between user and a business card
+ * @param {object}: "req" request object passed to the server
+ * @param {object} res response object returned to the client
  */
 var connectionRoutes = {
   createConnection: function (req, res) {
@@ -90,6 +92,8 @@ var connectionRoutes = {
   },
   /**
    * @method: deleteConnection deletes a connection between user and a business card
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   deleteConnection: function (req, res) {
     var p = new Promise(function (resolve, reject) {
@@ -143,6 +147,8 @@ var connectionRoutes = {
   },
   /**
    * @method:  getConnections retrieves all connections for a given user
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   getConnections: function (req, res) {
     console.log(177);
@@ -165,6 +171,8 @@ var connectionRoutes = {
   },
   /**
    * @method:  getLocations retrieves all locations where a connection is created
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   getLocations: function (req, res) {
     //find the userID 

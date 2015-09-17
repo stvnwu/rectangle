@@ -10,6 +10,8 @@ var Promise = require("bluebird");
 var outputQR = {
   /**
    * @method: send generates QR code as svg image based on user card email
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   send: function (req, res) {
     //assigns card email from the request or url string

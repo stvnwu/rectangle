@@ -11,6 +11,8 @@ var Promise = require("bluebird");
 var cardRoutes = {
   /**
    * @method: createCard creates a new business card and saves cardinfo to database
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   createCard: function (req, res) {
     return new Promise(function (resolve, reject) {
@@ -78,6 +80,8 @@ var cardRoutes = {
   },
   /**
    *@method: getCard retrieves card information for a specific card
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   getCard: function (req, res) {
     //query cards table to check if a card exists

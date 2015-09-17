@@ -9,8 +9,8 @@ var Promise = require("bluebird");
 var userRoutes = {
   /**
    * @method to sign the user in, comparing hashed passwords
-   * @param {req} HTTP request object
-   * @param {res} HTTP response object
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   signin: function (req, res) {
     console.log(15, req.body);
@@ -76,8 +76,8 @@ var userRoutes = {
   },
   /**
    * @method to sign the user up and hash the password
-   * @param {req} HTTP request object
-   * @param {res} HTTP response object
+   * @param {object}: "req" request object passed to the server
+   * @param {object} res response object returned to the client
    */
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
