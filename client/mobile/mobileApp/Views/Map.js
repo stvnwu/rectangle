@@ -51,9 +51,9 @@ class MapViewExample extends Component{
    * returns nothing
   */
   componentDidMount() {
-    this._getCardInfo.bind(this)();
-    this._getConnections.bind(this)();
-    this._getAnnotations.bind(this)();
+    this._getCardInfo();
+    this._getConnections();
+    this._getAnnotations();
   }
   /**
    * @method to get the card information from AsyncStorage
@@ -83,7 +83,7 @@ class MapViewExample extends Component{
       this.setState({
         connections: JSON.parse(response._bodyText).message
       });
-      this._getAnnotations.bind(this)();
+      this._getAnnotations();
     })
     .done();
   }
