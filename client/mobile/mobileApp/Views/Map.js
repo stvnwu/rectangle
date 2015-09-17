@@ -1,17 +1,15 @@
 'use strict';
 
 var React = require('react-native');
+var Device = require('react-native-device');
 
 var {
-  AppRegistry,
   AsyncStorage,
   Component,
   MapView,
   ScrollView,
-  StatusBarIOS,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } = React;
 
@@ -26,6 +24,7 @@ var obj = {
    },
   body: null
 };
+
 
 class MapViewExample extends Component{
   /**
@@ -110,7 +109,7 @@ class MapViewExample extends Component{
         'annotations': annotations
       });
       console.log('The pins have been retrieved', 'Map.js', 98);
-      this.refs.mapRef.forceUpdate();
+      // this.refs.mapRef.forceUpdate();
     }
   }
   /**
@@ -145,14 +144,21 @@ class MapViewExample extends Component{
         </ScrollView>
       );
     } else {
-      return (
-        <ScrollView style={styles.wrapper}>
-          <Text>
-            LOADING TEXTS
-          </Text>
-        </ScrollView>
-      )
+      return this._renderLoading();
     }
+  }
+  /**
+   * @method _renderLoading to render a loading page
+   * before we have the pins and want to load the map
+  */
+  _renderLoading() {
+    return (
+      <ScrollView style={styles.wrapper}>
+        <Text style={styles.loading}>
+          Loading the map...
+        </Text>
+      </ScrollView>
+    )
   }
 };
 
@@ -164,11 +170,18 @@ var styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#777777',
   },
+  loading: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2.5,
+    paddingTop: 2.5,
+    marginTop: 250,
+    alignSelf: 'center',
+    fontSize: 30,
+    fontWeight:'600',
+  },
   map: {
-    height: 450,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    height: Device.height,
   },
   row: {
     flexDirection: 'row',
@@ -178,17 +191,9 @@ var styles = StyleSheet.create({
     flex: 1,
     height: 60,
   },
-  textInput: {
-    width: 150,
-    height: 20,
-    borderWidth: 0.5,
-    borderColor: '#aaaaaa',
-    fontSize: 13,
-    padding: 4,
-  },
   wrapper: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 });
 
