@@ -152,9 +152,7 @@ var MapRegionInput = React.createClass({
 
 var MapViewExample = React.createClass({
 
-  getInitialState() {
-    this._getCardInfo();
-    this._getConnections();
+  getInitialState: function() {
     return {
       mapRegion: null,
       mapRegionInput: null,
@@ -166,16 +164,20 @@ var MapViewExample = React.createClass({
   },
 
   componentDidMount: function() {
-    // this._getAnnotations();
+    this._getCardInfo.bind(this)();
+    this._getConnections.bind(this)();
+    this._getAnnotations.bind(this)();
   },
 
   _getCardInfo: function() {
     AsyncStorage.getItem('cards')
-    .then(function(cards) {
+    .then((cards) => {
       this.setState({
         cards: JSON.parse(cards)
       });
-    });
+      console.log('this is the state in Map.js,  line 178', this.state);
+    })
+    .done();
   },
 
   _getConnections: function() {
@@ -189,13 +191,78 @@ var MapViewExample = React.createClass({
     })
     .then((response) => {
       this.setState({
-        connections: JSON.parse(response._bodyText)
+        connections: JSON.parse(response._bodyText).message
       });
-      console.log('this is the state, Map.js, line 194', this.state);
+      console.log('this is the state, Map.js, line 196', this.state);
+      this._getAnnotations.bind(this)();
+    })
+    .done();
+  },
+
+  _getAnnotations: function(region) {
+    if (this.state.cards && this.state.connections) {
+      var annotations = [];
+      for (var i = 0; i < this.state.connections.length; i++) {
+        var currConnection = this.state.connections[i]
+        var name = this._getName(currConnection.card_id);
+        var anno = {
+          longitude: currConnection.longitude,
+          latitude: currConnection.latitude,
+          title: name
+        }
+        annotations.push(anno);
+        console.log('pushed another annotation!', annotations);
+      }
+      this.setState({
+        'annotations': annotations
+      });
+      console.log('this is the state, Map.js, line 218', this.state);
+    }
+  },
+    // }
+    // return [{
+    //   longitude: region.longitude+5,
+    //   latitude: region.latitude+5,
+    //   title: 'You Are Here',
+    // },{
+    //   longitude: -122.4082479999,
+    //   latitude: 37.78383,
+    //   title: 'You Are Here',
+    // }];
+
+  _getName: function(cardID) {
+    for (var i = 0; i < this.state.cards.length; i++) {
+      if (this.state.cards[i].id === cardID) {
+        return this.state.cards[i].firstName + ' ' + this.state.cards[i].lastName;
+      }
+    }
+  },
+
+  _onRegionChange: function(region) {
+    this.setState({
+      mapRegionInput: region,
     });
   },
 
-  render() {
+  _onRegionChangeComplete: function(region) {
+    if (this.state.isFirstLoad) {
+      this.setState({
+        mapRegionInput: region,
+        annotations: this._getAnnotations(region),
+        isFirstLoad: false,
+      });
+    }
+  },
+
+  _onRegionInputChanged: function(region) {
+    this.setState({
+      mapRegion: region,
+      mapRegionInput: region,
+      annotations: this._getAnnotations(region),
+    });
+  },
+
+  render: function() {
     var spacer=<View style={styles.spacer}/>;
     return (
       <ScrollView styles={styles.wrapper}>
@@ -205,7 +272,7 @@ var MapViewExample = React.createClass({
             onRegionChange={this._onRegionChange}
             onRegionChangeComplete={this._onRegionChangeComplete}
             region={this.state.mapRegion || undefined}
-            annotations={this.state.annotations || undefined}
+            annotations={this.state.annotations || this.state.annotations}
             showsUserLocation={true}
           />
           <MapRegionInput
@@ -216,74 +283,6 @@ var MapViewExample = React.createClass({
         {spacer}
       </ScrollView>
     );
-  },
-
-  _getAnnotations(region) {
-    return [{
-      longitude: region.longitude+5,
-      latitude: region.latitude+5,
-      title: 'You Are Here',
-    },{
-      longitude: -122.4082479999,
-      latitude: 37.78383,
-      title: 'You Are Here',
-    }];
-
-    // [{
-    //     "id": 2,
-    //     "createdWhere": null,
-    //     "longitude": "-11212.2312412342134213",
-    //     "latitude": "-11212.2312412342134213",
-    //     "QR": null,
-    //     "user_id": 2,
-    //     "card_id": 1,
-    //     "created_at": "2015-09-14T22:07:09.350Z",
-    //     "updated_at": "2015-09-14T22:07:09.350Z"
-    //   }, {
-    //     "id": 3,
-    //     "createdWhere": null,
-    //     "longitude": "-11212.2312412342134213",
-    //     "latitude": "-11212.2312412342134213",
-    //     "QR": null,
-    //     "user_id": 2,
-    //     "card_id": 2,
-    //     "created_at": "2015-09-14T23:12:35.345Z",
-    //     "updated_at": "2015-09-14T23:12:35.345Z"
-    //   }, {
-    //     "id": 4,
-    //     "createdWhere": null,
-    //     "longitude": "-56756456213",
-    //     "latitude": "-412342134213",
-    //     "QR": null,
-    //     "user_id": 2,
-    //     "card_id": 3,
-    //     "created_at": "2015-09-14T23:14:21.769Z",
-    //     "updated_at": "2015-09-14T23:14:21.769Z"
-    //   }]
-  },
-
-  _onRegionChange(region) {
-    this.setState({
-      mapRegionInput: region,
-    });
-  },
-
-  _onRegionChangeComplete(region) {
-    if (this.state.isFirstLoad) {
-      this.setState({
-        mapRegionInput: region,
-        annotations: this._getAnnotations(region),
-        isFirstLoad: false,
-      });
-    }
-  },
-
-  _onRegionInputChanged(region) {
-    this.setState({
-      mapRegion: region,
-      mapRegionInput: region,
-      annotations: this._getAnnotations(region),
-    });
   },
 
 });
