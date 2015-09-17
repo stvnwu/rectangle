@@ -1,7 +1,8 @@
 'use strict';
 
-var React = require('react-native');
+var Communications = require('react-native-communications');
 var Device = require('react-native-device');
+var React = require('react-native');
 
 var {
   AsyncStorage,
@@ -121,7 +122,7 @@ class MapViewExample extends Component{
       if (this.state.cards[i].id === cardID) {
         var currCard = this.state.cards[i];
         result.push(currCard.firstName + ' ' + currCard.lastName);
-        result.push(currCard.jobTitle + ' at ' + currCard.company);
+        result.push(currCard.phone);
       }
     }
     return result;
@@ -141,6 +142,7 @@ class MapViewExample extends Component{
               style={styles.map}
               annotations={this.state.annotations || undefined}
               showsUserLocation={true}
+              onAnnotationPress={(annotation) => Communications.phonecall(annotation.subtitle, true)}
             />
 
           </View>
