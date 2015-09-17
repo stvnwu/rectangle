@@ -24,6 +24,7 @@ pg.connect(host, function(err, client) {
     });
 });
 
+//require middleware where individual routing happens
 require('./config/middleware.js')(app, express);
 
 server.listen(port);

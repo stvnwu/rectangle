@@ -19,15 +19,19 @@ module.exports = function (app, express) {
     next();
   });
 
+//user routes 
   app.use('/users', userRouter);
   require('../users/userRoute.js')(userRouter);
 
+//card routes
   app.use('/cards', cardRouter);
   require('../cards/cardRoute.js')(cardRouter);
 
+//connection routes
   app.use('/connections', connectionRouter);
   require('../connections/connectionRoute.js')(connectionRouter);
 
+//QR routes
   app.use('/qr', qrRouter);
   require('../cards/qrRoute.js')(qrRouter);
 };
