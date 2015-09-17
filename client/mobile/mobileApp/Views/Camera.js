@@ -119,7 +119,8 @@ var styles = StyleSheet.create({
   containerView: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
   containerWrong: {
     justifyContent: 'center',
