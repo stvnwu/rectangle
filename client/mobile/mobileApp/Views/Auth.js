@@ -39,7 +39,7 @@ class Auth extends Component{
             </View>
             <View style={styles.footer}>
               <View style={styles.buttonRow}>
-                <View style={styles.buttonFiller}></View>
+                <View style={styles.buttonFiller}/>
                 <TouchableHighlight  
                   style={styles.button}
                   onPress={this._signUpHandler.bind(this)}
@@ -47,10 +47,10 @@ class Auth extends Component{
                   <Text 
                   style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
-                <View style={styles.buttonFiller}></View>
+                <View style={styles.buttonFiller}/>
               </View>
               <View style={styles.buttonRow}>
-                <View style={styles.buttonFiller}></View>
+                <View style={styles.buttonFiller}/>
                 <TouchableHighlight 
                   style={styles.button}
                   onPress={this._loginHandler.bind(this)}
@@ -58,7 +58,7 @@ class Auth extends Component{
                   <Text 
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
-                <View style={styles.buttonFiller}></View>
+                <View style={styles.buttonFiller}/>
               </View>
               {spacer}
             </View>
@@ -91,7 +91,7 @@ class Auth extends Component{
 
 var styles = StyleSheet.create({
   button: {
-    flex: 2,
+    flex: 3,
     margin: 10,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
@@ -128,13 +128,13 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
   },
   footer: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'column',
     justifyContent: 'flex-end'
   },
   header: {
     backgroundColor: '#1B374A',
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

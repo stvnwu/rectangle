@@ -144,6 +144,7 @@ class Login extends Component{
   */
   render(){
     var spacer = <View style={styles.spacer}/>;
+    var spacerHeader = <View style={styles.spacerHeader}/>;
     var spinner = this.state.isLoading ?
       ( <ActivityIndicatorIOS
           hidden='true'
@@ -153,6 +154,7 @@ class Login extends Component{
     return (
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
+          {spacerHeader}
           <View style={styles.header}>
             <Text style={styles.titleText}>r e c t a n g l e</Text>
           </View>
@@ -176,8 +178,6 @@ class Login extends Component{
                 this.updateProp(event.nativeEvent.text,'password')
               }/>
           <View style={styles.footer}>
-            <View style={styles.moveRight}>
-            </View>
             <TouchableHighlight 
               style={styles.button}
               underlayColor={'rgba(61,125,168,0.1)'}
@@ -185,6 +185,7 @@ class Login extends Component{
                 this._sendRequest()}>
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableHighlight>
+
           <TouchableHighlight
             style={styles.redirectButton}
             onPress={() => this._otherAuthHandler()}
@@ -207,8 +208,9 @@ class Login extends Component{
 
 var styles = StyleSheet.create({
   button: {
-    flex: 1,
+    flex: 3,
     margin: 15,
+    marginTop: 50,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
@@ -241,7 +243,7 @@ var styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#1B374A',
-    flex: 2,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -262,9 +264,11 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   spacer:{
+    flex: 7,
     paddingTop: 250,
     backgroundColor: '#1B374A'
   },
+
   textInput: {
     height: 36,
     paddingLeft: 10,
@@ -277,7 +281,8 @@ var styles = StyleSheet.create({
     color: '#404040'
   },
   titleText: {
-    padding: 24,
+    padding: 32,
+    margin: 24,
     color: 'white',
     fontSize: 32,
     fontWeight: '400'

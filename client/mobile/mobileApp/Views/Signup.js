@@ -200,6 +200,8 @@ class Signup extends Component{
   */
   render(){
     var spacer = <View style={styles.spacer}/>;
+    var spacerHeader = <View style={styles.spacerHeader}/>;
+    var spacerText = <View style={styles.spacerHeader}/>
     var spinner = this.state.isLoading ?
       ( <ActivityIndicatorIOS
           hidden='true'
@@ -210,7 +212,9 @@ class Signup extends Component{
       <View style={styles.container}>
         <ScrollView style={styles.wrapper}>
           <View style={styles.header}>
+
             <Text style={styles.titleText}>r e c t a n g l e</Text>
+
           </View>
           <TextInput
               style={this.state.firstNameInputStyle}
@@ -250,24 +254,22 @@ class Signup extends Component{
               }/>
           
           <View style={styles.footer}>
-            <View style={styles.moveRight}>
-            </View>
             <TouchableHighlight style={styles.button}
                  onPress={() => this._validations()}
                  underlayColor='rgba(61,125,168,0.1)'>
-               <Text style={styles.buttonText}>
+              <Text style={styles.buttonText}>
                   Sign Up
-               </Text>
-             </TouchableHighlight>
-             
-             <TouchableHighlight
-               style={styles.redirectButton}
-               onPress={() => this._otherAuthHandler()}
-               underlayColor='rgba(61,125,168,0.1)'>
-               <Text style = {styles.redirectButtonText}>
-                 Already have an account?
-               </Text>
-             </TouchableHighlight>
+              </Text>
+            </TouchableHighlight>
+        
+            <TouchableHighlight
+              style={styles.redirectButton}
+              onPress={() => this._otherAuthHandler()}
+              underlayColor='rgba(61,125,168,0.1)'>
+              <Text style = {styles.redirectButtonText}>
+                Already have an account?
+              </Text>
+            </TouchableHighlight>
           </View>
           <View style={styles.errContainer}>
             <Text style={styles.errorText}>{this.state.errorText}</Text>
@@ -286,8 +288,9 @@ class Signup extends Component{
 */
 var styles = StyleSheet.create({
   button: {
-    flex: 1,
+    flex: 3,
     margin: 15,
+    marginTop: 50,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
@@ -295,6 +298,13 @@ var styles = StyleSheet.create({
     borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  buttonFiller: {
+    flex: 1,
   },
   buttonText: {
     fontSize: 18,
@@ -331,13 +341,11 @@ var styles = StyleSheet.create({
   header: {
     backgroundColor: '#1B374A',
     flex: 2,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   moveRight: {
     flex: 2,
-
   },
   redirectButton: {
     flex: 1,
@@ -368,7 +376,8 @@ var styles = StyleSheet.create({
     color: '#404040'
   },
   titleText: {
-    padding: 24,
+    padding: 32,
+    margin: 24,
     color: 'white',
     fontSize: 32,
     fontWeight: '400'
@@ -377,7 +386,7 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
-   wrongInput:{
+  wrongInput:{
     height: 36,
     paddingLeft: 10,
     marginRight: 15,
