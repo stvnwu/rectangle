@@ -12,16 +12,24 @@ var {
   View,
 } = React;
 
-var QR = React.createClass({
-
-  getInitialState: function() {
+class QR extends Component {
+  /**
+   * @method to be run upon initialization
+   * initializes the state with url as an empty string
+   * and calls _getURL
+  */
+  constructor(props) {
+    super(props);
     this._getURL();
-    return {
+    this.state = {
       url: ''
-    };
-  },
-
-  _getURL: function(){
+    }
+  }
+  /**
+   * @method that retrieves the URL from AsyncStorage
+   * and stores it in the class's state
+  */
+  _getURL(){
     AsyncStorage.getItem('cardEmail')
     .then((email) => {
       this.setState((state) => {
@@ -32,9 +40,12 @@ var QR = React.createClass({
       console.log('successfully got card email:', this.state.url, 'QR.js', 45);
       return this.state.url;
     });
-  },
-
-  render: function() {
+  }
+  /**
+   * @method that creates the WebView (QR code)
+   * with the state's URL
+  */
+  render() {
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.wrapper}>
@@ -48,8 +59,7 @@ var QR = React.createClass({
       </View>
     );
   }
-
-});
+};
 
 var styles = StyleSheet.create({
   container: {
