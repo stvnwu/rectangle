@@ -4,39 +4,44 @@ var Users = require('../database/users/users.js');
 var Promise = require("bluebird");
 
 /** 
- * userRoutes is an object that contains the routes for '/users' in our API
+ * userRoutes is an object that contains the routes for signin and signup
  */
 var userRoutes = {
   /**
-   * @function to sign the user in, comparing hashed passwords
-   * @param {object} HTTP request object
-   * @param {object} HTTP response object
+   * @method to sign the user in, comparing hashed passwords
+   * @param {req} HTTP request object
+   * @param {res} HTTP response object
    */
   signin: function (req, res) {
     console.log(15, req.body);
     return new Promise(function (resolve, reject) {
+      //check if the user exists
       return new User({
           email: req.body.email
         })
         .fetch()
         .then(function (user) {
           var userID = user.get("id");
+          //if user is not found in database
           if (!user) {
-            //Sending a 400 response code for wrong email/password requests
-            // HERE we would redirect to signup
-            // confer with front end
+            //Sending a 400 response code for wrong user email 
+            // Here we would redirect to signup
             console.log(25, user);
             res.status(400).send({
               error: "email does not match"
             });
           } else {
+            //if user is found in database check if the password matches by comparing
+            //with the hashed password saved in database
             user.comparePassword(req.body.password)
               .then(function (isMatch) {
+                //if password does not match send a 400 bad request error
                 if (!isMatch) {
                   res.status(400).send({
                     error: "password does not match"
                   });
                 } else {
+                  //if password matches end response with user info
                   console.log(39, userID);
                   return Card.query({
                     where: {
@@ -56,6 +61,7 @@ var userRoutes = {
                 }
               }).catch(function (err) {
                 console.log(err);
+                //if password or email does not match end response with 400
                 res.status(400).send({
                   error: "password/email does not match"
                 });
@@ -69,9 +75,9 @@ var userRoutes = {
     });
   },
   /**
-   * @function to sign the user up and hash the password
-   * @param {object} HTTP request object
-   * @param {object} HTTP response object
+   * @method to sign the user up and hash the password
+   * @param {req} HTTP request object
+   * @param {res} HTTP response object
    */
   signup: function (req, res) {
     return new Promise(function (resolve, reject) {
@@ -86,6 +92,7 @@ var userRoutes = {
             error: "email already exists"
           });
         } else if (req.body.email && req.body.email !== "" && req.body.email.indexOf("@") !== -1 && req.body.email !== undefined) {
+          //if valid email is provided create a new user
           console.log(62, req.body.email);
           console.log(37, "email provided");
           return new User({
@@ -95,9 +102,7 @@ var userRoutes = {
             lastName: req.body.lastName
           }).save().then(function (newUser) {
             console.log(20, newUser);
-            // res.end(newUser.get({
-            //   email: "email"
-            // }));
+            //end response with new user info
             res.status(200).send({
               message: newUser.get("email")
             });
