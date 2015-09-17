@@ -95,12 +95,13 @@ class MapViewExample extends Component{
       var annotations = [];
       for (var i = 0; i < this.state.connections.length; i++) {
         var currConnection = this.state.connections[i]        
-        var name = this._getName(currConnection.card_id);
+        var cardInfo = this._getInfo(currConnection.card_id);
 
         var annotation = {
           longitude: parseFloat(currConnection.longitude),
           latitude: parseFloat(currConnection.latitude),
-          title: name
+          title: cardInfo[0],
+          subtitle: cardInfo[1]
         }
 
         annotations.push(annotation);
@@ -115,12 +116,16 @@ class MapViewExample extends Component{
   /**
    * @method (helper) to get the name from the card info
   */
-  _getName(cardID) {
+  _getInfo(cardID) {
+    var result = [];
     for (var i = 0; i < this.state.cards.length; i++) {
       if (this.state.cards[i].id === cardID) {
-        return this.state.cards[i].firstName + ' ' + this.state.cards[i].lastName;
+        var currCard = this.state.cards[i];
+        result.push(currCard.firstName + ' ' + currCard.lastName);
+        result.push(currCard.jobTitle + ' at ' + currCard.company);
       }
     }
+    return result;
   }
   /**
    * @method render the map
