@@ -52,7 +52,7 @@ class Default extends Component{
       <View style={styles.container}>
         <TabBarIOS
           
-          tintColor={'#008888'}
+          tintColor={'#1B374A'}
           barTintColor={'#d6d7da'}
           translucent={true}>
 
