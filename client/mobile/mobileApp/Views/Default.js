@@ -10,6 +10,7 @@ var Profile = require('./Profile');
 var {
   Component,
   NavigatorIOS,
+  Navigator,
   StyleSheet,
   Text,
   View,
@@ -182,16 +183,11 @@ class Default extends Component{
   }
   renderAllCards(){
     return (
-      <NavigatorIOS
-      navigationBarHidden={false}
+      <Navigator
+        navigationBarHidden={false}
         renderScene={this.renderScene}
         ref='AllCardsRef'
-        style={styles.container}
-        tintColor='#1B374A'
-        barTintColor='#FFFFFD'
-        titleTextColor='#1B374A'
         initialRoute={{
-          title: 'rectangle',
           component: AllCards
         }}/>
         )
