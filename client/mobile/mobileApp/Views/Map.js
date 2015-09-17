@@ -110,7 +110,6 @@ class MapViewExample extends Component{
         'annotations': annotations
       });
       console.log('The pins have been retrieved', 'Map.js', 98);
-      // this.refs.mapRef.forceUpdate();
     }
   }
   /**
