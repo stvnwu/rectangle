@@ -1,111 +1,195 @@
 'use strict';
 
 var React = require('react-native');
-var MapboxGLMap = require('react-native-mapbox-gl');
-var mapRef = require('../config').map;
 
 var {
   AppRegistry,
+  AsyncStorage,
+  Component,
+  MapView,
+  ScrollView,
+  StatusBarIOS,
   StyleSheet,
   Text,
-  StatusBarIOS,
+  TextInput,
   View,
 } = React;
 
-var Example = React.createClass({
-  mixins: [MapboxGLMap.Mixin],
-  getInitialState() {
-    return {
-       center: {
-         latitude: 40.72052634,
-         longitude: -73.97686958312988
-       },
-       zoom: 11,
-       // annotations: [{
-       //   latitude: 40.72052634,
-       //   longitude:  -73.97686958312988,
-       //   title: 'This is marker 1',
-       //   subtitle: 'It has a rightCalloutAccessory too',
-       //   rightCalloutAccessory: {
-       //       url: 'https://cldup.com/9Lp0EaBw5s.png',
-       //       height: 25,
-       //       width: 25
-       //   },
-       //   annotationImage: {
-       //     url: 'https://cldup.com/CnRLZem9k9.png',
-       //     height: 25,
-       //     width: 25
-       //   },
-       //   id: 'marker1'
-       // },{
-       //   latitude: 40.714541341726175,
-       //   longitude:  -74.00579452514648,
-       //   title: 'Important!',
-       //   subtitle: 'Neat, this is a custom annotation image',
-       //   annotationImage: {
-       //     url: 'https://cldup.com/7NLZklp8zS.png',
-       //     height: 25,
-       //     width: 25
-       //   },
-       //   id: 'marker2'
-       // }]
-     };
-  },
-  onRegionChange(location) {
-    this.setState({ currentZoom: location.zoom });
-  },
-  onRegionWillChange(location) {
-    console.log(location);
-  },
-  onUpdateUserLocation(location) {
-    console.log(location);
-  },
-  onOpenAnnotation(annotation) {
-    console.log(annotation);
-  },
-  onRightAnnotationTapped(e) {
-    console.log(e);
-  },
-  render: function() {
-    StatusBarIOS.setHidden(true);
-    return (
-      <View style={styles.container}>
-        <MapboxGLMap
-          style={styles.map}
-          direction={0}
-          rotateEnabled={true}
-          scrollEnabled={true}
-          zoomEnabled={true}
-          showsUserLocation={true}
-          ref={mapRef}
-          accessToken={mapRef}
-          styleURL={'asset://styles/satellite-v7.json'}
-          centerCoordinate={this.state.center}
-          userLocationVisible={true}
-          zoomLevel={this.state.zoom}
-          onRegionChange={this.onRegionChange}
-          onRegionWillChange={this.onRegionWillChange}
-          annotations={this.state.annotations}
-          onOpenAnnotation={this.onOpenAnnotation}
-          onRightAnnotationTapped={this.onRightAnnotationTapped}
-          onUpdateUserLocation={this.onUpdateUserLocation} />
-      </View>
-    );
+
+/**
+ * closure scope variables
+*/
+var obj = {  
+  method: 'POST',
+  headers: {
+     'Content-Type': 'application/json',
+   },
+  body: null
+};
+
+class MapViewExample extends Component{
+  /**
+   * @method to be run upon initialization
+   * creates a state object with:
+   * mapRegion, mapRegionInput, annotations,
+   * isFirstLoad, cards, and connections
+  */
+  constructor(props) {
+    super(props);
+    this.state = {
+      mapRegion: null,
+      mapRegionInput: null,
+      annotations: null,
+      isFirstLoad: true,
+      cards: null,
+      connections: null
+    }
   }
-});
+  /**
+   * @method to be run when the compontent mounts
+   * calls _getCardInfo, _getConnections, and _getAnnotations
+   * returns nothing
+  */
+  componentDidMount() {
+    this._getCardInfo();
+    this._getConnections();
+    this._getAnnotations();
+  }
+  /**
+   * @method to get the card information from AsyncStorage
+  */
+  _getCardInfo() {
+    AsyncStorage.getItem('cards')
+    .then((cards) => {
+      this.setState({
+        cards: JSON.parse(cards)
+      });
+    })
+    .done();
+  }
+  /**
+   * @method to get the connection info from the API
+  */
+  _getConnections() {
+    AsyncStorage.getItem('userEmail')
+    .then((userEmail) => {
+      obj.body = JSON.stringify({'email': userEmail});
+      return obj;
+    })
+    .then((reqObj) => {
+      return fetch('https://tranquil-earth-7083.herokuapp.com/connections/getlocations', reqObj)
+    })
+    .then((response) => {
+      this.setState({
+        connections: JSON.parse(response._bodyText).message
+      });
+      this._getAnnotations();
+    })
+    .done();
+  }
+  /**
+   * @method to create annotations from the card and
+   * connection information combined
+  */
+  _getAnnotations() {
+    if (this.state.cards && this.state.connections) {
+      var annotations = [];
+      for (var i = 0; i < this.state.connections.length; i++) {
+        var currConnection = this.state.connections[i]        
+        var name = this._getName(currConnection.card_id);
+
+        var annotation = {
+          longitude: parseFloat(currConnection.longitude),
+          latitude: parseFloat(currConnection.latitude),
+          title: name
+        }
+
+        annotations.push(annotation);
+      }
+      this.setState({
+        'annotations': annotations
+      });
+      console.log('The pins have been retrieved', 'Map.js', 98);
+      this.refs.mapRef.forceUpdate();
+    }
+  }
+  /**
+   * @method (helper) to get the name from the card info
+  */
+  _getName(cardID) {
+    for (var i = 0; i < this.state.cards.length; i++) {
+      if (this.state.cards[i].id === cardID) {
+        return this.state.cards[i].firstName + ' ' + this.state.cards[i].lastName;
+      }
+    }
+  }
+  /**
+   * @method render the map
+  */
+  render() {
+    var spacer = <View style={styles.spacer}/>;
+    
+    if (this.state.annotations) {
+      return (
+        <ScrollView style={styles.wrapper}>
+          <View>
+            <MapView
+              ref={'mapRef'}
+              style={styles.map}
+              annotations={this.state.annotations || undefined}
+              showsUserLocation={true}
+            />
+
+          </View>
+          {spacer}
+        </ScrollView>
+      );
+    } else {
+      return (
+        <ScrollView style={styles.wrapper}>
+          <Text>
+            LOADING TEXTS
+          </Text>
+        </ScrollView>
+      )
+    }
+  }
+};
 
 var styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 1,
-    paddingTop: 64,
+  changeButton: {
+    alignSelf: 'center',
+    marginTop: 5,
+    padding: 3,
+    borderWidth: 0.5,
+    borderColor: '#777777',
   },
   map: {
-    flex: 5
+    height: 450,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
-  text: {
-    padding: 2
-  }
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  spacer: {
+    flex: 1,
+    height: 60,
+  },
+  textInput: {
+    width: 150,
+    height: 20,
+    borderWidth: 0.5,
+    borderColor: '#aaaaaa',
+    fontSize: 13,
+    padding: 4,
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: 'column'
+  },
 });
 
-module.exports = Example;
+module.exports = MapViewExample;
