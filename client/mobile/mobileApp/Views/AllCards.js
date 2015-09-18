@@ -211,14 +211,12 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#1B374A',
   },
   containerCard: {
-
     flex: 1,
     backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
@@ -226,6 +224,14 @@ var styles = StyleSheet.create({
     marginBottom: 15,
     marginLeft: 15,
     marginRight: 15,
+    borderRadius: 2,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   containerName: {
     flex: 2,
