@@ -50,7 +50,7 @@ var styles = StyleSheet.create({
     margin: 10,
     padding: 20,
     backgroundColor: '#ffffff',
-    borderColor: '#1abc9c',
+    borderColor: '#1B374A',
     borderWidth: 1,
     borderRadius: 8,
     alignSelf: 'stretch',
@@ -58,7 +58,7 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#1abc9c',
+    color: '#1B374A',
     alignSelf: 'center'
   },
   container: {
@@ -70,7 +70,7 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     margin: 0,
     marginVertical: 0,
     overflow: 'hidden',
@@ -82,7 +82,7 @@ var styles = StyleSheet.create({
     paddingBottom: 64,
   },
   header: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
     flex: 4,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -98,7 +98,7 @@ var styles = StyleSheet.create({
   },
   spacer: {
     flex: 4,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   }
 });
 

@@ -7,6 +7,7 @@ var Login = require('./Login');
 var {
   AppRegistry,
   Component,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -33,10 +34,14 @@ class Auth extends Component{
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <View style={styles.containerBox}>
-            {spacer}
             <View style={styles.header}>
               <Text style={styles.titleText}>r e c t a n g l e</Text>
             </View>
+            <Image
+              style={styles.image}
+              source={require('image!cards')}
+            />
+            {spacer}
             <View style={styles.footer}>
               <View style={styles.buttonRow}>
                 <View style={styles.buttonFiller}/>
@@ -91,7 +96,7 @@ class Auth extends Component{
 
 var styles = StyleSheet.create({
   button: {
-    flex: 3,
+    flex: 2,
     margin: 10,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
@@ -138,6 +143,13 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  image: {
+    alignSelf: 'center',
+    padding: 20,
+    marginBottom: 20,
+    flex: 2,
+    width: 275,
   },
   spacer:{
     flex: 1,
