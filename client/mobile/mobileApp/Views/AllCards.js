@@ -128,11 +128,13 @@ class AllCards extends Component{
     console.log(deviceModel(),"<======Model")
     var loader = !this.state.loaded ?
       (  <ScrollView style={styles.wrapper}>
-        <ActivityIndicatorIOS
-          hidden='true'
-          size='large'
-          color='#ffffff'/> 
-          </ScrollView>) :
+          <View style={styles.spinner}>
+            <ActivityIndicatorIOS
+              hidden='true'
+              size='large'
+              color='#ffffff'/> 
+          </View>
+        </ScrollView>) :
       (<ListView 
           dataSource={this.state.dataSource}
           renderRow={this._renderCard}
@@ -244,6 +246,10 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
+  },
+  spinner: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   textName: {
     paddingLeft: 10,
