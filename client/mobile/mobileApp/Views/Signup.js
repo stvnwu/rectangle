@@ -216,6 +216,10 @@ class Signup extends Component{
             <Text style={styles.titleText}>r e c t a n g l e</Text>
 
           </View>
+          <View style={styles.errContainer}>
+            <Text style={styles.errorText}>{this.state.errorText}</Text>
+              {spinner}
+          </View>
           <TextInput
               style={this.state.firstNameInputStyle}
               placeholder='Name'
@@ -271,10 +275,6 @@ class Signup extends Component{
               </Text>
             </TouchableHighlight>
           </View>
-          <View style={styles.errContainer}>
-            <Text style={styles.errorText}>{this.state.errorText}</Text>
-              {spinner}
-          </View>
           {spacer}
           
         </ScrollView>
@@ -329,8 +329,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   errorText: {
-    paddingBottom:20,
-    color:'#d5d5d5',
+    paddingBottom: 20,
+    color:'#e67e22',
   },
   footer: {
     flex: 1,
@@ -366,6 +366,7 @@ var styles = StyleSheet.create({
   textInput: {
     height: 36,
     paddingLeft: 10,
+    margin: 2,
     marginRight: 15,
     marginLeft: 15,
     fontSize: 18,
@@ -389,12 +390,13 @@ var styles = StyleSheet.create({
   wrongInput:{
     height: 36,
     paddingLeft: 10,
+    margin: 2,
     marginRight: 15,
     marginLeft: 15,
     fontSize: 18,
-    borderWidth: 0.6,
-    borderColor: 'red',
-    // borderRadius: 2,
+    borderWidth: 6,
+    borderColor: '#e67e22',
+    borderRadius: 2,
     backgroundColor: '#ffffff',
     color: '#404040'
   },
