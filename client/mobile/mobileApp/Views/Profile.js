@@ -69,12 +69,13 @@ class Profile extends Component{
    * Method that routes to user log out
   */
   _logoutHandler(){
+    console.log("thisis--->",this.props.route)
     AsyncStorage.multiRemove(['userEmail', 'firstName', 'lastName', 'cardEmail'])
     .then(() => {
-      var Auth = require('./Auth')
+      var Loading = require('./Loading')
       this.props.route.parentNav.replace({
         title: '',
-        component: Auth
+        component: Loading
       });
     })
     .catch((err) => {
@@ -187,8 +188,6 @@ class Profile extends Component{
                   this.onSend()
                 }
                 underlayColor={'#99d9f4'}>
-                onPress={(event) => this.onSend()}
-                underlayColor={'orange'}>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
             </View>

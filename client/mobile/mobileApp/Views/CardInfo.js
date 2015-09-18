@@ -101,7 +101,8 @@ class CardInfo extends Component{
   _defaultHandler(){
     this.props.navigator.push({
       title: '',
-      component: Default
+      component: Default,
+      parentNav: this.props.route.parentNav
     })
   };
   /**
