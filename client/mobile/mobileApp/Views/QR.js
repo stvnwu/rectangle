@@ -8,6 +8,7 @@ var {
   Component,
   ScrollView,
   StyleSheet,
+  Text,
   WebView,
   View,
 } = React;
@@ -48,12 +49,15 @@ class QR extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.wrapper}>
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.headerC}>
+            <Text style={styles.header}>Scan to Connect</Text>
+          </View>
           <WebView
-            automaticallyAdjustContentInsets={false}
-            style={styles.webView}
-            url={this.state.url}
-            startInLoadingState={true}
+          automaticallyAdjustContentInsets={false}
+          style={styles.webView}
+          url={this.state.url}
+          startInLoadingState={true}
           />
       </ScrollView>
       </View>
@@ -66,16 +70,25 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1B374A',
   },
-  webView: {
-    backgroundColor: 'black',
-    height: Device.height/2,
-    flex: 4,
-    marginTop: -100,
+  header: {
+    color: 'white',
+    fontSize: 22,
+    margin: 18,
+    fontWeight: '400',
+  },
+  headerC: {
+    backgroundColor: '#1B374A',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   wrapper: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center'
+  },
+  webView: {
+    backgroundColor: 'black',
+    height: Device.height/2,
+    flex: 4,
   },
 });
 
