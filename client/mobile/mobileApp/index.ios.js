@@ -36,7 +36,7 @@ var mobileApp = React.createClass({
         }}
         itemWrapperStyle={styles.itemWrapper}
         barTintColor='#d6d7da'
-        tintColor="#008888"
+        tintColor="#1B374A"
 
       />
     );

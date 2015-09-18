@@ -187,14 +187,12 @@ class Profile extends Component{
                   this.updateProp(event.nativeEvent.text,'jobTitle')
               }/>
             <View style={styles.footer}>
-              <View style={styles.moveRight}>
-              </View>
               <TouchableHighlight 
                 style={styles.button}
                 onPress={(event) =>
                   this.onSend()
                 }
-                underlayColor={'orange'}>
+                underlayColor={'#99d9f4'}>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
             </View>
@@ -229,7 +227,14 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   buttonText: {
     fontSize: 18,

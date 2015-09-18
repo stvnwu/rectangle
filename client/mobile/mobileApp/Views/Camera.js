@@ -132,17 +132,11 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'green',
   },
-
-
   welcome: {
-    color: '#333333',
+    color: '#1B374A',
     fontSize: 20,
     margin: 10,
     textAlign: 'center',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
   },
 });
 
