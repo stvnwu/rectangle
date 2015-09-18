@@ -2,8 +2,6 @@
 
 var React = require('react-native');
 
-var Logout = require('./Logout');
-
 var {
   AsyncStorage,
   Component,
@@ -34,7 +32,6 @@ class Profile extends Component{
   */
   constructor(props) {
     super(props);
-    this._logoutHandler = this._logoutHandler.bind(this);
     this.state = {
       card: null
     };
@@ -72,13 +69,10 @@ class Profile extends Component{
    * Method that routes to user log out
   */
   _logoutHandler(){
-    AsyncStorage.removeItem('userEmail')
-    .then((userEmail) => {
-      return AsyncStorage.removeItem('cardEmail');
-    })
-    .then((cardEmail) => {
+    AsyncStorage.multiRemove(['userEmail', 'firstName', 'lastName', 'cardEmail'])
+    .then(() => {
       var Auth = require('./Auth')
-      this.props.navigator.push({
+      this.props.route.parentNav.replace({
         title: '',
         component: Auth
       });
@@ -193,9 +187,17 @@ class Profile extends Component{
                   this.onSend()
                 }
                 underlayColor={'#99d9f4'}>
+                onPress={(event) => this.onSend()}
+                underlayColor={'orange'}>
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
             </View>
+            <TouchableHighlight 
+             style={styles.button}
+             onPress={(event) => this._logoutHandler()}
+             underlayColor={'orange'}>
+             <Text style={styles.buttonText}>Logout</Text>
+           </TouchableHighlight>
           {spacer}
           </ScrollView>
         </View>
