@@ -39,14 +39,14 @@ var Search = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#1B374A',
   },
   header: {
     flex: 1,
   },
   spacer:{
     paddingTop: 43,
-    backgroundColor: '#1abc9c'
+    backgroundColor: '#1B374A'
   },
   wrapper: {
     flex: 1,
