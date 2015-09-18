@@ -53,8 +53,8 @@ class Default extends Component{
       <View style={styles.container}>
         <TabBarIOS
           
-          tintColor={'#008888'}
-          barTintColor={'#d6d7da'}
+          tintColor={'#1B374A'}
+          barTintColor={'white'}
           translucent={true}>
 
 
@@ -71,12 +71,12 @@ class Default extends Component{
                   selectedTab: 'home'
                 });
                 this.refs.AllCardsRef.replace({
-                  title: 'rectangle',
+                  title: 'Connections',
                   component: AllCards
                 });
               } else if (this.state.selectedTab === 'home') {
                 this.refs.AllCardsRef.replace({
-                  title: 'rectangle',
+                  title: 'Connections',
                   component: AllCards
                 });
               }
@@ -100,7 +100,7 @@ class Default extends Component{
 
               } else if (this.state.selectedTab === 'QR') {
                 this.refs.QRRef.replace({
-                  title: 'rectangle',
+                  title: 'QR',
                   component: QR
                 });
               }
@@ -123,7 +123,7 @@ class Default extends Component{
 
               if (this.refs.CameraRef){
                 this.refs.CameraRef.replace({
-                  title: 'rectangle',
+                  title: 'Camera',
                   component: Camera
                 });
               }
@@ -146,7 +146,7 @@ class Default extends Component{
                 });
               } else if (this.state.selectedTab === 'profile') {
                 this.refs.ProfileRef.replace({
-                  title: 'rectangle',
+                  title: 'Profile',
                   component: Profile
                 });
               }
@@ -169,7 +169,7 @@ class Default extends Component{
                 });
               } else if (this.state.selectedTab === 'Map') {
                 this.refs.MapRef.replace({
-                  title: 'rectangle',
+                  title: 'Map',
                   component: Map
                 });
               }
@@ -202,7 +202,7 @@ class Default extends Component{
         barTintColor='#FFFFFD'
         titleTextColor='#1B374A'
         initialRoute={{
-          title: 'rectangle',
+          title: 'QR',
           component: QR
         }}/>
         )
@@ -217,7 +217,7 @@ class Default extends Component{
           barTintColor='#FFFFFD'
           titleTextColor='#1B374A'
           initialRoute={{
-            title: 'rectangle',
+            title: 'Camera',
             component: Camera
           }}/>
 
@@ -233,7 +233,7 @@ class Default extends Component{
         barTintColor='#FFFFFD'
         titleTextColor='#1B374A'
         initialRoute={{
-          title: 'rectangle',
+          title: 'Map',
           component: Map
         }}/>
         )
@@ -248,7 +248,7 @@ class Default extends Component{
         barTintColor='#FFFFFD'
         titleTextColor='#1B374A'
         initialRoute={{
-          title: 'rectangle',
+          title: 'Profile',
           component: Profile
         }}/>
         )
