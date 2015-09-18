@@ -145,7 +145,7 @@ class Default extends Component{
                   selectedTab: 'profile'
                 });
               } else if (this.state.selectedTab === 'profile') {
-                this.refs.ProfileRef.replace({
+                this.refs.ProfileRef.push({
                   title: 'Profile',
                   component: Profile
                 });
@@ -249,7 +249,8 @@ class Default extends Component{
         titleTextColor='#1B374A'
         initialRoute={{
           title: 'Profile',
-          component: Profile
+          component: Profile,
+          parentNav: this.props.route.parentNav
         }}/>
         )
   }

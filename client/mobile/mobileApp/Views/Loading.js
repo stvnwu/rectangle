@@ -31,12 +31,14 @@ var Loading = React.createClass({
       if (email) {
         this.props.navigator.replace({
           title: '',
-          component: Default
+          component: Default,
+          parentNav:this.props.navigator
         }); 
       } else {
         this.props.navigator.replace({
           title: '',
-          component: Auth
+          component: Auth,
+          parentNav:this.props.navigator
         });
       }
     });

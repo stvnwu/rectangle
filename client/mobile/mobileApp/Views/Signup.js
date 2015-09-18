@@ -67,7 +67,8 @@ class Signup extends Component{
   _otherAuthHandler() {
     this.props.navigator.replace({
       title: '',
-      component: Login
+      component: Login,
+      parentNav: this.props.route.parentNav
     });
   }
   /**
@@ -191,7 +192,8 @@ class Signup extends Component{
   _cardInfoHandler(){
     this.props.navigator.push({
       title: '',
-      component: CardInfo
+      component: CardInfo,
+      parentNav: this.props.route.parentNav
     });
   }
   /**

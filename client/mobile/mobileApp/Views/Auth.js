@@ -79,7 +79,8 @@ class Auth extends Component{
   _signUpHandler(){
     this.props.navigator.push({
       title: '',
-      component: Signup
+      component: Signup,
+      parentNav: this.props.route.parentNav
     });
   }
 
@@ -89,7 +90,8 @@ class Auth extends Component{
   _loginHandler(){
     this.props.navigator.push({
       title: '',
-      component: Login
+      component: Login,
+      parentNav: this.props.route.parentNav
     });
   }
 };

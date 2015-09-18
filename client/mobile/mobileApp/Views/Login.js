@@ -65,7 +65,8 @@ class Login extends Component{
     var Signup = require('./Signup');
     this.props.navigator.replace({
       title: '',
-      component: Signup
+      component: Signup,
+      parentNav: this.props.route.parentNav
     });
   }
   /**
@@ -80,7 +81,8 @@ class Login extends Component{
       .then(() => {
         this.props.navigator.replace({
           title: '',
-          component: Default
+          component: Default,
+          parentNav: this.props.route.parentNav
         });
       });
     } else if (response.redirect) {
@@ -88,7 +90,8 @@ class Login extends Component{
       .then(() => {
         this.props.navigator.replace({
           title: '',
-          component: CardInfo
+          component: CardInfo,
+          parentNav: this.props.route.parentNav
         });
       });
     } else if (response.error === "password does not match") {
