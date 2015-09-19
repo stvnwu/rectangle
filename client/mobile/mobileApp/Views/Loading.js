@@ -58,7 +58,7 @@ var Loading = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: 'rgba(61,125,168,0.1)',
   },
   containerBox: {
     flex: 1,

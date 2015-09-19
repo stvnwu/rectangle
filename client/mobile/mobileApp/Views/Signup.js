@@ -262,7 +262,7 @@ class Signup extends Component{
           <View style={styles.footer}>
             <TouchableHighlight style={styles.button}
                  onPress={() => this._validations()}
-                 underlayColor='rgba(61,125,168,0.1)'>
+                 underlayColor={'#99d9f4'}>
               <Text style={styles.buttonText}>
                   Sign Up
               </Text>
@@ -271,7 +271,7 @@ class Signup extends Component{
             <TouchableHighlight
               style={styles.redirectButton}
               onPress={() => this._otherAuthHandler()}
-              underlayColor='rgba(61,125,168,0.1)'>
+              underlayColor={'#99d9f4'}>
               <Text style = {styles.redirectButtonText}>
                 Already have an account?
               </Text>

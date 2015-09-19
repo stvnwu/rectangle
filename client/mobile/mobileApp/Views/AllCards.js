@@ -222,7 +222,6 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(240,255,255)',
     justifyContent: 'center',
-    // marginTop: -50,
     marginBottom: 15,
     marginLeft: 15,
     marginRight: 15,

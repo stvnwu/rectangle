@@ -37,7 +37,7 @@ var Auth = React.createClass({
                 <TouchableHighlight 
                   style={styles.button}
                   onPress={()=>this._defaultHandler()}
-                  underlayColor={'rgba(61,125,168,0.1)'}>
+                  underlayColor={'#99d9f4'}>
                   <Text 
                   style={styles.buttonText}>Cancel</Text>
                 </TouchableHighlight>
@@ -77,7 +77,7 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: 'rgba(61,125,168,0.1)',
   },
   containerBox: {
     flex: 1,
