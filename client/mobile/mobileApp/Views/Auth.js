@@ -1,5 +1,6 @@
 'use strict';
 
+var Device = require('react-native-device');
 var React = require('react-native');
 var Signup = require('./Signup');
 var Login = require('./Login');
@@ -158,7 +159,7 @@ var styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     flex: 2,
-    width: 275,
+    width: Device.width * 0.73,
   },
   spacer:{
     flex: 1,
