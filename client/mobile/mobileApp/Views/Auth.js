@@ -39,7 +39,7 @@ class Auth extends Component{
             </View>
             <Image
               style={styles.image}
-              source={require('image!cards')}
+              source={require('image!cards')}Au
             />
             {spacer}
             <View style={styles.footer}>
