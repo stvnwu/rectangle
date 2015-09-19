@@ -194,7 +194,7 @@ class Profile extends Component{
             <TouchableHighlight 
              style={styles.button}
              onPress={(event) => this._logoutHandler()}
-             underlayColor={'orange'}>
+             underlayColor={'#99d9f4'}>
              <Text style={styles.buttonText}>Logout</Text>
            </TouchableHighlight>
           {spacer}

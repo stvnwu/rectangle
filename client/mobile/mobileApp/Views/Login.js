@@ -183,7 +183,7 @@ class Login extends Component{
           <View style={styles.footer}>
             <TouchableHighlight 
               style={styles.button}
-              underlayColor={'rgba(61,125,168,0.1)'}
+              underlayColor={'#99d9f4'}
               onPress={(event) => 
                 this._sendRequest()}>
               <Text style={styles.buttonText}>Log In</Text>
@@ -192,7 +192,7 @@ class Login extends Component{
           <TouchableHighlight
             style={styles.redirectButton}
             onPress={() => this._otherAuthHandler()}
-            underlayColor='rgba(61,125,168,0.1)'>
+            underlayColor={'#99d9f4'}>
             <Text style = {styles.redirectButtonText}>
               New user?
             </Text>

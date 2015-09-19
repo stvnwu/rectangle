@@ -39,7 +39,7 @@ class Auth extends Component{
             </View>
             <Image
               style={styles.image}
-              source={require('image!cards')}
+              source={require('image!cards')}Au
             />
             {spacer}
             <View style={styles.footer}>
@@ -48,7 +48,7 @@ class Auth extends Component{
                 <TouchableHighlight  
                   style={styles.button}
                   onPress={this._signUpHandler.bind(this)}
-                  underlayColor={'rgba(61,125,168,0.1)'}>
+                  underlayColor={'#99d9f4'}>
                   <Text 
                   style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
@@ -59,7 +59,7 @@ class Auth extends Component{
                 <TouchableHighlight 
                   style={styles.button}
                   onPress={this._loginHandler.bind(this)}
-                  underlayColor={'rgba(61,125,168,0.1)'}>
+                  underlayColor={'#99d9f4'}>
                   <Text 
                   style={styles.buttonText}>Log In</Text>
                 </TouchableHighlight>
@@ -129,7 +129,7 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: 'rgba(61,125,168,0.1)',
   },
   containerBox: {
     flex: 1,
