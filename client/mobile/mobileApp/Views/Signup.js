@@ -386,7 +386,8 @@ var styles = StyleSheet.create({
     color: '#404040'
   },
   titleText: {
-    padding: 32,
+    paddingTop: 32,
+    paddingBottom: 32,
     margin: 24,
     color: 'white',
     fontSize: 32,
