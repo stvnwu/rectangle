@@ -4,7 +4,7 @@
 
   - __Product Owner__: Steven Wu
   - __Scrum Master__: Kiri Strack-Grose
-  - __Development Team Members__: Surya Kotamraju, Andres Viesca
+  - __Development Team Members__: Suryatej Kotamraju, Andres Viesca
 
 ## Table of Contents
 
