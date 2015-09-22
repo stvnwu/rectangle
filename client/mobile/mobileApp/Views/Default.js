@@ -233,7 +233,7 @@ class Default extends Component{
         barTintColor='#FFFFFD'
         titleTextColor='#1B374A'
         initialRoute={{
-          title: 'Map',
+          title: 'Connection Locations',
           component: Map
         }}/>
         )

@@ -243,7 +243,8 @@ var styles = StyleSheet.create({
   },
   textInput: {
     height: 36,
-    padding: 10,
+    paddingLeft: 10,
+    margin: 2,
     marginRight: 15,
     marginLeft: 15,
     fontSize: 18,
