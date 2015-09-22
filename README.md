@@ -2,9 +2,9 @@
 
 ## Team
 
-  - __Product Owner__: Steven
-  - __Scrum Master__: Kiri
-  - __Development Team Members__: Surya, Andres
+  - __Product Owner__: Steven Wu
+  - __Scrum Master__: Kiri Strack-Grose
+  - __Development Team Members__: Suryatej Kotamraju, Andres Viesca
 
 ## Table of Contents
 
@@ -18,9 +18,7 @@
 
 ## Usage
 
-> Some usage instructions
-
-TBD
+Download and run our Xcode project (found in client/mobile/mobileApp/iOS) to emulate a working version of our mobile app.
 
 ## Requirements
 
@@ -45,13 +43,13 @@ sudo npm install -g bower
 npm install
 bower install
 
-for react, follow the getting started requirements
+For react, follow the getting started requirements:
 https://facebook.github.io/react-native/docs/getting-started.html#content
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/ICentaur/rectangle/issues).
 
 
 ## Contributing
