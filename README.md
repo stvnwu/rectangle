@@ -18,8 +18,6 @@
 
 ## Usage
 
-> Some usage instructions
-
 Download and run our Xcode project (found in client/mobile/mobileApp/iOS) to emulate a working version of our mobile app.
 
 ## Requirements
@@ -51,7 +49,7 @@ https://facebook.github.io/react-native/docs/getting-started.html#content
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/ICentaur/rectangle/issues)
+View the project roadmap [here](https://github.com/ICentaur/rectangle/issues).
 
 
 ## Contributing
