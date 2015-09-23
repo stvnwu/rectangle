@@ -192,15 +192,22 @@ class CardInfo extends Component{
 
 var styles = StyleSheet.create({
   button: {
-    flex: 1,
-    margin: 15,
+    flex: 2,
+    margin: 10,
     padding: 10,
     backgroundColor: 'rgba(61,125,168,0.3)',
     borderColor: '#1B374A',
     borderWidth: 1,
     borderRadius: 8,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   },
   buttonText: {
     fontSize: 18,
