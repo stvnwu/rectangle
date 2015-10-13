@@ -1,4 +1,4 @@
-# workwhere [![Build Status](https://travis-ci.org/ICentaur/rectangle.png)](https://travis-ci.org/ICentaur/rectangle)
+# rectangle [![Build Status](https://travis-ci.org/ICentaur/rectangle.png)](https://travis-ci.org/ICentaur/rectangle)
 
 ## Team
 
@@ -22,15 +22,12 @@ Download and run our Xcode project (found in client/mobile/mobileApp/iOS) to emu
 
 ## Requirements
 
-- Node 0.10.x
+- Node ^0.10.x
 - Redis 2.6.x
 - Postgresql 9.1.x
 - Xcode ^6.3 
-- io.js
-- watchman
-- flow
-- React Native 
-- etc
+- React Native ^0.10.1
+- Homebrew is the recommended way to install Watchman and Flow.
 
 ## Development
 
@@ -39,12 +36,12 @@ Download and run our Xcode project (found in client/mobile/mobileApp/iOS) to emu
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
+npm install -g bower
 npm install
 bower install
 
-For react, follow the getting started requirements:
-https://facebook.github.io/react-native/docs/getting-started.html#content
+enter your client directory to install client-side dependencies
+npm install 
 ```
 
 ### Roadmap
