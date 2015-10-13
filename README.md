@@ -1,4 +1,4 @@
-# workwhere [![Build Status](https://travis-ci.org/IrreproachableCentaur/workwhere.png)](https://travis-ci.org/IrreproachableCentaur/workwhere)
+# workwhere [![Build Status](https://travis-ci.org/ICentaur/rectangle.png)](https://travis-ci.org/ICentaur/rectangle)
 
 ## Team
 
